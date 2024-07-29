@@ -4,10 +4,6 @@
   gather_facts: false
   connection: network_cli
 
-  vars_files:
-   - ~/clemea2024-devwks-2008/vaults/ciscolive.vault
-
-
   tasks:
     - name: Get the facts
       ios_facts:

@@ -1,6 +1,5 @@
 ---
 - name: Gather and Show the Hostname and Serial Number of the IOS XE Boxes
-#  hosts: iosxe
   gather_facts: false
   connection: network_cli
 

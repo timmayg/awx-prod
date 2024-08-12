@@ -18,6 +18,12 @@
        ansible.builtin.set_fact:
           date_before: "{{ ansible_date_time.iso8601 }}"
 
+     - name: 02a - Debug current_date
+       ansible.builtin.debug:
+          msg:
+             - "The newly calculated date is type {{ date_before.__class__.__name__ }}"
+             - "The newly calculated date is {{ date_before }}"
+
 
 
      - name: Timmay HARD STOP this Playbook

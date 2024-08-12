@@ -14,15 +14,19 @@
              - "current_date is of type {{ current_date.__class__.__name__ }}"
              - "current_date value is {{ current_date }}"
 
+     - name: Display the current timezone
+       debug:
+         msg: "Current timezone: {{ ansible_date_time.tz }}"
+
      - name: 02 - Calculate date 30 days before current date
        ansible.builtin.set_fact:
-          date_before: "{{ ansible_date_time.iso8601 }}"
+          iso8601: "{{ ansible_date_time.iso8601 }}"
 
      - name: 02a - Debug current_date
        ansible.builtin.debug:
           msg:
-             - "The newly calculated date is type {{ date_before.__class__.__name__ }}"
-             - "The newly calculated date is {{ date_before }}"
+             - "The newly calculated date is type {{ iso8601.__class__.__name__ }}"
+             - "The newly calculated date is {{ iso8601 }}"
 
      - name: Timmay HARD STOP this Playbook
        ansible.builtin.meta: end_play
@@ -40,7 +44,7 @@
           date_before: "{{ ansible_date_time.iso8601 | to_datetim }}"
 
 # This works
-     - name: 02 - Calculate date 30 days before current date
+     - name: 02 - Get basic ansible_date_time
        ansible.builtin.set_fact:
           date_before: "{{ ansible_date_time }}"
 

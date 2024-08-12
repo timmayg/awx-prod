@@ -14,6 +14,16 @@
              - "current_date is of type {{ current_date.__class__.__name__ }}"
              - "current_date value is {{ current_date }}"
 
+     - name: 02 - Calculate date 30 days before current date
+       ansible.builtin.set_fact:
+          date_30_days_before: "{{ (ansible_date_time.iso8601 | to_datetime) - timedelta(days=30) | string }}"
+
+     - name: 02a - Debug date_30_days_before
+       ansible.builtin.debug:
+          msg:
+             - "date_30_days_before is of type {{ date_30_days_before.__class__.__name__ }}"
+             - "date_30_days_before value is {{ date_30_days_before }}"
+
      - name: Timmay HARD STOP this Playbook
        ansible.builtin.meta: end_play
        when: 1 == 1

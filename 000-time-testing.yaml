@@ -1,5 +1,6 @@
 ---
 - name: Playbook to play with some time functions
+  hosts: all
   gather_facts: true
 
   tasks:

@@ -16,7 +16,7 @@
 
      - name: 02 - Calculate date 30 days before current date
        ansible.builtin.set_fact:
-          date_before: "{{ (ansible_date_time.iso8601 | to_datetime) }}"
+          date_before: "{{ ansible_date_time.iso8601 }}"
 
      - name: 02a - Debug current_date
        ansible.builtin.debug:
@@ -29,11 +29,15 @@
        when: 1 == 1
 
 
+
+
+
+
 # This errors
 # "msg": "the field 'args' has an invalid value ({'date_before': '{{ ansible_date_time.iso8601 | to_datetime }}'}), and could not be converted to an dict.The error was: time data '2024-08-12T01:45:58Z' does not match format '%Y-%m-%d %H:%M:%S'\n\nThe error appears to be in '/runner/project/000-time-testing.yaml': line 17, column 8, but may\nbe elsewhere in the file depending on the exact syntax problem.\n\nThe offending line appears to be:\n\n\n     - name: 02 - Calculate date 30 days before current date\n       ^ here\n",
      - name: 02 - Calculate date 30 days before current date
        ansible.builtin.set_fact:
-          date_before: "{{ ansible_date_time.iso8601 | to_datetime }}"
+          date_before: "{{ ansible_date_time.iso8601 | to_datetim }}"
 
 # This works
      - name: 02 - Calculate date 30 days before current date

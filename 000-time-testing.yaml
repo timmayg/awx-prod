@@ -1,11 +1,19 @@
 ---
-- hosts: localhost
+- name: Playbook to play with some time functions
+  hosts: all
+  gather_facts: true
+
   tasks:
-      - debug: var=ansible_date_time
+     - name: 01 - Obtain the Current Date Time
+       ansible.builtin.set_fact:
+          current_date: "{{ ansible_date_time.time }}"
 
-      - debug: msg="the current date is {{ ansible_date_time.date }}"
+     - name: 01a - Debug current_date
+       ansible.builtin.debug:
+          msg:
+             - "current_date is of type {{ current_date.__class__.__name__ }}"
+             - "current_date value is {{ current_date }}"
 
-      - name: Timmay HARD STOP this Playbook
-        ansible.builtin.meta: end_play
-        when: 1 == 1
-
+     - name: Timmay HARD STOP this Playbook
+       ansible.builtin.meta: end_play
+       when: 1 == 1

@@ -1,0 +1,11 @@
+---
+- hosts: localhost
+  tasks:
+      - debug: var=ansible_date_time
+
+      - debug: msg="the current date is {{ ansible_date_time.date }}"
+
+      - name: Timmay HARD STOP this Playbook
+        ansible.builtin.meta: end_play
+        when: 1 == 1
+

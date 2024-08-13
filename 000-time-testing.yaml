@@ -18,7 +18,20 @@
        debug:
          msg: "Current timezone: {{ ansible_date_time.tz }}"
 
-     - name: 02 - Calculate date 30 days before current date
+     - name: Display the current time in ISO 8601 Format
+       debug:
+         msg: "Current Time in ISO 8601 Format: {{ ansible_date_time.iso8601 }}"
+
+
+     - name: Timmay HARD STOP this Playbook
+       ansible.builtin.meta: end_play
+       when: 1 == 1
+
+
+
+
+
+     - name: 02 - Create a new time fact based off of 
        ansible.builtin.set_fact:
           iso8601: "{{ ansible_date_time.iso8601 }}"
 
@@ -27,11 +40,6 @@
           msg:
              - "The newly calculated date is type {{ iso8601.__class__.__name__ }}"
              - "The newly calculated date is {{ iso8601 }}"
-
-     - name: Timmay HARD STOP this Playbook
-       ansible.builtin.meta: end_play
-       when: 1 == 1
-
 
 
 

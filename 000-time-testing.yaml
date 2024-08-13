@@ -20,12 +20,15 @@
 
      - name: 04 - Display the current time in ISO 8601 Format
        debug:
-          msg: "Current Time in ISO 8601 Format: {{ current_date.iso8601 }}"
-
+          msg: 
+            - "Current Time in ISO 8601 Format: {{ current_date.iso8601 }}"
+            - "What is this answer {{ current_date.iso8601.__class__.__name__ }}"
 
      - name: 06 - Pipe native function to to_datetime
        ansible.builtin.set_fact:
           date_datetime: "{{ ansible_date_time.iso8601 | to_datetime }}"
+
+
 
      - name: 06a - Debug date_datetime
        ansible.builtin.debug:

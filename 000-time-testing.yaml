@@ -20,6 +20,13 @@
        ansible.builtin.set_fact:
           new_date: "{{ (current_date.date) + timedelta(days=7) | string }}"
 
+     - name: 02a - Debug
+       debug:
+          msg: 
+            - "Fact text is {{ new_date.date }}"
+            - "Class Name is {{ new_date.date.__class__.__name__ }}"
+
+
 
 
      - name: Timmay HARD STOP this Playbook

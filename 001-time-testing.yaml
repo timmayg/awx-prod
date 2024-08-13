@@ -1,0 +1,43 @@
+---
+- name: Playbook to calculate time differences and format dates
+  hosts: all
+  gather_facts: false
+
+  vars:
+    date1: '2022-11-15T03:23:13.6869568Z'
+    date2: '2021-12-15T16:06:24.400087Z'
+    date1_short: '{{ date1 | regex_replace("([^.]+)(\\.\\d{6})(\\d*)(.+)", "\\1\\2\\4") }}'
+    iso8601format: '%Y-%m-%dT%H:%M:%S.%fZ'
+  
+  tasks:
+    - name: Get total amount of seconds between two dates
+      set_fact:
+        secsdiff: '{{ (("2016-08-14 20:00:12" | to_datetime) - ("2015-12-25" | to_datetime("%Y-%m-%d"))).total_seconds() }}'
+
+    - name: Print total seconds difference
+      debug:
+        msg: "Total seconds between the two dates is {{ secsdiff }}"
+
+    - name: Get remaining seconds after delta has been calculated
+      set_fact:
+        remaining_secs: '{{ (("2016-08-14 20:00:12" | to_datetime) - ("2016-08-14 18:00:00" | to_datetime)).seconds }}'
+
+    - name: Print remaining seconds
+      debug:
+        msg: "Remaining seconds after delta is {{ remaining_secs }}"
+
+    - name: Get amount of days between two dates
+      set_fact:
+        daydiff: '{{ (("2016-08-14 20:00:12" | to_datetime) - ("2015-12-25" | to_datetime("%Y-%m-%d"))).days }}'
+
+    - name: Print days difference
+      debug:
+        msg: "Number of days between the two dates is {{ daydiff }}"
+
+    - name: Calculate difference between dotnet and iso8601 microsecond timestamps
+      set_fact:
+        date_diff_isoed: '{{ (date1_short | to_datetime(iso8601format) - date2 | to_datetime(iso8601format)).total_seconds() }}'
+
+    - name: Print difference between dotnet and iso8601 timestamps
+      debug:
+        msg: "Difference in seconds between date1 and date2 is {{ date_diff_isoed }} seconds"

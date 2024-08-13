@@ -12,8 +12,8 @@
      - name: 01a - Debug
        debug:
           msg: 
-            - "Current Time in ISO 8601 Format: {{ current_date }}"
-            - "What is this answer {{ current_date.__class__.__name__ }}"
+            - "Fact text is {{ current_date }}"
+            - "Class Name is {{ current_date.__class__.__name__ }}"
 
 
 

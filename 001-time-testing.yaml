@@ -11,8 +11,13 @@
   
   tasks:
     - name: 01 - Get total amount of seconds between two dates
+      # this works
       set_fact:
         secsdiff: '{{ (("2024-08-13 16:00:00" | to_datetime) - ("2024-08-12" | to_datetime("%Y-%m-%d"))).total_seconds() }}'
+
+    - name: 01a - Print total seconds difference
+      debug:
+        msg: "Total seconds between the two dates is {{ secsdiff }}"
 
 
     - name: Timmay HARD STOP this Playbook
@@ -20,10 +25,6 @@
       when: 1 == 1
 
 
-
-    - name: 02 - Print total seconds difference
-      debug:
-        msg: "Total seconds between the two dates is {{ secsdiff }}"
 
     - name: 03 - Get remaining seconds after delta has been calculated
       set_fact:

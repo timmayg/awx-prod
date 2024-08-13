@@ -25,7 +25,7 @@
 
      - name: 06 - Pipe native function to to_datetime
        ansible.builtin.set_fact:
-          date_datetime: "{{ ansible_date_time | to_datetime }}"
+          date_datetime: "{{ ansible_date_time.iso8601 | to_datetime }}"
 
      - name: 06a - Debug date_datetime
        ansible.builtin.debug:

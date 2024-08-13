@@ -12,8 +12,8 @@
      - name: 01a - Debug
        debug:
           msg: 
-            - "Fact text is {{ current_date.year }}"
-            - "Class Name is {{ current_date.year.__class__.__name__ }}"
+            - "Fact text is {{ current_date.date }}"
+            - "Class Name is {{ current_date.date.__class__.__name__ }}"
 
 
 

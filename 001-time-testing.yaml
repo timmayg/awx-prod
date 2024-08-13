@@ -10,29 +10,27 @@
     iso8601format: '%Y-%m-%dT%H:%M:%S.%fZ'
   
   tasks:
-    - name: 01 - Get total amount of seconds between two dates
-      # this works
-      set_fact:
-        secsdiff: '{{ (("2024-08-13 16:00:00" | to_datetime) - ("2024-08-12" | to_datetime("%Y-%m-%d"))).total_seconds() }}'
 
-    - name: 01a - Print total seconds difference
+################################################################################
+################################################################################
+
+
+    - name: 03a - Get remaining seconds after delta has been calculated
+      set_fact:
+        remaining_secs: '{{ (("2024-08-13 20:00:12" | to_datetime) - ("2024-08-13 18:00:00" | to_datetime)).seconds }}'
+
+    - name: 03b - Print remaining seconds
       debug:
-        msg: "Total seconds between the two dates is {{ secsdiff }}"
+        msg: "Remaining seconds after delta is {{ remaining_secs }}"
+
+################################################################################
+################################################################################
 
 
     - name: Timmay HARD STOP this Playbook
       ansible.builtin.meta: end_play
       when: 1 == 1
 
-
-
-    - name: 03 - Get remaining seconds after delta has been calculated
-      set_fact:
-        remaining_secs: '{{ (("2016-08-14 20:00:12" | to_datetime) - ("2016-08-14 18:00:00" | to_datetime)).seconds }}'
-
-    - name: 04 - Print remaining seconds
-      debug:
-        msg: "Remaining seconds after delta is {{ remaining_secs }}"
 
     - name: 05 - Get amount of days between two dates
       set_fact:

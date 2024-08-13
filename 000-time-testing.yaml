@@ -22,6 +22,15 @@
        debug:
          msg: "Current Time in ISO 8601 Format: {{ ansible_date_time.iso8601 }}"
 
+     - name: Add 60 days to the current date
+       set_fact:
+         date_60_days_later: "{{ (ansible_date_time.iso8601 | to_datetime) + timedelta(days=60) | string }}"
+
+     - name: Display the date 60 days later
+        debug:
+          msg: "Date 60 days later: {{ date_60_days_later }}"
+
+
 
      - name: Timmay HARD STOP this Playbook
        ansible.builtin.meta: end_play

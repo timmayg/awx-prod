@@ -1,6 +1,88 @@
 ---
 - hosts: localhost
   tasks:
+
+#
+# These are some other facts that may or may not work. 
+#
+
+
+# CodeGPT wanted this to be current_date.iso8601, I removed the .iso8601
+     - name: 07 - Pipe ansible fact to to_datetime
+       ansible.builtin.set_fact:
+          current_date_datetime: "{{ current_date | to_datetime }}"
+
+   - name: 07a - Debug current_date_datetime
+     ansible.builtin.debug:
+       msg:
+         - "ans_fact_date is of type {{ current_date_datetime.__class__.__name__ }}"
+         - >
+           "current_date_datetime value is {{ current_date_datetime }}"
+
+
+
+
+
+      - name: Add 60 days to the current date
+        set_fact:
+           new_date: "{{ (current_date) + timedelta(days=60) | string }}"
+
+     - name: Display the date 60 days later
+        debug:
+          msg: "Date 60 days later: {{ new_date }}"
+
+
+
+
+
+
+     - name: 02 - Create a new time fact based off of 
+       ansible.builtin.set_fact:
+          iso8601: "{{ ansible_date_time.iso8601 }}"
+
+     - name: 02a - Debug current_date
+       ansible.builtin.debug:
+          msg:
+             - "The newly calculated date is type {{ iso8601.__class__.__name__ }}"
+             - "The newly calculated date is {{ iso8601 }}"
+
+
+
+
+
+# This errors
+# "msg": "the field 'args' has an invalid value ({'date_before': '{{ ansible_date_time.iso8601 | to_datetime }}'}), and could not be converted to an dict.The error was: time data '2024-08-12T01:45:58Z' does not match format '%Y-%m-%d %H:%M:%S'\n\nThe error appears to be in '/runner/project/000-time-testing.yaml': line 17, column 8, but may\nbe elsewhere in the file depending on the exact syntax problem.\n\nThe offending line appears to be:\n\n\n     - name: 02 - Calculate date 30 days before current date\n       ^ here\n",
+     - name: 02 - Calculate date 30 days before current date
+       ansible.builtin.set_fact:
+          date_before: "{{ ansible_date_time.iso8601 | to_datetim }}"
+
+# This works
+     - name: 02 - Get basic ansible_date_time
+       ansible.builtin.set_fact:
+          date_before: "{{ ansible_date_time }}"
+
+
+
+
+
+     - name: 02 - Calculate date 30 days before current date
+       ansible.builtin.set_fact:
+          date_30_days_before: "{{ (ansible_date_time.iso8601 | to_datetime) - timedelta(days=30) | string }}"
+
+     - name: 02a - Debug date_30_days_before
+       ansible.builtin.debug:
+          msg:
+             - "date_30_days_before is of type {{ date_30_days_before.__class__.__name__ }}"
+             - "date_30_days_before value is {{ date_30_days_before }}"
+
+     - name: Timmay HARD STOP this Playbook
+       ansible.builtin.meta: end_play
+       when: 1 == 1
+
+
+
+
+
       - debug: var=ansible_date_time
 
       - debug: msg="the current date is {{ ansible_date_time.date }}"

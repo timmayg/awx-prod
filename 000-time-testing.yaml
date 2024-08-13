@@ -22,7 +22,28 @@
        debug:
          msg: "Current Time in ISO 8601 Format: {{ current_date.iso8601 }}"
 
+      - name: Add 60 days to the current date
+       set_fact:
+         new_date: "{{ (current_date) + timedelta(days=60) | string }}"
+
      - name: Timmay HARD STOP this Playbook
        ansible.builtin.meta: end_play
        when: 1 == 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

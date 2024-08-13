@@ -16,6 +16,11 @@
             - "Class Name is {{ current_date.date.__class__.__name__ }}"
 
 
+     - name: 02 - add 7 days to the current date
+       ansible.builtin.set_fact:
+          new_date: "{{ (current_date.date) + timedelta(days=7) | string }}"
+
+
 
      - name: Timmay HARD STOP this Playbook
        ansible.builtin.meta: end_play

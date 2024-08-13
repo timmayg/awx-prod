@@ -1,0 +1,34 @@
+
+maybe try concatenating the date and time strings and then parsing them with the date_time module
+
+work with iso8601
+
+msg:
+  - >-
+    Fact text is 
+    {
+    'year': '2024', 
+    'month': '08', 
+    'weekday': 'Tuesday',
+    'weekday_number': '2', 
+    'weeknumber': '33', 
+    'day': '13', 
+    'hour': '12',
+    'minute': '19', 
+    'second': '07', 
+    'epoch': '1723551547', 
+    'epoch_int': '1723551547', 
+    'date': '2024-08-13', 
+    'time': '12:19:07', 
+    'iso8601_micro': '2024-08-13T12:19:07.396777Z', 
+    'iso8601': '2024-08-13T12:19:07Z',
+    'iso8601_basic': '20240813T121907396777', 
+    'iso8601_basic_short': '20240813T121907', 
+    'tz': 'UTC', 
+    'tz_dst': 'UTC', 
+    'tz_offset': '+0000'
+    }
+  - Class Name is dict
+_ansible_verbose_always: true
+_ansible_no_log: false
+changed: false

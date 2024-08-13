@@ -12,7 +12,7 @@
        debug:
           msg: 
             - "Current Time in ISO 8601 Format: {{ ansible_date_time.iso8601 }}"
-            - "What is this answer {{ ansible_date_timee.iso8601.__class__.__name__ }}"
+            - "What is this answer {{ ansible_date_time.iso8601.__class__.__name__ }}"
 
 
      - name: Timmay HARD STOP this Playbook

@@ -6,13 +6,15 @@
   tasks:
      - name: 01 - Obtain the Current Date Time
        ansible.builtin.set_fact:
-          current_date: "{{ ansible_date_time | to_datetime }}"
+          current_date: "{{ ansible_date_time }}"
 
-     - name: 0x - Display the current time in ISO 8601 Format
+
+     - name: 01a - Debug
        debug:
           msg: 
             - "Current Time in ISO 8601 Format: {{ current_date }}"
             - "What is this answer {{ current_date.__class__.__name__ }}"
+
 
 
      - name: Timmay HARD STOP this Playbook

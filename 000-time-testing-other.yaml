@@ -7,6 +7,23 @@
 #
 
 
+############################
+
+     - name: 02 - add 7 days to the current date
+       ansible.builtin.set_fact:
+          new_date: "{{ (current_date.date) + timedelta(days=7) | string }}"
+
+the above task failed with this error. 
+TASK [02 - add 7 days to the current date] ************************************* fatal: 
+[localhost]: FAILED! => 
+{"msg": "The task includes an option with an undefined variable. 
+         The error was: 'timedelta' is undefined. 'timedelta' is 
+         undefined\n\nThe error appears to be in '/runner/project/000-time-testing.yaml': line 19,
+          column 8, but may\nbe elsewhere in the file depending on 
+          the exact syntax problem.\n\nThe offending line 
+          appears to be:\n\n\n - name: 02 - add 7 days to the current date\n ^ here\n"}
+############################
+
 
 # CodeGPT wanted this to be current_date.iso8601, I removed the .iso8601
      - name: 07 - Pipe ansible fact to to_datetime

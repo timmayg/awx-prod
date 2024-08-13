@@ -18,7 +18,8 @@
 
      - name: 02 - add 7 days to the current date
        ansible.builtin.set_fact:
-          new_date: "{{ (current_date.date) + timedelta(days=7) | string }}"
+         new_date: "{{ (current_date.iso8601 | to_datetime('%Y-%m-%dT%H:%M:%SZ') + 7 * 86400) | to_datetime('%Y-%m-%d') | string }}"
+
 
      - name: 02a - Debug
        debug:

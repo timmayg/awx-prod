@@ -40,11 +40,13 @@
        ansible.builtin.set_fact:
           current_date_datetime: "{{ current_date | to_datetime }}"
 
-     - name: 07a - Debug current_date_datetime
-        ansible.builtin.debug:
-            msg:
-              - "current_date_datetime is of type {{ current_date_datetime.__class__.__name__ }}"
-              - "current_date_datetime value is {{ current_date_datetime }}"
+   - name: 07a - Debug current_date_datetime
+     ansible.builtin.debug:
+       msg:
+         - >
+           "current_date_datetime is of type {{ current_date_datetime.__class__.__name__ }}"
+         - >
+           "current_date_datetime value is {{ current_date_datetime }}"
 
 
 

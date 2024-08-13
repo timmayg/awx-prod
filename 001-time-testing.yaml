@@ -33,6 +33,15 @@
 
 
 
+#  This task is failing... 
+# "msg": "the field 'args' has an invalid value ({'date_datetime': '{{ ansible_date_time.iso8601 | to_datetime }}'}), and could not be converted to an dict.The error was: time data '2024-08-13T11:27:27Z' does not match format '%Y-%m-%d %H:%M:%S'\n\nThe error appears to be in '/runner/project/000-time-testing.yaml': line 27, column 8, but may\nbe elsewhere in the file depending on the exact syntax problem.\n\nThe offending line appears to be:\n\n\n     - name: 06 - Pipe native function to to_datetime\n       ^ here\n",
+
+     - name: 06 - Pipe native function to to_datetime
+       ansible.builtin.set_fact:
+          date_datetime: "{{ ansible_date_time.iso8601 | to_datetime }}"
+
+
+
 
 
 
@@ -46,7 +55,15 @@
              - "The newly calculated date is type {{ iso8601.__class__.__name__ }}"
              - "The newly calculated date is {{ iso8601 }}"
 
+     - name: 02 - Debug current_date
+       ansible.builtin.debug:
+          msg:
+             - "current_date is of type {{ current_date.__class__.__name__ }}"
+             - "current_date value is {{ current_date }}"
 
+     - name: 03 - Display the current timezone
+       ansible.builtin.debug:
+          msg: "Current timezone: {{ current_date.tz }}"
 
 
 

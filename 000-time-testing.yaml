@@ -8,27 +8,27 @@
        ansible.builtin.set_fact:
           current_date: "{{ ansible_date_time }}"
 
-     - name: 01a - Debug current_date
+     - name: 02 - Debug current_date
        ansible.builtin.debug:
           msg:
              - "current_date is of type {{ current_date.__class__.__name__ }}"
              - "current_date value is {{ current_date }}"
 
-     - name: Display the current timezone
+     - name: 03 - Display the current timezone
        debug:
-         msg: "Current timezone: {{ ansible_date_time.tz }}"
+         msg: "Current timezone: {{ current_date.tz }}"
 
-     - name: Display the current time in ISO 8601 Format
+     - name: 04 - Display the current time in ISO 8601 Format
        debug:
-         msg: "Current Time in ISO 8601 Format: {{ ansible_date_time.iso8601 }}"
+         msg: "Current Time in ISO 8601 Format: {{ current_date.iso8601 }}"
 
      - name: Add 60 days to the current date
        set_fact:
-         date_60_days_later: "{{ (ansible_date_time.iso8601 | to_datetime) + timedelta(days=60) | string }}"
+         new_date: "{{ (current_date | to_datetime) + timedelta(days=60) | string }}"
 
      - name: Display the date 60 days later
         debug:
-          msg: "Date 60 days later: {{ date_60_days_later }}"
+          msg: "Date 60 days later: {{ new_date }}"
 
 
 

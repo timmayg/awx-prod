@@ -16,23 +16,23 @@
 
 # when this is piped to to_datetime, it will be a str object
     - name: 01a - Stamp a string that looks like date time into a fact
-      set_fact:
+      ansible.builtin.set_fact:
         fact1: '{{ ("2024-08-11 13:00:00") }}'
 
-#    - name: 01a - make ansible_date_time into a fact
-#      set_fact:
-#        fact: "{{ ansible_date_time }}"
+    - name: 01a - make ansible_date_time into a fact
+      ansible.builtin.set_fact:
+        fact: "{{ ansible_date_time }}"
 
     - name: 01 - Obtain the Current Date Time
       ansible.builtin.set_fact:
-         current_date: "{{ ansible_date_time }}"
+        current_date: "{{ ansible_date_time }}"
 
     - name: 01b - Print the new fact
-      debug:
+      ansible.builtin.debug:
         msg: "The fact is {{ fact }}"
 
     - name: 01c - Review the fact that was set
-      debug:
+      ansible.builtin.debug:
         var: fact.__class__.__name__
 
 

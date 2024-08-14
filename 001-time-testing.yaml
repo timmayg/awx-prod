@@ -15,9 +15,13 @@
 ################################################################################
 
 # when this is piped to to_datetime, it will be a str object
-    - name: 01a - Get amount of days between two dates
+    - name: 01a - Stamp a string that looks like date time into a fact
       set_fact:
-        fact: '{{ ("2024-08-11 13:00:00") }}'
+        fact1: '{{ ("2024-08-11 13:00:00") }}'
+
+    - name: 01a - make ansible_date_time into a fact
+      set_fact:
+        fact: '{{ ansible_date_time }}'
 
     - name: 01b - Print the new fact
       debug:

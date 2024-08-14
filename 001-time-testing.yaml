@@ -14,20 +14,18 @@
 ################################################################################
 ################################################################################
 
-#  this works
-#  this does not account for 1/2 days etc. its integer only
-    - name: 01a - Get amount of days between two dates
-      set_fact:
-        daydiff: '{{ (("2024-08-11 13:00:00" | to_datetime) - ("2024-08-12" | to_datetime("%Y-%m-%d"))).days }}'
 
-    - name: 01b - Print days difference
+    - name: 01a - Calculate difference between dotnet and iso8601 microsecond timestamps
+      set_fact:
+        date_diff_isoed: '{{ (date1_short | to_datetime(iso8601format) - date2 | to_datetime(iso8601format)).total_seconds() }}'
+
+    - name: 01b - Print difference between dotnet and iso8601 timestamps
       debug:
-        msg: "Number of days between the two dates is {{ daydiff }}"
+        msg: "Difference in seconds between date1 and date2 is {{ date_diff_isoed }} seconds"
 
     - name: 01c - Review the fact that was set
       debug:
-        var: daydiff.__class__.__name__
-
+        var: date_diff_isoed.__class__.__name__
 
 
 ################################################################################
@@ -38,11 +36,3 @@
       ansible.builtin.meta: end_play
       when: 1 == 1
 
-
-    - name: 07 - Calculate difference between dotnet and iso8601 microsecond timestamps
-      set_fact:
-        date_diff_isoed: '{{ (date1_short | to_datetime(iso8601format) - date2 | to_datetime(iso8601format)).total_seconds() }}'
-
-    - name: 08 - Print difference between dotnet and iso8601 timestamps
-      debug:
-        msg: "Difference in seconds between date1 and date2 is {{ date_diff_isoed }} seconds"

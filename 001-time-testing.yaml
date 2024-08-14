@@ -4,15 +4,40 @@
   gather_facts: false
 
   vars:
-    date1: '2022-11-15T03:23:13.6869568Z'
-    date2: '2021-12-15T16:06:24.400087Z'
-    date1_short: '{{ date1 | regex_replace("([^.]+)(\\.\\d{6})(\\d*)(.+)", "\\1\\2\\4") }}'
-    iso8601format: '%Y-%m-%dT%H:%M:%S.%fZ'
-  
+#    date1: '2022-11-15T03:23:13.6869568Z'
+#    date2: '2021-12-15T16:06:24.400087Z'
+#    date1_short: '{{ date1 | regex_replace("([^.]+)(\\.\\d{6})(\\d*)(.+)", "\\1\\2\\4") }}'
+#    iso8601format: '%Y-%m-%dT%H:%M:%S.%fZ'
+
   tasks:
 
 ################################################################################
 ################################################################################
+
+    - name: 01a - Get amount of days between two dates
+      set_fact:
+        fact: '{{ ("2024-08-11 13:00:00" | to_datetime) }}'
+
+    - name: 01b - Print the new fact
+      debug:
+        msg: "The fact is {{ daydiff }}"
+
+    - name: 01c - Review the fact that was set
+      debug:
+        var: fact.__class__.__name__
+
+
+
+################################################################################
+################################################################################
+
+
+    - name: Timmay HARD STOP this Playbook
+      ansible.builtin.meta: end_play
+      when: 1 == 1
+
+
+
 
 
     - name: 01a - Calculate difference between dotnet and iso8601 microsecond timestamps
@@ -27,12 +52,4 @@
       debug:
         var: date_diff_isoed.__class__.__name__
 
-
-################################################################################
-################################################################################
-
-
-    - name: Timmay HARD STOP this Playbook
-      ansible.builtin.meta: end_play
-      when: 1 == 1
 

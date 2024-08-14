@@ -14,9 +14,10 @@
 ################################################################################
 ################################################################################
 
+# when this is piped to to_datetime, it will be a str object
     - name: 01a - Get amount of days between two dates
       set_fact:
-        fact: '{{ ("2024-08-11 13:00:00" | to_datetime) }}'
+        fact: '{{ ("2024-08-11 13:00:00") }}'
 
     - name: 01b - Print the new fact
       debug:

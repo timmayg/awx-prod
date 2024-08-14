@@ -21,8 +21,8 @@
 
     - name: 01a - make ansible_date_time into a fact
       set_fact:
-        fact: '{{ ansible_date_time }}'
-
+        fact: "{{ ansible_date_time }}"
+        
     - name: 01b - Print the new fact
       debug:
         msg: "The fact is {{ fact }}"

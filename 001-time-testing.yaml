@@ -15,17 +15,18 @@
 ################################################################################
 
 
-    - name: 03a - Get the number of seconds between two date times
+    - name: 01a - Get amount of days between two dates
       set_fact:
-        remaining_secs: '{{ (("2024-08-13 20:00:30" | to_datetime) - ("2024-08-13 20:00:00" | to_datetime)).seconds }}'
+        daydiff: '{{ (("2024-08-13 13:00:00" | to_datetime) - ("2024-08-13" | to_datetime("%Y-%m-%d"))).days }}'
 
-    - name: 03b - Print remaining seconds
+    - name: 01b - Print days difference
       debug:
-        msg: "Remaining seconds after delta is {{ remaining_secs }}"
+        msg: "Number of days between the two dates is {{ daydiff }}"
 
-    - name: 03c - Review the fact that was set
+    - name: 01c - Review the fact that was set
       debug:
-        var: remaining_secs.__class__.__name__
+        var: daydiff.__class__.__name__
+
 
 
 ################################################################################
@@ -36,14 +37,6 @@
       ansible.builtin.meta: end_play
       when: 1 == 1
 
-
-    - name: 05 - Get amount of days between two dates
-      set_fact:
-        daydiff: '{{ (("2016-08-14 20:00:12" | to_datetime) - ("2015-12-25" | to_datetime("%Y-%m-%d"))).days }}'
-
-    - name: 06 - Print days difference
-      debug:
-        msg: "Number of days between the two dates is {{ daydiff }}"
 
     - name: 07 - Calculate difference between dotnet and iso8601 microsecond timestamps
       set_fact:

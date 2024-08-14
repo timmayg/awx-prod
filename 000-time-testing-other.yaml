@@ -24,6 +24,26 @@
 
 
 
+################################################################################
+################################################################################
+
+# these tasks work
+    - name: 03a - Get the number of seconds between two date times
+      set_fact:
+        remaining_secs: '{{ (("2024-08-13 20:00:30" | to_datetime) - ("2024-08-13 20:00:00" | to_datetime)).seconds }}'
+
+    - name: 03b - Print remaining seconds
+      debug:
+        msg: "Remaining seconds after delta is {{ remaining_secs }}"
+
+    - name: 03c - Review the fact that was set
+      debug:
+        var: remaining_secs.__class__.__name__
+
+
+################################################################################
+################################################################################
+
 
 
 

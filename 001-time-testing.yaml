@@ -19,9 +19,9 @@
       set_fact:
         fact1: '{{ ("2024-08-11 13:00:00") }}'
 
-    - name: 01a - make ansible_date_time into a fact
-      set_fact:
-        fact: "{{ ansible_date_time }}"
+#    - name: 01a - make ansible_date_time into a fact
+#      set_fact:
+#        fact: "{{ ansible_date_time }}"
 
     - name: 01 - Obtain the Current Date Time
       ansible.builtin.set_fact:

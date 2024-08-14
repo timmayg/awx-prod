@@ -17,7 +17,7 @@
 
     - name: 03a - Get remaining seconds after delta has been calculated
       set_fact:
-        remaining_secs: '{{ (("2024-08-13 20:00:12" | to_datetime) - ("2024-08-13 18:00:00" | to_datetime)).seconds }}'
+        remaining_secs: '{{ (("2024-08-13 20:00:00" | to_datetime) - ("2024-08-13 20:00:30" | to_datetime)).seconds }}'
 
     - name: 03b - Print remaining seconds
       debug:

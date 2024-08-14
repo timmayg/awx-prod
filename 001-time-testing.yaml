@@ -14,10 +14,11 @@
 ################################################################################
 ################################################################################
 
-
+#  this works
+#  this does not account for 1/2 days etc. its integer only
     - name: 01a - Get amount of days between two dates
       set_fact:
-        daydiff: '{{ (("2024-08-13 13:00:00" | to_datetime) - ("2024-08-12" | to_datetime("%Y-%m-%d"))).days }}'
+        daydiff: '{{ (("2024-08-11 13:00:00" | to_datetime) - ("2024-08-12" | to_datetime("%Y-%m-%d"))).days }}'
 
     - name: 01b - Print days difference
       debug:

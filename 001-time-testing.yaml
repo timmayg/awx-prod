@@ -21,6 +21,17 @@
       ansible.builtin.debug:
         var: new_years25.__class__.__name__
 
+    - name: 01d - Convert the fact to a datetime object
+      ansible.builtin.set_fact:
+        new_years25_obj: '{{ new_years25 | to_datetime }}'
+
+    - name: 01e - Print the new fact
+      ansible.builtin.debug:
+        msg: "The fact is {{ new_years25_obj }}"
+
+
+
+
     - name: 02 - Obtain the Current Date Time
       ansible.builtin.set_fact:
         current_date: "{{ ansible_date_time }}"

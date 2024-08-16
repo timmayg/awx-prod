@@ -1,8 +1,7 @@
 ---
 - name: Playbook to calculate time differences and format dates
   hosts: all
-#  gather_facts: true
-
+  gather_facts: true
   vars:
 #    date1: '2022-11-15T03:23:13.6869568Z'
 #    date2: '2021-12-15T16:06:24.400087Z'
@@ -10,36 +9,39 @@
 #    iso8601format: '%Y-%m-%dT%H:%M:%S.%fZ'
 
   tasks:
-
-################################################################################
-################################################################################
-
-# when this is piped to to_datetime, it will be a str object
     - name: 01a - Stamp a string that looks like date time into a fact
       ansible.builtin.set_fact:
-        fact1: '{{ ("2024-08-11 13:00:00") }}'
-
-    - name: 01 - Obtain the Current Date Time
-      ansible.builtin.set_fact:
-        current_date: "{{ ansible_date_time }}"
+        new_years: '{{ ("2024-01-01 00:00:00") }}'
 
     - name: 01b - Print the new fact
       ansible.builtin.debug:
-        msg: "The fact is {{ fact1 }}"
+        msg: "The fact is {{ new_years }}"
 
     - name: 01c - Review the fact that was set
       ansible.builtin.debug:
-        var: fact1.__class__.__name__
+        var: new_years.__class__.__name__
 
+    - name: 02 - Obtain the Current Date Time
+      ansible.builtin.set_fact:
+        current_date: "{{ ansible_date_time }}"
 
+    - name: 02b - Print the new fact
+      ansible.builtin.debug:
+        msg: "The fact is {{ current_date }}"
 
-################################################################################
-################################################################################
-
+    - name: 02c - Review the fact that was set
+      ansible.builtin.debug:
+        var: current_date.__class__.__name__
 
     - name: Timmay HARD STOP this Playbook
       ansible.builtin.meta: end_play
       when: 1 == 1
+
+
+
+################################################################################
+################################################################################
+
 
 
 

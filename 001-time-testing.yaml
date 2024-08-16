@@ -33,30 +33,39 @@
       ansible.builtin.debug:
         var: current_date.__class__.__name__
 
+
+
+
+
+    - name: 03a - Calculate difference between dotnet and iso8601 microsecond timestamps
+      set_fact:
+        date_diff: '{{ (current_date | to_datetime) - (new_years | to_datetime) }}'
+
+    - name: 03b - Print difference between dotnet and iso8601 timestamps
+      debug:
+        msg: "Difference in seconds between date1 and date2 is {{ date_diff }} seconds"
+
+    - name: 03c - Review the fact that was set
+      debug:
+        var: date_diff.__class__.__name__
+
+
+
+
+
     - name: Timmay HARD STOP this Playbook
       ansible.builtin.meta: end_play
       when: 1 == 1
 
 
 
+
+
+
+
 ################################################################################
 ################################################################################
 
 
-
-
-
-
-    - name: 01a - Calculate difference between dotnet and iso8601 microsecond timestamps
-      set_fact:
-        date_diff_isoed: '{{ (date1_short | to_datetime(iso8601format) - date2 | to_datetime(iso8601format)).total_seconds() }}'
-
-    - name: 01b - Print difference between dotnet and iso8601 timestamps
-      debug:
-        msg: "Difference in seconds between date1 and date2 is {{ date_diff_isoed }} seconds"
-
-    - name: 01c - Review the fact that was set
-      debug:
-        var: date_diff_isoed.__class__.__name__
 
 

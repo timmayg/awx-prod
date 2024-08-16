@@ -29,6 +29,15 @@
       ansible.builtin.debug:
         msg: "The fact is {{ new_years25_obj }}"
 
+    - name: 01f - Review the fact that was set
+      ansible.builtin.debug:
+        var: new_years25_obj.__class__.__name__
+
+
+
+    - name: Timmay HARD STOP this Playbook
+      ansible.builtin.meta: end_play
+      when: 1 == 1
 
 
 
@@ -61,12 +70,6 @@
         var: date_diff.__class__.__name__
 
 
-
-
-
-    - name: Timmay HARD STOP this Playbook
-      ansible.builtin.meta: end_play
-      when: 1 == 1
 
 
 

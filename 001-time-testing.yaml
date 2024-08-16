@@ -1,7 +1,7 @@
 ---
 - name: Playbook to calculate time differences and format dates
   hosts: all
-  gather_facts: false
+#  gather_facts: true
 
   vars:
 #    date1: '2022-11-15T03:23:13.6869568Z'

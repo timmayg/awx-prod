@@ -9,19 +9,20 @@
 #    iso8601format: '%Y-%m-%dT%H:%M:%S.%fZ'
 
   tasks:
-    - name: 01a - Stamp a string that looks like date time into a fact
+    - name: 01a - Stamp a string that looks like date time into a Fact
       ansible.builtin.set_fact:
         new_years25: '{{ ("2025-01-01 00:00:00") }}'
 
-    - name: 01b - Print the new fact
+    - name: 01b - Print the string based Time Fact
       ansible.builtin.debug:
         msg: "The fact is {{ new_years25 }}"
 
-    - name: 01c - Review the fact that was set
+    - name: 01c - Review the class type of the fact
       ansible.builtin.debug:
         var: new_years25.__class__.__name__
 
-    - name: 01d - Convert the fact to a datetime object
+    - name: 01d - Convert the string Time Fact to a datetime object
+      # This task does not appear to do anything. 
       ansible.builtin.set_fact:
         new_years25_obj: '{{ new_years25 | to_datetime }}'
 
@@ -29,17 +30,9 @@
       ansible.builtin.debug:
         msg: "The fact is {{ new_years25_obj }}"
 
-    - name: 01f - Review the fact that was set
+    - name: 01f - Review the class type of the fact
       ansible.builtin.debug:
         var: new_years25_obj.__class__.__name__
-
-
-
-    - name: Timmay HARD STOP this Playbook
-      ansible.builtin.meta: end_play
-      when: 1 == 1
-
-
 
     - name: 02 - Obtain the Current Date Time
       ansible.builtin.set_fact:
@@ -53,6 +46,12 @@
       ansible.builtin.debug:
         var: current_date.__class__.__name__
 
+
+
+
+    - name: Timmay HARD STOP this Playbook
+      ansible.builtin.meta: end_play
+      when: 1 == 1
 
 
 

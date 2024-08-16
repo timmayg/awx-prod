@@ -25,11 +25,11 @@
 
     - name: 01b - Print the new fact
       ansible.builtin.debug:
-        msg: "The fact is {{ fact }}"
+        msg: "The fact is {{ fact1 }}"
 
     - name: 01c - Review the fact that was set
       ansible.builtin.debug:
-        var: fact.__class__.__name__
+        var: fact1.__class__.__name__
 
 
 

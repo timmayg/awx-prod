@@ -46,6 +46,32 @@
       ansible.builtin.debug:
         var: current_date.__class__.__name__
 
+
+
+    - name: 03a - Calculate difference between Today's Date and New Years Date
+      ansible.builtin.set_fact:
+        date_diff: '{{ (new_years25 | to_datetime) - (current_date | to_datetime('%Y-%m-%d'))).days }}'
+#                   {{ (("2016-08-14 20:00:12" | to_datetime) - ("2015-12-25" | to_datetime('%Y-%m-%d'))).days  }}
+   
+    - name: 03b - Print difference between Today's Date and New Years Date
+      ansible.builtin.debug:
+        msg: "Difference in seconds between date1 and date2 is {{ date_diff }} seconds"
+
+    - name: 03c - Review the fact that was set
+      ansible.builtin.debug:
+        var: date_diff.__class__.__name__
+
+
+
+
+    - name: Timmay HARD STOP this Playbook
+      ansible.builtin.meta: end_play
+      when: 1 == 1
+
+
+
+
+
 #    - name: 02d - Obtain the Current Date Time as a Function
 #      # This task is failing.  
 #      # argument 1 must be a string, not 'dict' 
@@ -53,6 +79,7 @@
 #        current_date_obj: "{{ ansible_date_time | to_datetime(iso8601format) }}"
 
     - name: 02d - Obtain the Current Date Time as a Function
+      # This task is failing.  
       ansible.builtin.set_fact:
         current_date_obj: "{{ ansible_date_time.iso8601 | to_datetime('%Y-%m-%dT%H:%M:%SZ') }}"
 
@@ -64,26 +91,6 @@
       ansible.builtin.debug:
         var: current_date_obj.__class__.__name__
 
-
-
-    - name: Timmay HARD STOP this Playbook
-      ansible.builtin.meta: end_play
-      when: 1 == 1
-
-
-
-
-    - name: 03a - Calculate difference between Today's Date and New Years Date
-      ansible.builtin.set_fact:
-        date_diff: '{{ (new_years25 | to_datetime) - (current_date | to_datetime) }}'
-
-    - name: 03b - Print difference between Today's Date and New Years Date
-      ansible.builtin.debug:
-        msg: "Difference in seconds between date1 and date2 is {{ date_diff }} seconds"
-
-    - name: 03c - Review the fact that was set
-      ansible.builtin.debug:
-        var: date_diff.__class__.__name__
 
 
 

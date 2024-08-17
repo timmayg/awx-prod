@@ -54,7 +54,7 @@
 #      # This task is failing.  
 #      # argument 1 must be a string, not 'dict' 
       ansible.builtin.set_fact:
-        current_date_obj: "{{ ansible_date_time | to_datetime }}"
+        current_date_obj: "{{ ansible_date_time.ios8601 | to_datetime }}"
 
     - name: 02e - Print the dictionary based Time Fact
       ansible.builtin.debug:

@@ -54,7 +54,7 @@
 
     - name: 02d - Obtain the Current Date Time as a Function
       ansible.builtin.set_fact:
-        current_date_obj: "{{ ansible_date_time.iso8601 | to_datetime }}"
+        current_date_obj: "{{ ansible_date_time.iso8601 | to_datetime('%Y-%m-%dT%H:%M:%SZ') }}"
 
 
     - name: 02e - Print the dictionary based Time Fact

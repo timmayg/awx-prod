@@ -50,7 +50,7 @@
 
     - name: 03a - Calculate difference between Today's Date and New Years Date
       ansible.builtin.set_fact:
-        date_diff: '{{ (new_years25 | to_datetime) - (current_date | to_datetime('%Y-%m-%d'))).days }}'
+        date_diff: '{{ (new_years25 | to_datetime) - (current_date | to_datetime.days }}'
 #                   {{ (("2016-08-14 20:00:12" | to_datetime) - ("2015-12-25" | to_datetime('%Y-%m-%d'))).days  }}
    
     - name: 03b - Print difference between Today's Date and New Years Date

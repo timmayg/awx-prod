@@ -51,10 +51,14 @@
 
 
     - name: 02d - Obtain the Current Date Time as a Function
-#      # This task is failing.  
-#      # argument 1 must be a string, not 'dict' 
       ansible.builtin.set_fact:
-        current_date_obj: "{{ ansible_date_time.iso8601 | to_datetime }}"
+        current_date_obj: "{{ ansible_date_time }}"
+
+    - name: 02d - Obtain the Current Date Time as a Function
+      ansible.builtin.set_fact:
+        current_date_obj: "{{ current_date_obj.date | to_datetime }}"
+
+
 
     - name: 02e - Print the dictionary based Time Fact
       ansible.builtin.debug:

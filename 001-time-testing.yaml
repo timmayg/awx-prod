@@ -54,19 +54,22 @@
       ansible.builtin.set_fact:
         current_date_obj: "{{ ansible_date_time }}"
 
-    - name: 02d - Obtain the Current Date Time as a Function
+    - name: 02e - Print the dictionary based Time Fact
+      ansible.builtin.debug:
+        msg: "The fact is {{ current_date_obj.date }}"
+
+    - name: 02f - Review the fact that was set
+      ansible.builtin.debug:
+        var: current_date_obj.__class__.__name__
+
+    - name: 02x - Obtain the Current Date Time as a Function
       ansible.builtin.set_fact:
         current_date_obj: "{{ current_date_obj.date | to_datetime }}"
 
 
 
-    - name: 02e - Print the dictionary based Time Fact
-      ansible.builtin.debug:
-        msg: "The fact is {{ current_date_obj }}"
 
-    - name: 02f - Review the fact that was set
-      ansible.builtin.debug:
-        var: current_date_obj.__class__.__name__
+
 
 
 

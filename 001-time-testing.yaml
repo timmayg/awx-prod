@@ -11,8 +11,8 @@
   tasks:
     - name: 01a - Stamp a string that looks like date time into a Fact
       ansible.builtin.set_fact:
-        #new_years25: '{{ ("2025-01-01 00:00:00") }}'
-         new_years25: '{{ ("2025-01-00") }}'
+        new_years25: '{{ ("2025-01-01 00:00:00") }}'
+#        new_years25: '{{ ("2025-01-00") }}'
 
     - name: 01b - Print the string based Time Fact
       ansible.builtin.debug:
@@ -29,7 +29,7 @@
 
     - name: 01e - Print the new fact
       ansible.builtin.debug:
-        msg: "The fact is {{ new_years25_obj }}"
+        msg: "The fact is {{ new_years25_obj.date }}"
 
     - name: 01f - Review the class type of the fact
       ansible.builtin.debug:

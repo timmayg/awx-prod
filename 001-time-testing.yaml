@@ -3,6 +3,7 @@
   hosts: all
   gather_facts: true
   tasks:
+
 ################################################################################
 ################################################################################
 
@@ -27,7 +28,7 @@
           msg: 
           - "The fact is {{ current_date }}"
           - "fact type: {{ current_date | type_debug }}"
-          - "fact class: {{ current_date.__class__.__name__
+          - "fact class: {{ current_date.__class__.__name__}}"
 
 
     - name: 20 - Obtain the Current Date Time as a Function
@@ -37,6 +38,8 @@
     - name: 30 - Calculate difference between Today's Date and New Years Date
       ansible.builtin.set_fact:
         date_diff: '{{ (current_second11.second) - (current_second10.second) }}'
+#                   {{ ((ansible_date_time.date | to_datetime('%Y-%m-%d')).date() - prev_date).days }}
+
 
     - name: 40 - Print difference between Today's Date and New Years Date
       ansible.builtin.debug:

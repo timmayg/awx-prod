@@ -6,7 +6,7 @@
 
 ################################################################################
 ################################################################################
-
+# https://stackoverflow.com/questions/65520845/calculate-number-of-days-between-two-variable-one-a-set-variable-the-other-fro
     - name: 31 - Obtain the Current Date Time as a Function
       ansible.builtin.set_fact:
         sec1: "{{ ansible_date_time }}"
@@ -36,11 +36,13 @@
     - name: 36 - Print the dictionary based Time Fact
       ansible.builtin.debug:
           msg:
-            - "The fact is {{ date_diff }}"
+            - "The different between the two second variables {{ date_diff }}"
             - "fact type: {{ date_diff | type_debug }}"
             - "fact class: {{ date_diff.__class__.__name__}}"
 
 
+################################################################################
+################################################################################
 
     - name: 11 - Obtain the Current Date Time as a Function
       ansible.builtin.set_fact:

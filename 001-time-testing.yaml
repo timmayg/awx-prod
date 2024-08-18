@@ -37,6 +37,11 @@
 ################################################################################
 ################################################################################
 
+    # 
+    # 
+    # 02 Tasks will create a dictionary that looks like a date time
+    #
+
     - name: 02a - Obtain the Current Date Time as a Function
       ansible.builtin.set_fact:
         current_date: "{{ ansible_date_time }}"
@@ -55,7 +60,7 @@
 
     - name: 02d - Obtain the Current Date Time as a Function
       ansible.builtin.set_fact:
-        current_date_obj: "{{ ansible_date_time.year }}"
+        current_date_obj: "{{ ansible_date_time.date }}"
 
     - name: 02e - Print the dictionary based Time Fact
       ansible.builtin.debug:
@@ -64,11 +69,6 @@
     - name: 02f - Review the fact that was set
       ansible.builtin.debug:
         var: current_date_obj.__class__.__name__
-
-    - name: 02x - Convert the dict to something else
-      ansible.builtin.set_fact:
-        current_date_obj: "{{ current_date_obj | to_datetime }}"
-
 
 
 

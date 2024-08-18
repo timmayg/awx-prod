@@ -31,7 +31,7 @@
 #            - "fact class: {{ sec1a.__class__.__name__}}"
 
 
-    - name: 02 - Pause the playbook for 5 seconds
+    - name: 02 - Pause the playbook
       ansible.builtin.pause:
         seconds: 3
 

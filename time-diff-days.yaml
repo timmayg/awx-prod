@@ -11,12 +11,12 @@
       ansible.builtin.set_fact:
         date1: "{{ ansible_date_time }}"
 
-#    - name: 01a - Print the dictionary based Time Fact
-#      ansible.builtin.debug:
-#          msg:
-#            - "The fact is {{ date1 }}"
-#            - "fact type: {{ date1  | type_debug }}"
-#            - "fact class: {{ date1.__class__.__name__}}"
+    - name: 01a - Print the dictionary based Time Fact
+      ansible.builtin.debug:
+          msg:
+            - "The fact is {{ date1 }}"
+            - "fact type: {{ date1  | type_debug }}"
+            - "fact class: {{ date1.__class__.__name__}}"
 #
 #    - name: 01b - Create new variable to hold the seconds
 #      ansible.builtin.set_fact:

@@ -1,4 +1,4 @@
-- name: Gather minimal facts
+- name: Gather facts tasks
   hosts: all
   gather_facts: true
   gather_subset:

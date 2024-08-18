@@ -1,0 +1,55 @@
+---
+- name: Playbook to calculate time differences and format dates
+  hosts: all
+  gather_facts: true
+  tasks:
+
+################################################################################
+################################################################################
+# https://stackoverflow.com/questions/65520845/calculate-number-of-days-between-two-variable-one-a-set-variable-the-other-fro
+    - name: 01 - Obtain the Current Date Time from gather_facts
+      ansible.builtin.set_fact:
+        date1: "{{ ansible_date_time }}"
+
+#    - name: 01a - Print the dictionary based Time Fact
+#      ansible.builtin.debug:
+#          msg:
+#            - "The fact is {{ date1 }}"
+#            - "fact type: {{ date1  | type_debug }}"
+#            - "fact class: {{ date1.__class__.__name__}}"
+#
+#    - name: 01b - Create new variable to hold the seconds
+#      ansible.builtin.set_fact:
+#        date1a: "{{ date1.date | to_datetime('date1') }}"
+#
+#
+#    - name: 01c - Print the dictionary based Time Fact
+#      ansible.builtin.debug:
+#          msg:
+#            - "The fact is {{ date1a }}"
+#            - "fact type: {{ date1a | type_debug }}"
+#            - "fact class: {{ date1a.__class__.__name__}}"
+
+
+    - name: 02 - Pause the playbook
+      ansible.builtin.pause:
+        seconds: 3
+
+    - name: 03 - Gather facts again
+      ansible.builtin.setup:
+
+    - name: 04 - Obtain the Current Date Time from the task 03 gather_facts
+      ansible.builtin.set_fact:
+        date2: "{{ ansible_date_time }}"
+
+    - name: 05 - Calculate difference between Today's Date and New Years Date
+      ansible.builtin.set_fact:
+        date_diff: "{{ ((date2.date | to_datetime('%Y-%m-%d')).date - (date1.date | to_datetime('%Y-%m-%d')).date) }}"
+
+    - name: 06 - Print the dictionary based Time Fact
+      ansible.builtin.debug:
+          msg:
+            - "The different between the two second variables {{ date_diff }}"
+            - "fact type: {{ date_diff | type_debug }}"
+            - "fact class: {{ date_diff.__class__.__name__}}"
+

@@ -7,8 +7,6 @@
 ################################################################################
 ################################################################################
 
-
-
     - name: 31 - Obtain the Current Date Time as a Function
       ansible.builtin.set_fact:
         sec1: "{{ ansible_date_time }}"
@@ -17,23 +15,16 @@
       ansible.builtin.set_fact:
         sec2: "{{ ansible_date_time }}"
 
-
     - name: 33 - Calculate difference between Today's Date and New Years Date
       ansible.builtin.set_fact:
-#        date_diff: '{{ ((sec1.second | to_datetime('%S')).second()  - (sec2.second | to_datetime('%S')).second() }}'
         date_diff: "{{ ((sec1.second | to_datetime('%S')).second - (sec2.second | to_datetime('%S')).second) }}"
 
-
-    - name: 15 - Print the dictionary based Time Fact
+    - name: 34 - Print the dictionary based Time Fact
       ansible.builtin.debug:
           msg:
             - "The fact is {{ date_diff }}"
             - "fact type: {{ date_diff | type_debug }}"
             - "fact class: {{ date_diff.__class__.__name__}}"
-
-   - name: Timmay HARD STOP this Playbook
-     ansible.builtin.meta: end_play
-       when: 1 == 1
 
 
 

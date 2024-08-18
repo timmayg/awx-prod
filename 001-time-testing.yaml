@@ -20,9 +20,8 @@
 
     - name: 33 - Calculate difference between Today's Date and New Years Date
       ansible.builtin.set_fact:
-        date_diff: '{{ (sec1.second) - (sec2.second) }}'
-#                   {{ ((ansible_date_time.date | to_datetime('%Y-%m-%d')).date() - prev_date).days }}
-#                   {{ ((ansible_date_time.date | to_datetime('%Y-%m-%d')).date() - prev_date).days }}
+#        date_diff: '{{ ((sec1.second | to_datetime('%S')).second()  - (sec2.second | to_datetime('%S')).second() }}'
+        date_diff: "{{ ((sec1.second | to_datetime('%S')).second - (sec2.second | to_datetime('%S')).second) }}"
 
 
 

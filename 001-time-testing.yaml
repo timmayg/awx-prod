@@ -9,6 +9,10 @@
 #    iso8601format: '%Y-%m-%dT%H:%M:%S.%fZ'
 
   tasks:
+    #
+    # 01 Tasks will create a string that looks like a date time 
+    #       and then convert it to a datetime object
+    #
     - name: 01a - Stamp a string that looks like date time into a Fact
       ansible.builtin.set_fact:
         new_years25: '{{ ("2025-01-01 00:00:00") }}'
@@ -34,6 +38,15 @@
     - name: 01f - Review the class type of the fact
       ansible.builtin.debug:
         var: new_years25_obj.__class__.__name__
+
+
+
+    - name: Timmay HARD STOP this Playbook
+      ansible.builtin.meta: end_play
+      when: 1 == 1
+
+
+
 
 ################################################################################
 ################################################################################
@@ -88,13 +101,6 @@
     - name: 03c - Review the fact that was set
       ansible.builtin.debug:
         var: date_diff.__class__.__name__
-
-
-
-
-    - name: Timmay HARD STOP this Playbook
-      ansible.builtin.meta: end_play
-      when: 1 == 1
 
 
 

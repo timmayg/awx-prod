@@ -24,6 +24,17 @@
         date_diff: "{{ ((sec1.second | to_datetime('%S')).second - (sec2.second | to_datetime('%S')).second) }}"
 
 
+    - name: 15 - Print the dictionary based Time Fact
+      ansible.builtin.debug:
+          msg:
+            - "The fact is {{ date_diff }}"
+            - "fact type: {{ date_diff | type_debug }}"
+            - "fact class: {{ date_diff.__class__.__name__}}"
+
+
+     - name: Timmay HARD STOP this Playbook
+       ansible.builtin.meta: end_play
+       when: 1 == 1
 
 
 

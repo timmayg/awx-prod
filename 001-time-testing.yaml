@@ -49,6 +49,9 @@
       ansible.builtin.debug:
         var: current_date.__class__.__name__
 
+# 
+#  Lets play with the dictionary object that was created
+# 
 
     - name: 02d - Obtain the Current Date Time as a Function
       ansible.builtin.set_fact:
@@ -60,7 +63,7 @@
 
     - name: 02f - Review the fact that was set
       ansible.builtin.debug:
-        var: current_date_obj.__class__.__name__
+        var: current_date_obj.date.__class__.__name__
 
     - name: 02x - Obtain the Current Date Time as a Function
       ansible.builtin.set_fact:

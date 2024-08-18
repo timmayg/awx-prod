@@ -33,7 +33,7 @@
 
     - name: 02 - Pause the playbook
       ansible.builtin.pause:
-        seconds: 3
+        seconds: 10
 
     - name: 03 - Gather facts again
       ansible.builtin.setup:
@@ -44,7 +44,8 @@
 
     - name: 05 - Calculate difference between Today's Date and New Years Date
       ansible.builtin.set_fact:
-        date_diff: "{{ ((date2.date | to_datetime('%Y-%m-%d')).date) - ((date1.date | to_datetime('%Y-%m-%d')).date) }}"
+        date_diff: "{{ ((date2.date | to_datetime('%Y-%m-%d')).date - (date1.date | to_datetime('%Y-%m-%d')).date) }}"
+
 
     - name: 06 - Print the dictionary based Time Fact
       ansible.builtin.debug:

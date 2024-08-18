@@ -29,7 +29,7 @@
 
     - name: 01e - Print the new fact
       ansible.builtin.debug:
-        msg: "The fact is {{ new_years25_obj.date }}"
+        msg: "The fact is {{ new_years25_obj }}"
 
     - name: 01f - Review the class type of the fact
       ansible.builtin.debug:

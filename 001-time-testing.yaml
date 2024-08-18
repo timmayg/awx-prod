@@ -17,18 +17,18 @@
 
     - name: 13 - Obtain the Current Date Time as a Function
       ansible.builtin.set_fact:
-        time1: "{{ dict.time }}"      
+        time1: "{{ dict.time }}"
 
     - name: 14 - concatenate date and time
       ansible.builtin.set_fact:
-       current_date: "{{ date1 }} {{ time1 }}"
+        current_date: "{{ date1 }} {{ time1 }}"
 
     - name: 15 - Print the dictionary based Time Fact
       ansible.builtin.debug:
-          msg: 
-          - "The fact is {{ current_date }}"
-          - "fact type: {{ current_date | type_debug }}"
-          - "fact class: {{ current_date.__class__.__name__}}"
+          msg:
+            - "The fact is {{ current_date }}"
+            - "fact type: {{ current_date | type_debug }}"
+            - "fact class: {{ current_date.__class__.__name__}}"
 
 
     - name: 20 - Obtain the Current Date Time as a Function
@@ -48,9 +48,6 @@
     - name: 50 - Review the fact that was set
       ansible.builtin.debug:
         var: date_diff.__class__.__name__
-
-
-
 
 
 

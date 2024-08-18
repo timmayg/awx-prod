@@ -11,6 +11,10 @@
       ansible.builtin.set_fact:
         sec1: "{{ ansible_date_time }}"
 
+    - name: 35 - Pause the playbook for 5 seconds
+      ansible.builtin.pause:
+        seconds: 3
+
     - name: 32 - Obtain the Current Date Time as a Function
       ansible.builtin.set_fact:
         sec2: "{{ ansible_date_time }}"

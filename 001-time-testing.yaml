@@ -3,69 +3,6 @@
   hosts: all
   gather_facts: true
   tasks:
-    #
-    # 01 Tasks will create a string that looks like a date time
-    #       and then convert it to a datetime object
-    #
-    - name: 01a - Stamp a string that looks like date time into a Fact
-      ansible.builtin.set_fact:
-        new_years25: '{{ ("2025-01-01 00:00:00") }}'
-#        new_years25: '{{ ("2025-01-00") }}'
-
-
-    - name: 01b - Print the string based Time Fact
-      ansible.builtin.debug:
-        msg: "The fact is {{ new_years25 }}"
-
-    - name: 01c - Review the class type of the fact
-      ansible.builtin.debug:
-        var: new_years25.__class__.__name__
-
-    - name: 01d - Convert the string Time Fact to a datetime object
-      # This task does not appear to do anything.
-      ansible.builtin.set_fact:
-        new_years25_obj: '{{ new_years25 | to_datetime }}'
-
-    - name: 01e - Print the new fact
-      ansible.builtin.debug:
-        msg: "The fact is {{ new_years25_obj }}"
-
-    - name: 01f - Review the class type of the fact
-      ansible.builtin.debug:
-        var: new_years25_obj.__class__.__name__
-
-################################################################################
-################################################################################ 
-# 
-# 02 Tasks will create a dictionary that looks like a date time
-#
-    - name: 02a - Obtain the Current Date Time as a Function
-      ansible.builtin.set_fact:
-        current_date: "{{ ansible_date_time }}"
-
-    - name: 02b - Print the dictionary based Time Fact
-      ansible.builtin.debug:
-        msg: "The fact is {{ current_date }}"
-
-    - name: 02c - Review the fact that was set
-      ansible.builtin.debug:
-        var: current_date.__class__.__name__
-# 
-#  Lets play with the dictionary object that was created
-# 
-    - name: 02d - Obtain the Current Date Time as a Function
-      ansible.builtin.set_fact:
-        current_date_obj: "{{ ansible_date_time.date }}"
-
-    - name: 02e - Print the dictionary based Time Fact
-      ansible.builtin.debug:
-        msg: "The fact is {{ current_date_obj }}"
-
-    - name: 02f - Review the fact that was set
-      ansible.builtin.debug:
-        var: current_date_obj.__class__.__name__
-
-
 ################################################################################
 ################################################################################
 

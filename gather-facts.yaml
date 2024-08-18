@@ -2,7 +2,7 @@
   hosts: all
   gather_facts: true
   gather_subset:
-    - ohai
+    - factor
 
 # Gather subset options are:
 #   all, network, hardware, virtual, ohai, facter, and min

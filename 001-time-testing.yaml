@@ -2,15 +2,9 @@
 - name: Playbook to calculate time differences and format dates
   hosts: all
   gather_facts: true
-  vars:
-#    date1: '2022-11-15T03:23:13.6869568Z'
-#    date2: '2021-12-15T16:06:24.400087Z'
-#    date1_short: '{{ date1 | regex_replace("([^.]+)(\\.\\d{6})(\\d*)(.+)", "\\1\\2\\4") }}'
-#    iso8601format: '%Y-%m-%dT%H:%M:%S.%fZ'
-
   tasks:
     #
-    # 01 Tasks will create a string that looks like a date time 
+    # 01 Tasks will create a string that looks like a date time
     #       and then convert it to a datetime object
     #
     - name: 01a - Stamp a string that looks like date time into a Fact
@@ -38,14 +32,6 @@
     - name: 01f - Review the class type of the fact
       ansible.builtin.debug:
         var: new_years25_obj.__class__.__name__
-
-
-
-    - name: Timmay HARD STOP this Playbook
-      ansible.builtin.meta: end_play
-      when: 1 == 1
-
-
 
 
 ################################################################################
@@ -79,6 +65,14 @@
     - name: 02x - Obtain the Current Date Time as a Function
       ansible.builtin.set_fact:
         current_date_obj: "{{ current_date_obj.date | to_datetime }}"
+
+
+
+
+    - name: Timmay HARD STOP this Playbook
+      ansible.builtin.meta: end_play
+      when: 1 == 1
+
 
 
 

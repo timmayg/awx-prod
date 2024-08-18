@@ -13,7 +13,7 @@
 
     - name: 35 - Pause the playbook for 5 seconds
       ansible.builtin.pause:
-        seconds: 3
+        seconds: 13
 
     - name: 32 - Obtain the Current Date Time as a Function
       ansible.builtin.set_fact:

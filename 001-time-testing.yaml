@@ -12,10 +12,6 @@
         new_years25: '{{ ("2025-01-01 00:00:00") }}'
 #        new_years25: '{{ ("2025-01-00") }}'
 
-    - name: TEMP TEMP TEMP TEMP
-      ansible.builtin.set_fact:
-        current_date: '{{ ("2025-01-02 00:00:00") }}'
-
 
     - name: 01b - Print the string based Time Fact
       ansible.builtin.debug:
@@ -38,51 +34,11 @@
       ansible.builtin.debug:
         var: new_years25_obj.__class__.__name__
 
-
-
-
-
-    - name: 03a - Calculate difference between Today's Date and New Years Date
-      ansible.builtin.set_fact:
-        date_diff: '{{ (new_years25) - (current_date) }}'
-#                   {{ (("2016-08-14 20:00:12" | to_datetime) - ("2015-12-25" | to_datetime('%Y-%m-%d'))).days  }}
-   
-    - name: 03b - Print difference between Today's Date and New Years Date
-      ansible.builtin.debug:
-        msg: "Difference in seconds between date1 and date2 is {{ date_diff }} seconds"
-
-    - name: 03c - Review the fact that was set
-      ansible.builtin.debug:
-        var: date_diff.__class__.__name__
-
-
-
-
-
-
-
-    - name: Timmay HARD STOP this Playbook
-      ansible.builtin.meta: end_play
-      when: 1 == 1
-
-
-
-
-
-
-
-
-
-
-
 ################################################################################
-################################################################################
-
-    # 
-    # 
-    # 02 Tasks will create a dictionary that looks like a date time
-    #
-
+################################################################################ 
+# 
+# 02 Tasks will create a dictionary that looks like a date time
+#
     - name: 02a - Obtain the Current Date Time as a Function
       ansible.builtin.set_fact:
         current_date: "{{ ansible_date_time }}"
@@ -94,11 +50,9 @@
     - name: 02c - Review the fact that was set
       ansible.builtin.debug:
         var: current_date.__class__.__name__
-
 # 
 #  Lets play with the dictionary object that was created
 # 
-
     - name: 02d - Obtain the Current Date Time as a Function
       ansible.builtin.set_fact:
         current_date_obj: "{{ ansible_date_time.date }}"
@@ -112,22 +66,30 @@
         var: current_date_obj.__class__.__name__
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ################################################################################
 ################################################################################
+
+    - name: 10 - Obtain the Current Date Time as a Function
+      ansible.builtin.set_fact:
+        current_second10: "{{ ansible_date_time.second }}"
+
+    - name: 11 - Obtain the Current Date Time as a Function
+      ansible.builtin.set_fact:
+        current_second11: "{{ ansible_date_time.second }}"
+
+    - name: 12 - Calculate difference between Today's Date and New Years Date
+      ansible.builtin.set_fact:
+        date_diff: '{{ (current_second11) - (current_second10) }}'
+
+    - name: 13 - Print difference between Today's Date and New Years Date
+      ansible.builtin.debug:
+        msg: "Difference in seconds between date1 and date2 is {{ date_diff }} seconds"
+
+    - name: 14 - Review the fact that was set
+      ansible.builtin.debug:
+        var: date_diff.__class__.__name__
+
+
 
 
 

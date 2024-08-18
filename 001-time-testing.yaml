@@ -10,19 +10,19 @@
       ansible.builtin.set_fact:
         current_second10: "{{ ansible_date_time | to_datetime }}"
 
-    - name: 11 - Obtain the Current Date Time as a Function
+    - name: 20 - Obtain the Current Date Time as a Function
       ansible.builtin.set_fact:
         current_second11: "{{ ansible_date_time | to_datetime }}"
 
-    - name: 12 - Calculate difference between Today's Date and New Years Date
+    - name: 30 - Calculate difference between Today's Date and New Years Date
       ansible.builtin.set_fact:
         date_diff: '{{ (current_second11.second) - (current_second10.second) }}'
 
-    - name: 13 - Print difference between Today's Date and New Years Date
+    - name: 40 - Print difference between Today's Date and New Years Date
       ansible.builtin.debug:
         msg: "Difference in seconds between date1 and date2 is {{ date_diff }} seconds"
 
-    - name: 14 - Review the fact that was set
+    - name: 50 - Review the fact that was set
       ansible.builtin.debug:
         var: date_diff.__class__.__name__
 

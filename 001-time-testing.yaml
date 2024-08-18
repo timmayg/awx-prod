@@ -11,22 +11,29 @@
       ansible.builtin.set_fact:
         sec1: "{{ ansible_date_time }}"
 
-    - name: 35 - Pause the playbook for 5 seconds
-      ansible.builtin.pause:
-        seconds: 13
+    - name: 31a - Print the dictionary based Time Fact
+      ansible.builtin.debug:
+          msg:
+            - "The fact is {{ sec1 }}"
+            - "fact type: {{ sec1 | type_debug }}"
+            - "fact class: {{ sec1.__class__.__name__}}"
 
-    - name: Gather facts again
+    - name: 32 - Pause the playbook for 5 seconds
+      ansible.builtin.pause:
+        seconds: 3
+
+    - name: 33 - Gather facts again
       ansible.builtin.setup:
 
-    - name: 32 - Obtain the Current Date Time as a Function
+    - name: 34 - Obtain the Current Date Time as a Function
       ansible.builtin.set_fact:
         sec2: "{{ ansible_date_time }}"
 
-    - name: 33 - Calculate difference between Today's Date and New Years Date
+    - name: 34 - Calculate difference between Today's Date and New Years Date
       ansible.builtin.set_fact:
         date_diff: "{{ ((sec2.second | to_datetime('%S')).second - (sec1.second | to_datetime('%S')).second) }}"
 
-    - name: 34 - Print the dictionary based Time Fact
+    - name: 36 - Print the dictionary based Time Fact
       ansible.builtin.debug:
           msg:
             - "The fact is {{ date_diff }}"

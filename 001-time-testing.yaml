@@ -25,6 +25,9 @@
     - name: 15 - Print the dictionary based Time Fact
       ansible.builtin.debug:
         msg: "The fact is {{ current_date }}"
+   
+    - name: 16 - Review the fact class Name
+      ansible.builtin.debug:
         var: current_date.__class__.__name__
 
 

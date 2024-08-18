@@ -71,11 +71,11 @@
 
     - name: 10 - Obtain the Current Date Time as a Function
       ansible.builtin.set_fact:
-        current_second10: "{{ ansible_date_time.second }}"
+        current_second10: "{{ ansible_date_time.second | to_datetime }}"
 
     - name: 11 - Obtain the Current Date Time as a Function
       ansible.builtin.set_fact:
-        current_second11: "{{ ansible_date_time.second }}"
+        current_second11: "{{ ansible_date_time.second | to_datetime }}"
 
     - name: 12 - Calculate difference between Today's Date and New Years Date
       ansible.builtin.set_fact:

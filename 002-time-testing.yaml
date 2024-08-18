@@ -13,4 +13,4 @@
             ).days 
           }}
       vars:
-        prev_date: 2024-01-01
+        prev_date: 2024-08-01

@@ -12,6 +12,11 @@
         new_years25: '{{ ("2025-01-01 00:00:00") }}'
 #        new_years25: '{{ ("2025-01-00") }}'
 
+    - name: TEMP TEMP TEMP TEMP
+      ansible.builtin.set_fact:
+        current_date: '{{ ("2025-01-02 00:00:00") }}'
+
+
     - name: 01b - Print the string based Time Fact
       ansible.builtin.debug:
         msg: "The fact is {{ new_years25 }}"
@@ -32,6 +37,42 @@
     - name: 01f - Review the class type of the fact
       ansible.builtin.debug:
         var: new_years25_obj.__class__.__name__
+
+
+
+
+
+    - name: 03a - Calculate difference between Today's Date and New Years Date
+      ansible.builtin.set_fact:
+        date_diff: '{{ (new_years25) - (current_date) }}'
+#                   {{ (("2016-08-14 20:00:12" | to_datetime) - ("2015-12-25" | to_datetime('%Y-%m-%d'))).days  }}
+   
+    - name: 03b - Print difference between Today's Date and New Years Date
+      ansible.builtin.debug:
+        msg: "Difference in seconds between date1 and date2 is {{ date_diff }} seconds"
+
+    - name: 03c - Review the fact that was set
+      ansible.builtin.debug:
+        var: date_diff.__class__.__name__
+
+
+
+
+
+
+
+    - name: Timmay HARD STOP this Playbook
+      ansible.builtin.meta: end_play
+      when: 1 == 1
+
+
+
+
+
+
+
+
+
 
 
 ################################################################################
@@ -76,32 +117,6 @@
 
 
 
-
-
-
-
-    - name: 03a - Calculate difference between Today's Date and New Years Date
-      ansible.builtin.set_fact:
-        date_diff: '{{ (new_years25) - (current_date) }}'
-#                   {{ (("2016-08-14 20:00:12" | to_datetime) - ("2015-12-25" | to_datetime('%Y-%m-%d'))).days  }}
-   
-    - name: 03b - Print difference between Today's Date and New Years Date
-      ansible.builtin.debug:
-        msg: "Difference in seconds between date1 and date2 is {{ date_diff }} seconds"
-
-    - name: 03c - Review the fact that was set
-      ansible.builtin.debug:
-        var: date_diff.__class__.__name__
-
-
-
-
-
-
-
-    - name: Timmay HARD STOP this Playbook
-      ansible.builtin.meta: end_play
-      when: 1 == 1
 
 
 

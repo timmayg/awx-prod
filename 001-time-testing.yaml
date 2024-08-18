@@ -10,6 +10,19 @@
       ansible.builtin.set_fact:
         current_second10: "{{ ansible_date_time | to_datetime }}"
 
+    - name: 11 - Obtain the Current Date Time as a Function
+      ansible.builtin.set_fact:
+        date: "{{ ansible_date_time }}"
+
+    - name: 11 - Obtain the Current Date Time as a Function
+      ansible.builtin.set_fact:
+        date1: "{{ date.date }}"
+
+    - name: 12 - Obtain the Current Date Time as a Function
+      ansible.builtin.set_fact:
+        date2: "{{ date1 | to_datetime }}"
+
+
     - name: 20 - Obtain the Current Date Time as a Function
       ansible.builtin.set_fact:
         current_second11: "{{ ansible_date_time | to_datetime }}"

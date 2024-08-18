@@ -65,7 +65,7 @@
       ansible.builtin.debug:
         var: current_date_obj.date.__class__.__name__
 
-    - name: 02x - Obtain the Current Date Time as a Function
+    - name: 02x - Convert the dict to something else
       ansible.builtin.set_fact:
         current_date_obj: "{{ current_date_obj.date | to_datetime }}"
 

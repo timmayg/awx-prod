@@ -25,6 +25,8 @@
     - name: 15 - Print the dictionary based Time Fact
       ansible.builtin.debug:
         msg: "The fact is {{ current_date }}"
+        var: current_date.__class__.__name__
+
 
 
     - name: 20 - Obtain the Current Date Time as a Function

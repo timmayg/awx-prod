@@ -7,6 +7,27 @@
 ################################################################################
 ################################################################################
 
+
+
+    - name: 31 - Obtain the Current Date Time as a Function
+      ansible.builtin.set_fact:
+        sec1: "{{ ansible_date_time }}"
+
+    - name: 32 - Obtain the Current Date Time as a Function
+      ansible.builtin.set_fact:
+        sec2: "{{ ansible_date_time }}"
+
+
+    - name: 33 - Calculate difference between Today's Date and New Years Date
+      ansible.builtin.set_fact:
+        date_diff: '{{ (sec1.second) - (sec2.second) }}'
+#                   {{ ((ansible_date_time.date | to_datetime('%Y-%m-%d')).date() - prev_date).days }}
+#                   {{ ((ansible_date_time.date | to_datetime('%Y-%m-%d')).date() - prev_date).days }}
+
+
+
+
+
     - name: 11 - Obtain the Current Date Time as a Function
       ansible.builtin.set_fact:
         dict: "{{ ansible_date_time }}"

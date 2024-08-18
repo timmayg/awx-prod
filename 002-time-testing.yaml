@@ -1,0 +1,16 @@
+---
+- hosts: all
+  gather_subset:
+    - min
+      
+  tasks:
+    - debug:
+        msg: >-
+          {{ 
+            (
+              (ansible_date_time.date | to_datetime('%Y-%m-%d')).date() 
+              - prev_date
+            ).days 
+          }}
+      vars:
+        prev_date: 2024-01-01

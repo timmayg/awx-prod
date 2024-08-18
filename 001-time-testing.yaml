@@ -15,6 +15,9 @@
       ansible.builtin.pause:
         seconds: 13
 
+    - name: Gather facts again
+      ansible.builtin.setup:
+
     - name: 32 - Obtain the Current Date Time as a Function
       ansible.builtin.set_fact:
         sec2: "{{ ansible_date_time }}"

@@ -9,4 +9,6 @@
 
      - debug:
          msg: "{{ time1 }}"
+
+     - debug:
          msg: "{{ time2 }}"

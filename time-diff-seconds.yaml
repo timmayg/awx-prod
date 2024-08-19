@@ -18,17 +18,24 @@
 #            - "fact type: {{ sec1 | type_debug }}"
 #            - "fact class: {{ sec1.__class__.__name__}}"
 #
-#    - name: 01b - Create new variable to hold the seconds
-#      ansible.builtin.set_fact:
-#        sec1a: "{{ sec1.second | to_datetime('%S') }}"
-#
-#
-#    - name: 01c - Print the dictionary based Time Fact
-#      ansible.builtin.debug:
-#          msg:
-#            - "The fact is {{ sec1a }}"
-#            - "fact type: {{ sec1a | type_debug }}"
-#            - "fact class: {{ sec1a.__class__.__name__}}"
+    - name: 01b - Create new variable to hold the seconds
+      ansible.builtin.set_fact:
+        sec1a: "{{ sec1.second | to_datetime('%S') }}"
+
+
+    - name: 01c - Print the dictionary based Time Fact
+      ansible.builtin.debug:
+          msg:
+            - "The fact is {{ sec1a }}"
+            - "fact type: {{ sec1a | type_debug }}"
+            - "fact class: {{ sec1a.__class__.__name__}}"
+
+
+     - name: Timmay HARD STOP this Playbook
+       ansible.builtin.meta: end_play
+       when: 1 == 1
+
+
 
 
     - name: 02 - Pause the playbook

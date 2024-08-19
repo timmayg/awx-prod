@@ -1,0 +1,28 @@
+---
+ -  hosts: localhost
+    tasks:
+    - set_fact:
+        time1: "{{ ansible_date_time }}"
+    - set_fact:
+        time1_epoch: "{{ time1.epoch|int }}"
+
+    - debug:
+        var: time1_epoch
+
+    - pause:
+        prompt: "sleeping 5 seconds"
+        seconds: 5
+
+ -  hosts: localhost
+    tasks:
+    - set_fact:
+        time2: "{{ ansible_date_time }}"
+
+    - set_fact:
+        time2_epoch: "{{ time2.epoch|int }}"
+
+    - debug:
+        var: time2_epoch
+
+    - debug:
+        var: (time2_epoch|int - time1_epoch|int) 

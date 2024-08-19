@@ -9,6 +9,11 @@
     - debug:
         var: time1_epoch
 
+    - debug: 
+        msg:
+        - {{ time1_epoch }}
+        - {{ time1_epoch | type_debug }}
+
     - pause:
         prompt: "sleeping 5 seconds"
         seconds: 5

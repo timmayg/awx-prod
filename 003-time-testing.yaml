@@ -2,13 +2,17 @@
  - hosts: localhost
    tasks:
      - set_fact:
-         time1: "{{ ansible_date_time.iso8601 | to_datetime('%Y-%m-%dT%H:%M:%SZ') | to_datetime }}"
+         time1: "{{ ansible_date_time.iso8601 | to_datetime | to_datetime('%Y-%m-%dT%H:%M:%SZ') }}"
 # dict    time1: "{{ ansible_date_time }}"
 # failed  time1: "{{ ansible_date_time | to_datetime }}"
 # AUT     time1: "{{ ansible_date_time.iso8601 }}"
 # failed  time1: "{{ ansible_date_time.iso8601 | to_datetime }}"
 # AUT     time1: "{{ ansible_date_time.iso8601 | to_datetime('%Y-%m-%dT%H:%M:%SZ') }}"
 # failed  time1: "{{ ansible_date_time.iso8601 | to_datetime('%Y-%m-%d %H:%M:%S') }}"
+# failed  time1: "{{ ansible_date_time.iso8601 | to_datetime('%Y-%m-%dT%H:%M:%SZ') | to_datetime }}"
+
+
+
 
      - debug:
          msg: 

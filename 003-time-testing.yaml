@@ -5,8 +5,10 @@
          time1: "{{ ansible_date_time }}"
 
      - set_fact:
-       ansible.builtin.to_datetime:
          time1a: "{{ ansible_date_time.iso8601 | to_datetime('%Y-%m-%dT%H:%M:%SZ') }}"
+
+     - ansible.builtin.to_datetime:
+         time1a: "{{ time1a }}"
 # dict    time1: "{{ ansible_date_time }}"
 # failed  time1: "{{ ansible_date_time | to_datetime }}"
 # AUT     time1: "{{ ansible_date_time.iso8601 }}"

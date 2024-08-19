@@ -14,3 +14,6 @@
 
      - debug:
          msg: "{{ time2 }}"
+
+     - debug:
+         msg: "{{ time1 - time2 }}" 

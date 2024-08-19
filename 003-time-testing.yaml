@@ -5,7 +5,8 @@
 #         time1: "{{ ansible_date_time }}"
 #         time1: "{{ ansible_date_time | to_datetime}}"
 #         time1: "{{ ansible_date_time.iso8601 | to_datetime }}"
-         time1: "{{ ansible_date_time.iso8601 | to_datetime('%Y-%m-%dT%H:%M:%SZ') }}"
+#         time1: "{{ ansible_date_time.iso8601 | to_datetime('%Y-%m-%dT%H:%M:%SZ') }}"
+         time1: "{{ ansible_date_time.iso8601 | to_datetime('%Y-%m-%d %H:%M:%S') }}"
 
      - set_fact:
          time2: 2024-08-17T02:00:00Z

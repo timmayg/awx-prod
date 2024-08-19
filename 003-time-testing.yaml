@@ -19,8 +19,8 @@
 
      - debug:
          msg: 
-         - "{{ time1a }}"
-         - "{{ time1a | type_debug }}"
+         - "{{ time1 }}"
+         - "{{ time1 | type_debug }}"
 
      - name: Timmay HARD STOP this Playbook
        ansible.builtin.meta: end_play

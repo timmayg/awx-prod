@@ -11,8 +11,8 @@
 
     - debug: 
         msg:
-        - {{ time1_epoch }}
-        - {{ time1_epoch | type_debug }}
+        - "{{ time1_epoch }}"
+        - "{{ time1_epoch | type_debug }}"
 
     - pause:
         prompt: "sleeping 5 seconds"

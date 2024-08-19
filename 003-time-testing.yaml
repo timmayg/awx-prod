@@ -8,4 +8,4 @@
          time2: 2024-08-17T02:00:00Z
 
      - debug:
-         msg: "{{ time1 - time2 }}"
+         msg: "{{ time1 }}"

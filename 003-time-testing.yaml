@@ -4,7 +4,7 @@
      - ansible.builtin.set_fact:
          time1: "{{ ansible_date_time }}"
 
-     - to_datetime:
+     - ansible.builtin.to_datetime:
          time1a: "{{ time1.date | to_datetime.('%Y-%m-%d') }}"
 
 # dict    time1: "{{ ansible_date_time }}"

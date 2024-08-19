@@ -1,6 +1,4 @@
 ---
-
-
  - hosts: localhost
    tasks:
      - set_fact:

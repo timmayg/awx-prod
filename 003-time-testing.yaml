@@ -5,7 +5,7 @@
          time1: "{{ ansible_date_time }}"
 
      - set_fact:
-         time1a: "{{ ansible_date_time.date | to_datetime('%Y-%m-%d') }}"
+         time1a: "{{ ansible_date_time.date | to_datetime.strptime('%Y-%m-%d') }}"
 
 # dict    time1: "{{ ansible_date_time }}"
 # failed  time1: "{{ ansible_date_time | to_datetime }}"

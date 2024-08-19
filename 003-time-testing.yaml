@@ -22,9 +22,11 @@
          - "{{ time2 }}"
          - "{{ time2 | type_debug }}"
 
-     - debug:
-         msg: "{{ time1 - time2 }}" 
 
      - debug:
          var: ( '2024-08-17T02:10:00Z'|to_datetime("%Y-%m-%dT%H:%M:%SZ") - '2024-08-17T02:00:00Z'|to_datetime("%Y-%m-%dT%H:%M:%SZ")).total_seconds()
 
+
+
+     - debug:
+         msg: "{{ time1 - time2 }}" 

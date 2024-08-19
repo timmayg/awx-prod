@@ -2,7 +2,8 @@
  - hosts: localhost
    tasks:
      - set_fact:
-         time1: "{{ ansible_date_time }}"
+#         time1: "{{ ansible_date_time }}"
+         time1: "{{ ansible_date_time | to_datetime}}"
 
      - set_fact:
          time2: 2024-08-17T02:00:00Z

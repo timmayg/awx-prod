@@ -11,13 +11,13 @@
       ansible.builtin.set_fact:
         sec1: "{{ ansible_date_time }}"
 
-#    - name: 01a - Print the dictionary based Time Fact
-#      ansible.builtin.debug:
-#          msg:
-#            - "The fact is {{ sec1 }}"
-#            - "fact type: {{ sec1 | type_debug }}"
-#            - "fact class: {{ sec1.__class__.__name__}}"
-#
+    - name: 01a - Print the dictionary based Time Fact
+      ansible.builtin.debug:
+          msg:
+            - "The fact is {{ sec1 }}"
+            - "fact type: {{ sec1 | type_debug }}"
+            - "fact class: {{ sec1.__class__.__name__}}"
+
     - name: 01b - Create new variable to hold the seconds
       ansible.builtin.set_fact:
         sec1a: "{{ sec1.second | to_datetime('%S') }}"

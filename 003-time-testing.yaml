@@ -4,8 +4,8 @@
      - ansible.builtin.set_fact:
          time1: "{{ ansible_date_time }}"
 
-     - to_datetime:
-         time1a: "{{ ansible_date_time.date | to_datetime('%Y-%m-%d') }}"
+#     - to_datetime:
+#         time1a: "{{ ansible_date_time.date | to_datetime('%Y-%m-%d') }}"
 
 # dict    time1: "{{ ansible_date_time }}"
 # failed  time1: "{{ ansible_date_time | to_datetime }}"
@@ -19,8 +19,8 @@
 
      - debug:
          msg: 
-         - "{{ time1 }}"
-         - "{{ time1 | type_debug }}"
+         - "{{ time1.date }}"
+         - "{{ time1.date | type_debug }}"
 
      - name: Timmay HARD STOP this Playbook
        ansible.builtin.meta: end_play

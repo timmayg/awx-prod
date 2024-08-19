@@ -7,7 +7,7 @@
 # failed  time1: "{{ ansible_date_time | to_datetime }}"
 # AUT     time1: "{{ ansible_date_time.iso8601 }}"
 # failed  time1: "{{ ansible_date_time.iso8601 | to_datetime }}"
-#         time1: "{{ ansible_date_time.iso8601 | to_datetime('%Y-%m-%dT%H:%M:%SZ') }}"
+# AUT     time1: "{{ ansible_date_time.iso8601 | to_datetime('%Y-%m-%dT%H:%M:%SZ') }}"
 #         time1: "{{ ansible_date_time.iso8601 | to_datetime('%Y-%m-%d %H:%M:%S') }}"
 
      - debug:
@@ -15,26 +15,23 @@
          - "{{ time1 }}"
          - "{{ time1 | type_debug }}"
 
-     - name: Timmay HARD STOP this Playbook
-       ansible.builtin.meta: end_play
-       when: 1 == 1
-
      - set_fact:
          time2: 2024-08-17T02:00:00Z
-
-     - debug:
-         msg: 
-         - "{{ time1 }}"
-         - "{{ time1 | type_debug }}"
 
      - debug:
          msg: 
          - "{{ time2 }}"
          - "{{ time2 | type_debug }}"
 
-
-     - debug:
-         var: ( '2024-08-17T02:10:00Z'|to_datetime("%Y-%m-%dT%H:%M:%SZ") - '2024-08-17T02:00:00Z'|to_datetime("%Y-%m-%dT%H:%M:%SZ")).total_seconds()
+#     - debug:
+#         var: ( '2024-08-17T02:10:00Z'|to_datetime("%Y-%m-%dT%H:%M:%SZ") - '2024-08-17T02:00:00Z'|to_datetime("%Y-%m-%dT%H:%M:%SZ")).total_seconds()
 
      - debug:
          msg: "{{ time1 - time2 }}" 
+
+
+
+     - name: Timmay HARD STOP this Playbook
+       ansible.builtin.meta: end_play
+       when: 1 == 1
+

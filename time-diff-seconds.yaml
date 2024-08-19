@@ -20,7 +20,8 @@
 
     - name: 01b - Create new variable to hold the seconds
       ansible.builtin.set_fact:
-        sec1a: "{{ sec1.second | to_datetime('%S') }}"
+        sec1a: "{{ sec1 | to_datetime('%S') }}"
+#        sec1a: "{{ sec1.second | to_datetime('%S') }}"
 
 
     - name: 01c - Print the dictionary based Time Fact

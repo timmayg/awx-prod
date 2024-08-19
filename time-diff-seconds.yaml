@@ -2,8 +2,8 @@
 - name: Playbook to calculate time differences and format dates
   hosts: all
   gather_facts: true
-  gather_subset:
-    - min
+#  gather_subset:
+#    - min
   tasks:
 
 ################################################################################

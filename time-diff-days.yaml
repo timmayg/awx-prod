@@ -30,9 +30,7 @@
 #            - "fact type: {{ date1a | type_debug }}"
 #            - "fact class: {{ date1a.__class__.__name__}}"
 
-    - name: Timmay HARD STOP this Playbook
-      ansible.builtin.meta: end_play
-      when: 1 == 1
+
 
     - name: 02 - Pause the playbook
       ansible.builtin.pause:
@@ -57,3 +55,6 @@
             - "fact type: {{ date_diff | type_debug }}"
             - "fact class: {{ date_diff.__class__.__name__}}"
 
+    - name: Timmay HARD STOP this Playbook
+      ansible.builtin.meta: end_play
+      when: 1 == 1

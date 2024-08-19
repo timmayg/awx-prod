@@ -2,6 +2,8 @@
 - name: Playbook to calculate time differences and format dates
   hosts: all
   gather_facts: true
+  gather_subset:
+    - min
   tasks:
 
 ################################################################################
@@ -11,18 +13,17 @@
       ansible.builtin.set_fact:
         sec1: "{{ ansible_date_time }}"
 
-    - name: 01a - Print the dictionary based Time Fact
-      ansible.builtin.debug:
-          msg:
-            - "The fact is {{ sec1 }}"
-            - "fact type: {{ sec1 | type_debug }}"
-            - "fact class: {{ sec1.__class__.__name__}}"
-
-    - name: 01b - Create new variable to hold the seconds
-      ansible.builtin.set_fact:
-        sec1a: "{{ sec1 | to_datetime('%S') }}"
+#    - name: 01a - Print the dictionary based Time Fact
+#      ansible.builtin.debug:
+#          msg:
+#            - "The fact is {{ sec1 }}"
+#            - "fact type: {{ sec1 | type_debug }}"
+#            - "fact class: {{ sec1.__class__.__name__}}"
+#
+#    - name: 01b - Create new variable to hold the seconds
+#      ansible.builtin.set_fact:
 #        sec1a: "{{ sec1.second | to_datetime('%S') }}"
-
+#
 
     - name: 01c - Print the dictionary based Time Fact
       ansible.builtin.debug:
@@ -30,12 +31,6 @@
             - "The fact is {{ sec1a }}"
             - "fact type: {{ sec1a | type_debug }}"
             - "fact class: {{ sec1a.__class__.__name__}}"
-
-
-    - name: Timmay HARD STOP this Playbook
-      ansible.builtin.meta: end_play
-      when: 1 == 1
-
 
 
 
@@ -60,4 +55,10 @@
             - "The different between the two second variables {{ date_diff }}"
             - "fact type: {{ date_diff | type_debug }}"
             - "fact class: {{ date_diff.__class__.__name__}}"
+
+
+
+    - name: Timmay HARD STOP this Playbook
+      ansible.builtin.meta: end_play
+      when: 1 == 1
 

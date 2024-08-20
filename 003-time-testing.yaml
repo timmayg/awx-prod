@@ -7,7 +7,7 @@
      - ansible.builtin.set_fact:
          time2: 2024-01-01T00:00:00Z
 
-     - debug:
+     - ansible.builtin.debug:
          msg: 
          - "{{ time1 }}"
          - "{{ time1 | type_debug }}"
@@ -17,7 +17,7 @@
 
      - name: Timmay HARD STOP this Playbook
        ansible.builtin.meta: end_play
-       when: 1 == 1
+       #when: 1 == 1
 
 
 #     - debug:

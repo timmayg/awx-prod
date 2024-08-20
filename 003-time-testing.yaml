@@ -10,9 +10,7 @@
      - ansible.builtin.debug:
          msg: 
          - "{{ time1 }} {{ time1 | type_debug }}"
-         - "{{ time1 | type_debug }}"
-         - "{{ time2 }}"
-         - "{{ time2 | type_debug }}"
+         - "{{ time2 }} {{ time2 | type_debug }}"
 
 
      - name: Timmay HARD STOP this Playbook

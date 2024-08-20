@@ -2,7 +2,8 @@
  - hosts: localhost
    tasks:
      - ansible.builtin.set_fact:
-         time1: "{{ ansible_date_time.iso8601 | regex_replace('T.*', '') }}"
+         time1: "{{ ansible_date_time.date }}"
+#         time1: "{{ ansible_date_time.iso8601 | regex_replace('T.*', '') }}"
 #         time1: "{{ ansible_date_time.iso8601 | replace('T', ' ') | replace('Z', ' ') }}"
 #         time1: "{{ ansible_date_time.iso8601 | replace('T', ' ') | replace('Z', ' ') }}"
 
@@ -11,13 +12,10 @@
      - ansible.builtin.set_fact:
          time2: 2024-01-01T00:00:00Z
 
-     - ansible.builtin.set_fact:
-         time2a: "{{ time2 | regex_replace('T.*', '') }}"
-
      - ansible.builtin.debug:
          msg: 
          - "{{ time1 }} {{ time1 | type_debug }}"
-         - "{{ time2a }} {{ time2a | type_debug }}"
+         - "{{ time2 }} {{ time2 | type_debug }}"
 
 
      - name: Timmay HARD STOP this Playbook

@@ -9,7 +9,7 @@
 
 
      - ansible.builtin.set_fact:
-         time2: 2024-01-01T00:00:00Z
+         time2: "2024-01-01T00:00:00Z"
 
      - ansible.builtin.debug:
          msg: 

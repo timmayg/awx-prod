@@ -2,7 +2,7 @@
  - hosts: localhost
    tasks:
      - ansible.builtin.set_fact:
-         time1: "{{ ansible_date_time }}"
+         time1: "{{ ansible_date_time.iso8601 }}"
 
      - ansible.builtin.set_fact:
          time2: 2024-01-01T00:00:00Z

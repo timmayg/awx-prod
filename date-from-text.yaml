@@ -15,7 +15,7 @@
 
      - name: Create fact for time1 - fact will be AnsibleUnicode 
        ansible.builtin.set_fact:
-         time4: {{ ansible_date_time }} 
+         time4: "{{ ansible_date_time }}"
 
 
 

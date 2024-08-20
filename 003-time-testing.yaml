@@ -23,12 +23,8 @@
 #         var: ( '2024-08-17T02:10:00Z'|to_datetime("%Y-%m-%dT%H:%M:%SZ") - '2024-08-17T02:00:00Z'|to_datetime("%Y-%m-%dT%H:%M:%SZ")).total_seconds()
 
 
-     - debug:
-         msg: "{{ time1 - time2 }}" 
-
-
-     - name: Timmay HARD STOP this Playbook
-       ansible.builtin.meta: end_play
+#     - debug:
+#         msg: "{{ time1 - time2 }}" 
 
 
 
@@ -38,6 +34,13 @@
          days_until_expiry: "{{ (time1 | to_datetime('%Y-%m-%dT%H:%M:%SZ')) - (time2 | to_datetime('%Y-%m-%dT%H:%M:%SZ')) }}"
 #        days_until_expiry: "{{ (current_date | to_datetime("%Y-%m-%dT%H:%M:%SZ"))" - "(expiry_date | to_datetime("%Y-%m-%dT%H:%M:%SZ")) }}
  
+
+
+     - name: Timmay HARD STOP this Playbook
+       ansible.builtin.meta: end_play
+
+
+
 
 
 #

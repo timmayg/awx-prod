@@ -4,34 +4,18 @@
      - ansible.builtin.set_fact:
          time1: "{{ ansible_date_time }}"
 
-     - ansible.builtin.to_datetime:
-         time1a: "{{ time1.date | to_datetime.('%Y-%m-%d') }}"
+#     - debug:
+#         msg: 
+#         - "{{ time1.date }}"
+#         - "{{ time1.date | type_debug }}"
 
-# dict    time1: "{{ ansible_date_time }}"
-# failed  time1: "{{ ansible_date_time | to_datetime }}"
-# AUT     time1: "{{ ansible_date_time.iso8601 }}"
-# failed  time1: "{{ ansible_date_time.iso8601 | to_datetime }}"
-# AUT     time1: "{{ ansible_date_time.iso8601 | to_datetime('%Y-%m-%dT%H:%M:%SZ') }}"
-# failed  time1: "{{ ansible_date_time.iso8601 | to_datetime('%Y-%m-%d %H:%M:%S') }}"
-# failed  time1: "{{ ansible_date_time.iso8601 | to_datetime('%Y-%m-%dT%H:%M:%SZ') | to_datetime }}"
-# failed  time1: "{{ ansible_date_time.iso8601 | to_datetime | to_datetime('%Y-%m-%dT%H:%M:%SZ') }}"
-
+     - ansible.builtin.set_fact:
+         time2: 2024-01-01T00:00:00Z
 
      - debug:
          msg: 
-         - "{{ time1.date }}"
-         - "{{ time1.date | type_debug }}"
-
-     - name: Timmay HARD STOP this Playbook
-       ansible.builtin.meta: end_play
-       when: 1 == 1
-
-
-     - set_fact:
-         time2: 2024-08-17T02:00:00Z
-
-     - debug:
-         msg: 
+         - "{{ time1 }}"
+         - "{{ time1 | type_debug }}"
          - "{{ time2 }}"
          - "{{ time2 | type_debug }}"
 
@@ -40,4 +24,23 @@
 
      - debug:
          msg: "{{ time1 - time2 }}" 
+
+     - name: Timmay HARD STOP this Playbook
+       ansible.builtin.meta: end_play
+       when: 1 == 1
+
+
+
+
+#
+#  All of these tasks failed for one reason or another
+#
+# dict    time1: "{{ ansible_date_time }}"
+# failed  time1: "{{ ansible_date_time | to_datetime }}"
+# AUT     time1: "{{ ansible_date_time.iso8601 }}"
+# failed  time1: "{{ ansible_date_time.iso8601 | to_datetime }}"
+# AUT     time1: "{{ ansible_date_time.iso8601 | to_datetime('%Y-%m-%dT%H:%M:%SZ') }}"
+# failed  time1: "{{ ansible_date_time.iso8601 | to_datetime('%Y-%m-%d %H:%M:%S') }}"
+# failed  time1: "{{ ansible_date_time.iso8601 | to_datetime('%Y-%m-%dT%H:%M:%SZ') | to_datetime }}"
+# failed  time1: "{{ ansible_date_time.iso8601 | to_datetime | to_datetime('%Y-%m-%dT%H:%M:%SZ') }}"
 

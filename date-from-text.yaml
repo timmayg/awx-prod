@@ -1,7 +1,6 @@
 ---
  - hosts: localhost
    tasks:
-
      - name: Create fact for time1 - fact will be datetime object 
        ansible.builtin.set_fact:
          time1: 2024-01-01T00:00:00Z
@@ -10,8 +9,20 @@
        ansible.builtin.set_fact:
          time2: '2024-01-01T00:00:00Z'
 
+     - name: Create fact for time1 - fact will be AnsibleUnicode 
+       ansible.builtin.set_fact:
+         time3: "2024-01-01T00:00:00Z"
+
+     - name: Create fact for time1 - fact will be AnsibleUnicode 
+       ansible.builtin.set_fact:
+         time4: {{ ansible_date_time }} 
+
+
+
      - name: Review the facts
        ansible.builtin.debug:
          msg: 
          - "time1 -- {{ time1 }} -- {{ time1 | type_debug }}"
          - "time2 -- {{ time2 }} -- {{ time2 | type_debug }}"
+         - "time3 -- {{ time3 }} -- {{ time3 | type_debug }}"
+         - "time4 -- {{ time4 }} -- {{ time4 | type_debug }}"

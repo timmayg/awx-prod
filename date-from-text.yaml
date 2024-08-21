@@ -19,7 +19,7 @@
 
      - name: Create fact for time - fact will be dict
        ansible.builtin.set_fact:
-         time5: "{{ time4.date }}"
+         time5: "{{ ansible_date_time.date }}"
 
 
 

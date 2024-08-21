@@ -7,7 +7,7 @@
 
      - name: Create fact for time - fact will be AnsibleUnicode
        ansible.builtin.set_fact:
-         time2: "2024-01-01 12:00:00"
+         time2: "2024-01-02 12:00:00"
     
 
      - name: Calculate difference between dates

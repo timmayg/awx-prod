@@ -3,12 +3,12 @@
    tasks:
      - name: Create fact for time - fact will be AnsibleUnicode
        ansible.builtin.set_fact:
-         time1: "2024-01-01T00:00:01EDT"
+         time1: "2024-01-01T00:00:01 Eastern"
 
      - name: Create fact for time - fact will be AnsibleUnicode
        ansible.builtin.set_fact:
-         time2: "2024-01-01T12:00:00PDT"
-    
+         time2: "2024-01-01T12:00:00 Pacific"
+  
 
      - name: Calculate difference between dates
        set_fact:

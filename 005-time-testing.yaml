@@ -10,12 +10,14 @@
          time2: "2024-02-01"
     
 
-
-
      - name: Calculate difference between dates
        set_fact:
-         days_until_expiry: "{{ (time1 | to_datetime('%Y-%m-%d')) - (time2 | to_datetime('%Y-%m-%d')) }}"
- 
+         diff: "{{ (time1 | to_datetime('%Y-%m-%d')) - (time2 | to_datetime('%Y-%m-%d')) }}"
+
+
+     - debug:
+         msg: "{{ diff }}" 
+
 
      - name: Timmay HARD STOP this Playbook
        ansible.builtin.meta: end_play

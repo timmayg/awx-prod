@@ -1,0 +1,26 @@
+---
+ - hosts: localhost
+   tasks:
+     - name: Create fact for time - fact will be AnsibleUnicode
+       ansible.builtin.set_fact:
+         time1: "00:00:00"
+
+     - name: Create fact for time - fact will be AnsibleUnicode
+       ansible.builtin.set_fact:
+         time2: "12:00:00"
+    
+
+     - name: Calculate difference between dates
+       set_fact:
+         diff: "{{ (time1 | to_datetime('%H-%M-%S')) - (time2 | to_datetime('%H-%M-%S')) }}"
+
+
+     - debug:
+         msg: "{{ diff }}" 
+
+
+     - name: Timmay HARD STOP this Playbook
+       ansible.builtin.meta: end_play
+
+
+

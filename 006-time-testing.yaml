@@ -12,7 +12,7 @@
 
      - name: Calculate difference between dates
        set_fact:
-         diff: "{{ (time1 | to_datetime('%H-%M-%S')) - (time2 | to_datetime('%H-%M-%S')) }}"
+         diff: "{{ (time1 | to_datetime('%H:%M:%S')) - (time2 | to_datetime('%H:%M:%S')) }}"
 
 
      - debug:

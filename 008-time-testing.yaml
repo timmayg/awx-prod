@@ -17,7 +17,7 @@
 
      - debug:
          msg: 
-           - "{{ diff }} {{ diff | type_debug }}"
+#           - "{{ diff }} {{ diff | type_debug }}"
            - "{{ time1 }} {{ time1 | type_debug }}"
            - "{{ time2 }} {{ time2 | type_debug }}"
 

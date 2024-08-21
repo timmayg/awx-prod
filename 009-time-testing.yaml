@@ -3,7 +3,7 @@
    tasks:
      - name: Obtain the Current Date Time from Gather Facts
        ansible.builtin.set_fact:
-         dict: "{{ ansible_date_time }}"
+         time1: "{{ ansible_date_time }}"
 
      - name: Create fact for time - fact will be AnsibleUnicode
        ansible.builtin.set_fact:

@@ -3,16 +3,16 @@
    tasks:
      - name: Create fact for time - fact will be AnsibleUnicode
        ansible.builtin.set_fact:
-         time1: "2024-01-01"
+         time1: "2024-01-01 00:00:01"
 
      - name: Create fact for time - fact will be AnsibleUnicode
        ansible.builtin.set_fact:
-         time2: "2024-02-01"
+         time2: "2024-01-01 12:00:00"
     
 
      - name: Calculate difference between dates
        set_fact:
-         diff: "{{ (time2 | to_datetime('%Y-%m-%d')) - (time1 | to_datetime('%Y-%m-%d')) }}"
+         diff: "{{ (time2 | to_datetime('%Y-%m-%d %H:%M:%S')) - (time1 | to_datetime('%Y-%m-%d %H:%M:%S')) }}"
 
 
      - debug:
@@ -20,6 +20,7 @@
            - "{{ diff }}"
            - "{{ time1 | type_debug }}"
            - "{{ time2 | type_debug }}"
+
 
 
      - name: Timmay HARD STOP this Playbook

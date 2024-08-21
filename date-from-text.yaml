@@ -17,7 +17,7 @@
        ansible.builtin.set_fact:
          time4: "{{ ansible_date_time }}"
 
-     - name: Create fact for time - fact will be dict
+     - name: Create fact for time - fact will be AnsibleUnsafeText
        ansible.builtin.set_fact:
          time5: "{{ ansible_date_time.iso8601 |to_datetime('%Y-%m-%dT%H:%M:%SZ') }}"
 

@@ -1,19 +1,19 @@
 ---
  - hosts: localhost
    tasks:
-     - name: Create fact for time1 - fact will be datetime object 
+     - name: Create fact for time - fact will be datetime object 
        ansible.builtin.set_fact:
          time1: 2024-01-01T00:00:00Z
 
-     - name: Create fact for time1 - fact will be AnsibleUnicode 
+     - name: Create fact for time - fact will be AnsibleUnicode 
        ansible.builtin.set_fact:
          time2: '2024-01-01T00:00:00Z'
 
-     - name: Create fact for time1 - fact will be AnsibleUnicode 
+     - name: Create fact for time - fact will be AnsibleUnicode 
        ansible.builtin.set_fact:
          time3: "2024-01-01T00:00:00Z"
 
-     - name: Create fact for time1 - fact will be AnsibleUnicode 
+     - name: Create fact for time - fact will be dict
        ansible.builtin.set_fact:
          time4: "{{ ansible_date_time }}"
 

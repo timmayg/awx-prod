@@ -17,6 +17,10 @@
        ansible.builtin.set_fact:
          time4: "{{ ansible_date_time }}"
 
+     - name: Create fact for time - fact will be dict
+       ansible.builtin.set_fact:
+         time5: "{{ time4.date }}"
+
 
 
      - name: Review the facts
@@ -25,4 +29,5 @@
          - "time1 -- {{ time1 }} -- {{ time1 | type_debug }}"
          - "time2 -- {{ time2 }} -- {{ time2 | type_debug }}"
          - "time3 -- {{ time3 }} -- {{ time3 | type_debug }}"
-         - "time4 -- {{ time4 }} -- {{ time4 | type_debug }}"
+         - "time4 -- {{ time4 }} -- {{ time4 | type_debug }}"         
+         - "time5 -- {{ time5 }} -- {{ time5 | type_debug }}"

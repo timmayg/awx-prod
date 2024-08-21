@@ -13,7 +13,7 @@
        ansible.builtin.set_fact:
          time3: "2024-01-01T00:00:00Z"
     
-     - name: Create fact for time - fact will be Unknown
+     - name: Create fact for time - fact will be AnsibleUnicode
        ansible.builtin.set_fact:
          time4: "2024-01-04"
     

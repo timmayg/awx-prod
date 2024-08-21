@@ -1,0 +1,24 @@
+---
+ - hosts: localhost
+   tasks:
+     - name: Create fact for time - fact will be AnsibleUnicode
+       ansible.builtin.set_fact:
+         time1: "2024-01-01"
+
+     - name: Create fact for time - fact will be AnsibleUnicode
+       ansible.builtin.set_fact:
+         time2: "2024-02-01"
+    
+
+
+
+     - name: Calculate difference between dates
+       set_fact:
+         days_until_expiry: "{{ (time1 | to_datetime('%Y-%m-%d')) - (time2 | to_datetime('%Y-%m-%d')) }}"
+ 
+
+     - name: Timmay HARD STOP this Playbook
+       ansible.builtin.meta: end_play
+
+
+

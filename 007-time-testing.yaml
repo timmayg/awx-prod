@@ -17,11 +17,9 @@
 
      - debug:
          msg: 
-           - "{{ diff | type_debug }}"
-           - "{{ time1 | type_debug }}"
-           - "{{ time2 | type_debug }}"
-
-
+           - "{{ diff }} {{ diff | type_debug }}"
+           - "{{ time1 }} {{ time1 | type_debug }}"
+           - "{{ time2 }} {{ time2 | type_debug }}"
 
      - name: Timmay HARD STOP this Playbook
        ansible.builtin.meta: end_play

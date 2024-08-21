@@ -1,23 +1,23 @@
 ---
  - hosts: localhost
    tasks:
-     - name: Obtain the Current Date Time from Gather Facts
+     - name: Create fact for time - fact will be AnsibleUnicode
        ansible.builtin.set_fact:
-         time1: "{{ ansible_date_time }}"
+         time1: "2024-01-01T12:00:00 America/New_York"
 
      - name: Create fact for time - fact will be AnsibleUnicode
        ansible.builtin.set_fact:
-         time2: "2024-01-01T12:00:00 Pacific"
+         time2: "2024-01-01T12:00:00 America/Los_Angeles"
   
 
-#     - name: Calculate difference between dates
-#       set_fact:
-#         diff: "{{ (time2 | to_datetime('%Y-%m-%dT%H:%M:%S%Z')) - (time1 | to_datetime('%Y-%m-%dT%H:%M:%S%Z')) }}"
+     - name: Calculate difference between dates
+       set_fact:
+         diff: "{{ (time2 | to_datetime('%Y-%m-%dT%H:%M:%S%Z')) - (time1 | to_datetime('%Y-%m-%dT%H:%M:%S%Z')) }}"
 
 
      - debug:
          msg: 
-#           - "{{ diff }} {{ diff | type_debug }}"
+           - "{{ diff }} {{ diff | type_debug }}"
            - "{{ time1 }} {{ time1 | type_debug }}"
            - "{{ time2 }} {{ time2 | type_debug }}"
 

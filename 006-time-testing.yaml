@@ -16,7 +16,11 @@
 
 
      - debug:
-         msg: "{{ diff }}" 
+         msg: 
+           - "{{ diff }}"
+           - "{{ time1 | type_debug }}"
+           - "{{ time2 | type_debug }}"
+
 
 
      - name: Timmay HARD STOP this Playbook

@@ -12,14 +12,20 @@
      - name: Create fact for time - fact will be AnsibleUnicode 
        ansible.builtin.set_fact:
          time3: "2024-01-01T00:00:00Z"
+    
+     - name: Create fact for time - fact will be Unknown
+       ansible.builtin.set_fact:
+         time4: "2024-01-04"
+    
+
 
      - name: Create fact for time - fact will be dict
        ansible.builtin.set_fact:
-         time4: "{{ ansible_date_time }}"
+         time5: "{{ ansible_date_time }}"
 
      - name: Create fact for time - fact will be AnsibleUnsafeText
        ansible.builtin.set_fact:
-         time5: "{{ ansible_date_time.iso8601 |to_datetime('%Y-%m-%dT%H:%M:%SZ') }}"
+         time6: "{{ ansible_date_time.iso8601 |to_datetime('%Y-%m-%dT%H:%M:%SZ') }}"
 
 
 
@@ -31,3 +37,4 @@
          - "time3 -- {{ time3 }} -- {{ time3 | type_debug }}"
          - "time4 -- {{ time4 }} -- {{ time4 | type_debug }}"         
          - "time5 -- {{ time5 }} -- {{ time5 | type_debug }}"
+         - "time6 -- {{ time6 }} -- {{ time6 | type_debug }}"

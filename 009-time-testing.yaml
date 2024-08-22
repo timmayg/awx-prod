@@ -8,7 +8,17 @@
      - name: Create fact for time - fact will be AnsibleUnicode
        ansible.builtin.set_fact:
          time2: "2024-01-01T12:00:00IST"
-  
+
+     - name: Display current time with timezone
+       debug:
+         msg: "{{ ansible_date_time.iso8601 | strftime('%Y-%m-%d %H:%M:%S %Z') }}"
+
+
+     - name: Timmay HARD STOP this Playbook
+       ansible.builtin.meta: end_play
+
+
+
      - name: Calculate difference between dates
        set_fact:
          diff: "{{ (time2 | to_datetime('%Y-%m-%dT%H:%M:%S%Z')) - (time1 | to_datetime('%Y-%m-%dT%H:%M:%S%Z')) }}"
@@ -19,9 +29,4 @@
            - "{{ diff }} {{ diff | type_debug }}"
            - "{{ time1 }} {{ time1 | type_debug }}"
            - "{{ time2 }} {{ time2 | type_debug }}"
-
-     - name: Timmay HARD STOP this Playbook
-       ansible.builtin.meta: end_play
-
-
 

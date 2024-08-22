@@ -3,15 +3,20 @@
    tasks:
      - name: Create fact for time - fact will be AnsibleUnicode
        ansible.builtin.set_fact:
-         time1: "2024-01-01T12:00:00-07:00"
+         time1: "2024-01-01 00:00:01"
 
-     - name: Create fact for time - fact will be AnsibleUnicode
+     - name: Create fact for time - fact will be dict
        ansible.builtin.set_fact:
-         time2: "2024-01-01T12:00:00+05:30"
+         time2: "{{ ansible_date_time }}"
+
+     - name: Create fact for time - fact will be AnsibleUnsafeText
+       ansible.builtin.set_fact:
+         time3: "{{ ansible_date_time.iso8601 |to_datetime('%Y-%m-%dT%H:%M:%SZ') }}"
+
 
      - name: Calculate difference between dates
        set_fact:
-         diff: "{{ (time2 | to_datetime('%Y-%m-%dT%H:%M:%S%z')) - (time1 | to_datetime('%Y-%m-%dT%H:%M:%S%z')) }}"
+         diff: "{{ (time2 | to_datetime('%Y-%m-%d %H:%M:%S')) - (time1 | to_datetime('%Y-%m-%d %H:%M:%S')) }}"
 
 
      - debug:
@@ -20,9 +25,8 @@
            - "{{ time1 }} {{ time1 | type_debug }}"
            - "{{ time2 }} {{ time2 | type_debug }}"
 
-
-
      - name: Timmay HARD STOP this Playbook
        ansible.builtin.meta: end_play
+
 
 

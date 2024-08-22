@@ -16,7 +16,7 @@
 
      - name: Calculate difference between dates
        set_fact:
-         diff: "{{ (time2 | to_datetime('%Y-%m-%d %H:%M:%S')) - (time1 | to_datetime('%Y-%m-%d %H:%M:%S')) }}"
+         diff: "{{ (time2 | to_datetime('%Y-%m-%dT%H:%M:%SZ')) - (time1 | to_datetime('%Y-%m-%d %H:%M:%S')) }}"
 
 
      - debug:

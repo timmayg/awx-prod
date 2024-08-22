@@ -9,11 +9,6 @@
        ansible.builtin.set_fact:
          time2: "{{ ansible_date_time }}"
 
-     - name: Create fact for time - fact will be AnsibleUnsafeText
-       ansible.builtin.set_fact:
-         time3: "{{ ansible_date_time.iso8601 |to_datetime('%Y-%m-%dT%H:%M:%SZ') }}"
-
-
      - name: Calculate difference between dates
        set_fact:
          diff: "{{ (time2.iso8601 | to_datetime('%Y-%m-%dT%H:%M:%SZ')) - (time1 | to_datetime('%Y-%m-%d %H:%M:%S')) }}"

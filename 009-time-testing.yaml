@@ -3,7 +3,7 @@
    tasks:
      - name: Create fact for time - fact will be AnsibleUnicode
        ansible.builtin.set_fact:
-         time1: "2024-02-01T12:00:00America/New_York"
+         time1: "2024-02-01T12:00:00EDT"
 
      - name: Create fact for time - fact will be AnsibleUnicode
        ansible.builtin.set_fact:

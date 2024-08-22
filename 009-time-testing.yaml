@@ -3,7 +3,7 @@
    tasks:
      - name: Create fact for time - fact will be AnsibleUnicode
        ansible.builtin.set_fact:
-         time1: "2024-01-01T12:00:00-04:00"
+         time1: "2024-01-02T12:00:00-04:00"
 
      - name: Create fact for time - fact will be AnsibleUnicode
        ansible.builtin.set_fact:
@@ -11,14 +11,14 @@
 
 
 
-#     - name: Calculate difference between dates
-#       set_fact:
-#         diff: "{{ (time2 | to_datetime('%Y-%m-%dT%H:%M:%S%Z')) - (time1 | to_datetime('%Y-%m-%dT%H:%M:%S%Z')) }}"
+     - name: Calculate difference between dates
+       set_fact:
+         diff: "{{ (time2 | to_datetime('%Y-%m-%dT%H:%M:%S%z')) - (time1 | to_datetime('%Y-%m-%dT%H:%M:%S%z')) }}"
 
 
      - debug:
          msg: 
-#           - "{{ diff }} {{ diff | type_debug }}"
+           - "{{ diff }} {{ diff | type_debug }}"
            - "{{ time1 }} {{ time1 | type_debug }}"
            - "{{ time2 }} {{ time2 | type_debug }}"
 

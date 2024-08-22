@@ -14,14 +14,14 @@
          time3: "{{ ansible_date_time.iso8601 |to_datetime('%Y-%m-%dT%H:%M:%SZ') }}"
 
 
-#     - name: Calculate difference between dates
-#       set_fact:
-#         diff: "{{ (time2 | to_datetime('%Y-%m-%dT%H:%M:%SZ')) - (time1 | to_datetime('%Y-%m-%d %H:%M:%S')) }}"
+     - name: Calculate difference between dates
+       set_fact:
+         diff: "{{ (time2.iso8601 | to_datetime('%Y-%m-%dT%H:%M:%SZ')) - (time1 | to_datetime('%Y-%m-%d %H:%M:%S')) }}"
 
 
      - debug:
          msg: 
-#           - "{{ diff }} {{ diff | type_debug }}"
+           - "{{ diff }} {{ diff | type_debug }}"
            - "{{ time1 }} {{ time1 | type_debug }}"
            - "{{ time2 }} {{ time2 | type_debug }}"
 

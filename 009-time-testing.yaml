@@ -3,11 +3,11 @@
    tasks:
      - name: Create fact for time - fact will be AnsibleUnicode
        ansible.builtin.set_fact:
-         time1: "2024-01-02T12:00:00-04:00"
+         time1: "2024-01-01T12:00:00-04:00"
 
      - name: Create fact for time - fact will be AnsibleUnicode
        ansible.builtin.set_fact:
-         time2: "2024-01-01T12:00:00+05:30"
+         time2: "2024-01-02T12:00:00+05:30"
 
 
 

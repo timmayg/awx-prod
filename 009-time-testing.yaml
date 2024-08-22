@@ -10,10 +10,6 @@
          time2: "2024-01-01T12:00:00+05:30"
 
 
-     - name: Timmay HARD STOP this Playbook
-       ansible.builtin.meta: end_play
-
-
 
      - name: Calculate difference between dates
        set_fact:
@@ -26,5 +22,9 @@
            - "{{ time1 }} {{ time1 | type_debug }}"
            - "{{ time2 }} {{ time2 | type_debug }}"
 
+
+
+     - name: Timmay HARD STOP this Playbook
+       ansible.builtin.meta: end_play
 
 

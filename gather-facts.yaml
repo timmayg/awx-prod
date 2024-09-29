@@ -2,13 +2,13 @@
   hosts: all
   gather_facts: true
   gather_subset:
-    - min
+    #- min
 
 # Gather subset options are:
 #   all, network, hardware, virtual, ohai, facter, and min
 # 
 
   tasks:
-    - name: Display minimal facts
+    - name: Display facts
       debug:
         var: ansible_facts

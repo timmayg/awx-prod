@@ -1,0 +1,11 @@
+---
+- name: Display contents of release-notes.txt
+  hosts: localhost
+  tasks:
+    - name: Read the contents of the release-notes.txt file
+      ansible.builtin.command: cat /runner/release-notes.txt
+      register: release_notes_content
+
+    - name: Display the contents of release-notes.txt
+      ansible.builtin.debug:
+        msg: "{{ release_notes_content.stdout }}"

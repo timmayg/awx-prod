@@ -24,16 +24,16 @@
      ansible.builtin.meta: end_play
 
 
-    - name: 02 - Create DNS TXT record with NameCheap API
-      namecheap_dns_txt:
-        api_user: "{{ namecheap_api_user }}"
-        api_key: "{{ namecheap_api_key }}"
-        client_ip: "{{ namecheap_client_ip }}"
-        domain: "{{ namecheap_domain }}"
-        host: "_acme-challenge"
-        record_type: "TXT"
-        value: "{{ acme_challenge }}"
-        state: present
-      register: dns_txt_record
+   - name: 02 - Create DNS TXT record with NameCheap API
+     namecheap_dns_txt:
+       api_user: "{{ namecheap_api_user }}"
+       api_key: "{{ namecheap_api_key }}"
+       client_ip: "{{ namecheap_client_ip }}"
+       domain: "{{ namecheap_domain }}"
+       host: "_acme-challenge"
+       record_type: "TXT"
+       value: "{{ acme_challenge }}"
+       state: present
+     register: dns_txt_record
 
 

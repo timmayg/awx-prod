@@ -18,8 +18,6 @@
       token: "{{ ansible_password }}"
      register: namecheap_auth
 
-
-
    - name: HARD STOP
      ansible.builtin.meta: end_play
 

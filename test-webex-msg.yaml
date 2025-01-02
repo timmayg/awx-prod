@@ -7,7 +7,7 @@
    vault_url: "https://vault.theglens.net:8200"
    vault_mount: "kv"
 
-- tasks:
+  tasks:
    - name: 01 - Read The Webex API Key from Vault
      community.hashi_vault.vault_kv2_get:
       url: "{{ vault_url }}"

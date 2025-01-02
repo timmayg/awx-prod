@@ -1,5 +1,5 @@
 ---
-- name: Send a Test Message from Webex
+- name: Send a Test Message through Webex
   hosts: localhost
   gather_facts: false
   vars:
@@ -7,11 +7,12 @@
    vault_mount: "kv"
 
   tasks:
-   - name: 01 - Read The Webex API Key from Vault
+
+   - name: 03 - Read The Webex API Auth Info from Vault
      community.hashi_vault.vault_kv2_get:
       url: "{{ vault_url }}"
       engine_mount_point: "{{ vault_mount }}"
-      path: "webex-token"
+      path: "{{ webex-token }}"
       auth_method: token
       token: "{{ ansible_password }}"
      register: webex_auth
@@ -40,4 +41,4 @@
        msg_type: text
        personal_token: "{{ xxxx }}"
        msg: "Cisco Webex Teams Ansible Module - Text Message to Room by Room ID"
- 
+

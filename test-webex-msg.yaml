@@ -1,7 +1,7 @@
 ---
 - name: Send a Test Message from Webex
-#  hosts: localhost
-  gather_facts: false
+  hosts: localhost
+#  gather_facts: false
   vars:
    vault_url: "https://vault.theglens.net:8200"
    vault_mount: "kv"
@@ -11,12 +11,12 @@
      community.hashi_vault.vault_kv2_get:
       url: "{{ vault_url }}"
       engine_mount_point: "{{ vault_mount }}"
-      path: "webex-token"
+      path: "webex_token"
       auth_method: token
       token: "{{ ansible_password }}"
-     register: namecheap_auth
+     register: webex_auth
 
-   - name: Print the NameCheap API Key
+   - name: Print the Webex API Key
      ansible.builtin.debug:
       var: namecheap_auth
 

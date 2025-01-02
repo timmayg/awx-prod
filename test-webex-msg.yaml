@@ -6,8 +6,6 @@
   vars:
    vault_url: "https://vault.theglens.net:8200"
    vault_mount: "kv"
-   person_email: "timmayglen@gmail.com"
-   webex_space_id: "61a0ac00-6ec0-11ee-8592-a1a23a6e2715"
 
   tasks:
 
@@ -22,10 +20,10 @@
 
 
 
-   - name: Cisco Webex Teams - Markdown Message to a Room
+   - name: 02 - Cisco Webex Teams - Markdown Message to a Room
      community.general.cisco_webex:
       recipient_type: roomId
-      recipient_id: "{{ webex_space_id }}"
+      recipient_id: "{{ webex_auth.data.data.space_id }}"
       msg_type: markdown
       personal_token: "{{ webex_auth.data.data.awx_report_bot }}"
       msg: "**Cisco Webex Teams Ansible Module - Room Message in Markdown**"

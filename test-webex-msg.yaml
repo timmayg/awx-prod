@@ -15,7 +15,7 @@
      community.hashi_vault.vault_kv2_get:
       url: "{{ vault_url }}"
       engine_mount_point: "{{ vault_mount }}"
-      path: webex-token
+      path: webex_token
       auth_method: token
       token: "{{ ansible_password }}"
      register: webex_auth
@@ -27,7 +27,7 @@
       recipient_type: roomId
       recipient_id: "{{ webex_space_id }}"
       msg_type: markdown
-      personal_token: "{{ webex_auth.data.data.bot_access_token }}"
+      personal_token: "{{ webex_auth.data.data.awx_report_bot }}"
       msg: "**Cisco Webex Teams Ansible Module - Room Message in Markdown**"
 
 

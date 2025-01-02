@@ -31,7 +31,7 @@
       recipient_type: toPersonEmail
       recipient_id: "{{ person_email }}"
       msg_type: text
-      personal_token: "{{ token }}"
+      personal_token: "{{ webex_auth.data.data.bot-access-token }}"
       msg: "Cisco Webex Teams Ansible Module - Text Message to Individual by E-Mail"
 
 

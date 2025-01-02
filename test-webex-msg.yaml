@@ -6,6 +6,7 @@
   vars:
    vault_url: "https://vault.theglens.net:8200"
    vault_mount: "kv"
+   person_email: "timmayglen@gmail.com"
 
   tasks:
 
@@ -25,14 +26,13 @@
 #
 
 
-   - name: 02 - Cisco Webex Teams - Text Message by an Individuals E-Mail Address
+   - name: Cisco Webex Teams - Text Message by an Individuals E-Mail Address
      community.general.cisco_webex:
-       recipient_type: toPersonEmail
-       recipient_id: timmayglen@gmail.com
-       msg_type: text
-       personal_token: "{{ webex_auth.data.data.bot-access-token }}"
-       msg: "Cisco Webex Teams Ansible Module - Text Message to Individual by E-Mail"
-
+      recipient_type: toPersonEmail
+      recipient_id: "{{ person_email }}"
+      msg_type: text
+      personal_token: "{{ token }}"
+      msg: "Cisco Webex Teams Ansible Module - Text Message to Individual by E-Mail"
 
 
    - name: HARD STOP
@@ -42,9 +42,9 @@
 
    - name: Cisco Webex Teams - Text Message by a Room ID
      community.general.cisco_webex:
-       recipient_type: roomId
-       recipient_id: "{{ room_id }}"
-       msg_type: text
-       personal_token: "{{ xxxx }}"
-       msg: "Cisco Webex Teams Ansible Module - Text Message to Room by Room ID"
+      recipient_type: roomId
+      recipient_id: "{{ room_id }}"
+      msg_type: text
+      personal_token: "{{ xxxx }}"
+      msg: "Cisco Webex Teams Ansible Module - Text Message to Room by Room ID"
 

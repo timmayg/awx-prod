@@ -9,7 +9,7 @@
 
   tasks:
 
-   - name: 03 - Read The Webex API Auth Info from Vault
+   - name: 01 - Read The Webex API Auth Info from Vault
      community.hashi_vault.vault_kv2_get:
       url: "{{ vault_url }}"
       engine_mount_point: "{{ vault_mount }}"
@@ -18,15 +18,17 @@
       token: "{{ ansible_password }}"
      register: webex_auth
 
-   - name: Print the Webex API Key
-     ansible.builtin.debug:
-      var: webex_auth
+#
+#   - name: Print the Webex API Key
+#     ansible.builtin.debug:
+#      var: webex_auth
+#
 
 
-   - name: Cisco Webex Teams - Text Message by an Individuals E-Mail Address
+   - name: 02 - Cisco Webex Teams - Text Message by an Individuals E-Mail Address
      community.general.cisco_webex:
        recipient_type: toPersonEmail
-       recipient_id: "{{ timmayglen@gmail.com }}"
+       recipient_id: timmayglen@gmail.com
        msg_type: text
        personal_token: "{{ webex_auth.data.data.bot-access-token }}"
        msg: "Cisco Webex Teams Ansible Module - Text Message to Individual by E-Mail"

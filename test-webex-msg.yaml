@@ -26,7 +26,9 @@
       recipient_id: "{{ webex_auth.data.data.space_id }}"
       msg_type: markdown
       personal_token: "{{ webex_auth.data.data.awx_report_bot }}"
-      msg: "**Cisco Webex Teams Ansible Module - Room Message in Markdown**"
+      msg: 
+       "**Cisco Webex Teams Ansible Module -
+       Room Message in Markdown**"
 
 
    - name: HARD STOP

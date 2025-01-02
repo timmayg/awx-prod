@@ -7,6 +7,7 @@
    vault_url: "https://vault.theglens.net:8200"
    vault_mount: "kv"
    person_email: "timmayglen@gmail.com"
+   webex_space_id: "61a0ac00-6ec0-11ee-8592-a1a23a6e2715"
 
   tasks:
 
@@ -19,11 +20,20 @@
       token: "{{ ansible_password }}"
      register: webex_auth
 
-#
-#   - name: Print the Webex API Key
-#     ansible.builtin.debug:
-#      var: webex_auth
-#
+
+
+   - name: Cisco Webex Teams - Markdown Message to a Room
+     community.general.cisco_webex:
+      recipient_type: roomId
+      recipient_id: "{{ webex_space_id }}"
+      msg_type: markdown
+      personal_token: "{{ webex_auth.data.data.bot_access_token }}"
+      msg: "**Cisco Webex Teams Ansible Module - Room Message in Markdown**"
+
+
+   - name: HARD STOP
+     ansible.builtin.meta: end_play
+
 
 
    - name: Cisco Webex Teams - Text Message by an Individuals E-Mail Address
@@ -31,12 +41,8 @@
       recipient_type: toPersonEmail
       recipient_id: "{{ person_email }}"
       msg_type: text
-      personal_token: "{{ webex_auth.data.data.bot-access-token }}"
+      personal_token: "{{ webex_auth.data.data.bot_access_token }}"
       msg: "Cisco Webex Teams Ansible Module - Text Message to Individual by E-Mail"
-
-
-   - name: HARD STOP
-     ansible.builtin.meta: end_play
 
 
 

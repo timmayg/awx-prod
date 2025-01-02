@@ -2,7 +2,7 @@
 - name: Send a Test Message through Webex
   hosts: localhost
   gather_facts: false
-  connection: local  
+  connection: local
   vars:
    vault_url: "https://vault.theglens.net:8200"
    vault_mount: "kv"

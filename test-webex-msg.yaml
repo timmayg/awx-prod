@@ -26,7 +26,7 @@
       recipient_id: "{{ webex_auth.data.data.space_id }}"
       msg_type: markdown
       personal_token: "{{ webex_auth.data.data.awx_report_bot }}"
-      msg: "{{ lookup('file', 'release-notes.json') }}"
+      msg: "{{ lookup('file', '/runner/release-notes.json') }}"
 
 
    - name: HARD STOP

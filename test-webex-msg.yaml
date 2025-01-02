@@ -1,5 +1,5 @@
 ---
-- name: Create a DNS TXT record with the DNS-01 Challenge Text
+- name: Send a Test Message from Webex
   hosts: localhost
   gather_facts: false
   vars:
@@ -7,7 +7,7 @@
    vault_mount: "kv"
 
 - tasks:
-   - name: 01 - Read The NameCheap API Key from Vault
+   - name: 01 - Read The Webex API Key from Vault
      community.hashi_vault.vault_kv2_get:
       url: "{{ vault_url }}"
       engine_mount_point: "{{ vault_mount }}"

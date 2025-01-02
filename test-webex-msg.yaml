@@ -1,6 +1,6 @@
 ---
 - name: Send a Test Message from Webex
-  hosts: localhost
+#  hosts: localhost
   gather_facts: false
   vars:
    vault_url: "https://vault.theglens.net:8200"

@@ -22,9 +22,6 @@
      ansible.builtin.debug:
       var: webex_auth
 
-   - name: HARD STOP
-     ansible.builtin.meta: end_play
-
 
    - name: Cisco Webex Teams - Text Message by an Individuals E-Mail Address
      community.general.cisco_webex:
@@ -33,6 +30,12 @@
        msg_type: text
        personal_token: "{{ webex_auth.data.data.bot-access-token }}"
        msg: "Cisco Webex Teams Ansible Module - Text Message to Individual by E-Mail"
+
+
+
+   - name: HARD STOP
+     ansible.builtin.meta: end_play
+
 
 
    - name: Cisco Webex Teams - Text Message by a Room ID

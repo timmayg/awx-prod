@@ -9,12 +9,11 @@
 
   tasks:
 
-   
    - name: 01 - Retrieve Webex API Auth Info from Vault
      community.hashi_vault.vault_kv2_get:
-       engine_mount_point: "kv"   # kv, or whatever your secret engine is
-       path: "webex_token"  # Vault path where the token is stored
-       register: webex_auth
+      engine_mount_point: "kv"   # kv, or whatever your secret engine is
+      path: "webex_token"  # Vault path where the token is stored
+      register: webex_auth
 
    - name: 0X - Cisco Webex Teams - Send Markdown Message to a Room
      community.general.cisco_webex:

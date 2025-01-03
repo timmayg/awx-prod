@@ -9,8 +9,6 @@
 
   tasks:
 
-
-
    - name: 01 - Retrieve Webex API Auth Info from Vault
      community.hashi_vault.vault_kv2_get:
        engine_mount_point: "kv"   # kv, or whatever your secret engine is

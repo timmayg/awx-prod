@@ -17,6 +17,15 @@
        path: "webex_token"  # Vault path where the token is stored
        register: webex_auth
 
+   - name: 0X - Cisco Webex Teams - Send Markdown Message to a Room
+     community.general.cisco_webex:
+      recipient_type: roomId
+      recipient_id: "{{ webex_auth.data.data.space_id }}"
+      msg_type: markdown
+      personal_token: "{{ webex_auth.data.data.awx_report_bot }}"
+      msg: "** This is double asterisk message **"
+
+
    - name: HARD STOP
      ansible.builtin.meta: end_play
 

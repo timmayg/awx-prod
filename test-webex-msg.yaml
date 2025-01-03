@@ -3,11 +3,25 @@
   hosts: localhost
   gather_facts: false
   connection: local
-  vars:
-   vault_url: "https://vault.theglens.net:8200"
-   vault_mount: "kv"
+#  vars:
+#   vault_url: "https://vault.theglens.net:8200"
+#   vault_mount: "kv"
 
   tasks:
+
+
+
+   - name: 01 - Retrieve Webex API Auth Info from Vault
+     community.hashi_vault.vault_kv2_get:
+       engine_mount_point: "kv"   # kv, or whatever your secret engine is
+       path: "webex_token"  # Vault path where the token is stored
+       register: webex_auth
+
+   - name: HARD STOP
+     ansible.builtin.meta: end_play
+
+
+
 
    - name: 01 - Read The Webex API Auth Info from Vault
      community.hashi_vault.vault_kv2_get:
@@ -18,18 +32,27 @@
       token: "{{ ansible_password }}"
      register: webex_auth
 
+   - name: 01 - Read The FMC Auth Data from Vault
+     community.hashi_vault.vault_kv2_get:
+      url: "{{ vault_url }}"
+      engine_mount_point: "{{ vault_mount }}"
+      path: cred_lab_fmc
+      auth_method: token
+      token: "{{ ansible_password }}"
+     register: fmc_auth
 
 
-   - name: 02 - Cisco Webex Teams - Output a file to a Webex Room
-     community.general.cisco_webex:
-      recipient_type: roomId
-      recipient_id: "{{ webex_auth.data.data.space_id }}"
-      msg_type: markdown
-      personal_token: "{{ webex_auth.data.data.awx_report_bot }}"
-      msg: "{{ lookup('file', '/runner/release-notes.json') }}"
 
+   - name: 03 - Get Domain
+     cisco.fmcansible.fmc_configuration:
+       operation: getAllDomain
+       register_as: domains
 
-   - name: 03 - Cisco Webex Teams - Send Markdown Message to a Room
+#    - name: Print
+#      debug:
+#        var: domains
+
+   - name: 0X - Cisco Webex Teams - Send Markdown Message to a Room
      community.general.cisco_webex:
       recipient_type: roomId
       recipient_id: "{{ webex_auth.data.data.space_id }}"
@@ -38,7 +61,33 @@
       msg: "** This is double asterisk message **"
 
 
-   - name: 04 - Cisco Webex Teams - Send Markdown Message to a Room
+
+   - name: HARD STOP
+     ansible.builtin.meta: end_play
+
+
+
+
+
+   - name: 0X - Cisco Webex Teams - Output a file to a Webex Room
+     community.general.cisco_webex:
+      recipient_type: roomId
+      recipient_id: "{{ webex_auth.data.data.space_id }}"
+      msg_type: markdown
+      personal_token: "{{ webex_auth.data.data.awx_report_bot }}"
+      msg: "{{ lookup('file', '/runner/release-notes.json') }}"
+
+
+   - name: 0X - Cisco Webex Teams - Send Markdown Message to a Room
+     community.general.cisco_webex:
+      recipient_type: roomId
+      recipient_id: "{{ webex_auth.data.data.space_id }}"
+      msg_type: markdown
+      personal_token: "{{ webex_auth.data.data.awx_report_bot }}"
+      msg: "** This is double asterisk message **"
+
+
+   - name: 0X - Cisco Webex Teams - Send Markdown Message to a Room
      community.general.cisco_webex:
       recipient_type: roomId
       recipient_id: "{{ webex_auth.data.data.space_id }}"
@@ -69,4 +118,9 @@
       msg_type: text
       personal_token: "{{ xxxx }}"
       msg: "Cisco Webex Teams Ansible Module - Text Message to Room by Room ID"
+
+
+    - name: Fetch Cloudflare API Key from Vault
+      debug:
+        msg: "Cloudflare API Key is {{ lookup('community.hashi_vault.hashi_vault', 'cloudflare_token', 'api_key', vault_token='{{ lookup('awssecretsmanager', 'hashi vault') }}') }}"
 

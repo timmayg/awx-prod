@@ -9,16 +9,11 @@
 
   tasks:
 
-   - name: Set Vault address from AWX Credential
-     ansible.builtin.set_fact:
-       VAULT_ADDR: "{{ lookup('env', 'VAULT_ADDR') }}"
-
    - name: 01 - Retrieve Webex API Auth Info from Vault
      community.hashi_vault.vault_kv2_get:
-      url: "{{ VAULT_ADDR }}"
       engine_mount_point: "kv"
       path: "webex_token"
-      auth_method: token
+      auth_method: "token"
      register: webex_auth
 
    - name: 0X - Cisco Webex Teams - Send Markdown Message to a Room
@@ -38,6 +33,7 @@
 
    - name: 01 - Read The Webex API Auth Info from Vault
      community.hashi_vault.vault_kv2_get:
+      vault_url: "https://vault.theglens.net:8200"
       url: "{{ vault_url }}"
       engine_mount_point: "{{ vault_mount }}"
       path: webex_token

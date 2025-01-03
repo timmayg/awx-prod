@@ -9,8 +9,13 @@
 
   tasks:
 
+   - name: Set Vault address from AWX Credential
+     ansible.builtin.set_fact:
+       VAULT_ADDR: "{{ lookup('env', 'VAULT_ADDR') }}"
+
    - name: 01 - Retrieve Webex API Auth Info from Vault
      community.hashi_vault.vault_kv2_get:
+      url: "{{ VAULT_ADDR }}"
       engine_mount_point: "kv"
       path: "webex_token"
       auth_method: token

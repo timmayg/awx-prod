@@ -50,11 +50,11 @@
      register: fmc_auth
 
 
-
-   - name: 03 - Get Domain
-     cisco.fmcansible.fmc_configuration:
-       operation: getAllDomain
-       register_as: domains
+#
+#   - name: 03 - Get Domain
+#     cisco.fmcansible.fmc_configuration:
+#       operation: getAllDomain
+#       register_as: domains
 
 #    - name: Print
 #      debug:

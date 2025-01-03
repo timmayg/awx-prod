@@ -127,8 +127,8 @@
       personal_token: "{{ xxxx }}"
       msg: "Cisco Webex Teams Ansible Module - Text Message to Room by Room ID"
 
-
-    - name: Fetch Cloudflare API Key from Vault
-      debug:
-        msg: "Cloudflare API Key is {{ lookup('community.hashi_vault.hashi_vault', 'cloudflare_token', 'api_key', vault_token='{{ lookup('awssecretsmanager', 'hashi vault') }}') }}"
-
+#
+#    - name: Fetch Cloudflare API Key from Vault
+#      debug:
+#        msg: "Cloudflare API Key is {{ lookup('community.hashi_vault.hashi_vault', 'cloudflare_token', 'api_key', vault_token='{{ lookup('awssecretsmanager', 'hashi vault') }}') }}"
+#

@@ -8,13 +8,21 @@
 #   vault_mount: "kv"
 
   tasks:
-
    - name: 01 - Retrieve Webex API Auth Info from Vault
      community.hashi_vault.vault_kv2_get:
       engine_mount_point: "kv"
       path: "webex_token"
-      auth_method: "token"
      register: webex_auth
+
+   - name: 03 - Read The Let's Encrypt Private Key from Vault
+     community.hashi_vault.vault_kv2_get:
+      url: "{{ vault_url }}"
+      engine_mount_point: "{{ vault_mount }}"
+      path: "{{ key_name }}"
+      auth_method: token
+      token: "{{ ansible_password }}"
+     register: le_private_key
+
 
    - name: 0X - Cisco Webex Teams - Send Markdown Message to a Room
      community.general.cisco_webex:
@@ -23,7 +31,6 @@
       msg_type: markdown
       personal_token: "{{ webex_auth.data.data.awx_report_bot }}"
       msg: "** This is double asterisk message **"
-
 
    - name: HARD STOP
      ansible.builtin.meta: end_play

@@ -1,6 +1,7 @@
 ---
 - name: Run Python Script
   hosts: localhost
+  connection: local
   tasks:
     - name: Execute Python script
       command: python3 hello-from-awx.py

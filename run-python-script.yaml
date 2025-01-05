@@ -1,0 +1,11 @@
+---
+- name: Run Python Script
+  hosts: localhost
+  tasks:
+    - name: Execute Python script
+      command: python3 hello-from-awx.py
+      register: result
+
+    - name: Display script output
+      debug:
+        var: result.stdout

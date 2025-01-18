@@ -1,30 +1,20 @@
 ---
-- name: Send a Test Message through Webex
+- name: 1 - Send a Test Message through Webex
   hosts: localhost
   gather_facts: false
   connection: local
-#  vars:
-#   vault_url: "https://vault.theglens.net:8200"
-#   vault_mount: "kv"
+  vars:
+   vault_url: "https://vault.theglens.net:8200"
+   vault_mount: "kv"
 
   tasks:
    - name: 01 - Retrieve Webex API Auth Info from Vault
      community.hashi_vault.vault_kv2_get:
-      engine_mount_point: "kv"
+      engine_mount_point: {{ vault_mount }}
       path: "webex_token"
      register: webex_auth
 
-   - name: 03 - Read The Let's Encrypt Private Key from Vault
-     community.hashi_vault.vault_kv2_get:
-      url: "{{ vault_url }}"
-      engine_mount_point: "{{ vault_mount }}"
-      path: "{{ key_name }}"
-      auth_method: token
-      token: "{{ ansible_password }}"
-     register: le_private_key
-
-
-   - name: 0X - Cisco Webex Teams - Send Markdown Message to a Room
+   - name: 02 - Cisco Webex Teams - Send Markdown Message to a Room
      community.general.cisco_webex:
       recipient_type: roomId
       recipient_id: "{{ webex_auth.data.data.space_id }}"
@@ -32,21 +22,10 @@
       personal_token: "{{ webex_auth.data.data.awx_report_bot }}"
       msg: "** This is double asterisk message **"
 
+
+
    - name: HARD STOP
      ansible.builtin.meta: end_play
-
-
-
-
-   - name: 01 - Read The Webex API Auth Info from Vault
-     community.hashi_vault.vault_kv2_get:
-      vault_url: "https://vault.theglens.net:8200"
-      url: "{{ vault_url }}"
-      engine_mount_point: "{{ vault_mount }}"
-      path: webex_token
-      auth_method: token
-      token: "{{ ansible_password }}"
-     register: webex_auth
 
    - name: 01 - Read The FMC Auth Data from Vault
      community.hashi_vault.vault_kv2_get:
@@ -76,10 +55,6 @@
       personal_token: "{{ webex_auth.data.data.awx_report_bot }}"
       msg: "** This is double asterisk message **"
 
-
-
-   - name: HARD STOP
-     ansible.builtin.meta: end_play
 
 
 

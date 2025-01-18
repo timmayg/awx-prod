@@ -15,14 +15,13 @@
       path: "webex_token"
      register: webex_auth
 
-   - name: 02 - Cisco Webex Teams - Send Markdown Message to a Room
+   - name: 02 - Cisco Webex Teams - Send ISO8601 Date Time Message
      community.general.cisco_webex:
       recipient_type: roomId
       recipient_id: "{{ webex_auth.data.data.space_id }}"
       msg_type: markdown
       personal_token: "{{ webex_auth.data.data.awx_report_bot }}"
-      #msg: "** This is double asterisk message **"
-      msg: {{ ansible_facts.date_time.iso8601 }}
+      msg: "{{ ansible_facts.date_time.iso8601 }}"
 
    - name: HARD STOP
      ansible.builtin.meta: end_play

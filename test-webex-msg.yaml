@@ -23,7 +23,15 @@
       recipient_id: "{{ webex_auth.data.data.space_id }}"
       msg_type: markdown
       personal_token: "{{ webex_auth.data.data.awx_report_bot }}"
-      msg: "*This is italic text*<br>"
+      msg: "Current Time is {{ ansible_facts.date_time.time }}"
+
+   - name: XX - Cisco Webex Teams - Output a file to a Webex Room
+     community.general.cisco_webex:
+      recipient_type: roomId
+      recipient_id: "{{ webex_auth.data.data.space_id }}"
+      msg_type: markdown
+      personal_token: "{{ webex_auth.data.data.awx_report_bot }}"
+      msg: "{{ lookup('file', '/runner/release-notes.json') }}"
 
 
    - name: HARD STOP
@@ -32,10 +40,11 @@
 
 #
 #  Tasks below here are for testing purposes only
-#  Tasks below here are known to work 
+#  Tasks below here are known to work
 #
 #  Here is some markdown guide
 #  https://www.markdownguide.org/basic-syntax/
+#
 
    - name: XX - Cisco Webex Teams - Send ISO8601 Date Time Message
      community.general.cisco_webex:

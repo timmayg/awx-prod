@@ -23,7 +23,7 @@
       recipient_id: "{{ webex_auth.data.data.space_id }}"
       msg_type: markdown
       personal_token: "{{ webex_auth.data.data.awx_report_bot }}"
-      msg: "This is  *italic*  text<br>"
+      msg: "*This is italic text*<br>"
 
 
    - name: HARD STOP
@@ -86,4 +86,12 @@
       msg: "This is the first line of text<br>
             This is the second line of text<br>
             This is the third line of text"
+
+   - name: XX - Cisco Webex Teams - Send Markdown Message to a Room
+     community.general.cisco_webex:
+      recipient_type: roomId
+      recipient_id: "{{ webex_auth.data.data.space_id }}"
+      msg_type: markdown
+      personal_token: "{{ webex_auth.data.data.awx_report_bot }}"
+      msg: "This is  *italic*  text<br>"
 

@@ -1,5 +1,5 @@
 ---
-- name: 1 - Send a Test Message through Webex
+- name: Send a Test Message through Webex
   hosts: localhost
   gather_facts: true
   connection: local
@@ -17,32 +17,7 @@
       token: "{{ ansible_password }}"
      register: webex_auth
 
-
-   - name: 02a - Cisco Webex Teams - Send ISO8601 Date Time Message
-     community.general.cisco_webex:
-      recipient_type: roomId
-      recipient_id: "{{ webex_auth.data.data.space_id }}"
-      msg_type: markdown
-      personal_token: "{{ webex_auth.data.data.awx_report_bot }}"
-      msg: "{{ ansible_facts.date_time.iso8601 }}"
-
-   - name: 02b - Cisco Webex Teams - Send ISO8601 Date Time Message
-     community.general.cisco_webex:
-      recipient_type: roomId
-      recipient_id: "{{ webex_auth.data.data.space_id }}"
-      msg_type: markdown
-      personal_token: "{{ webex_auth.data.data.awx_report_bot }}"
-      msg: "{{ ansible_facts.date_time.iso8601 }}"
-
-   - name: 02c - Cisco Webex Teams - Send ISO8601 Date Time Message
-     community.general.cisco_webex:
-      recipient_type: roomId
-      recipient_id: "{{ webex_auth.data.data.space_id }}"
-      msg_type: markdown
-      personal_token: "{{ webex_auth.data.data.awx_report_bot }}"
-      msg: "{{ ansible_facts.date_time.iso8601 }}"
-
-   - name: 02d - Cisco Webex Teams - Send ISO8601 Date Time Message
+   - name: 02 - Cisco Webex Teams - Send ISO8601 Date Time Message
      community.general.cisco_webex:
       recipient_type: roomId
       recipient_id: "{{ webex_auth.data.data.space_id }}"

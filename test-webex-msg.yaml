@@ -15,6 +15,11 @@
       path: "webex_token"
      register: webex_auth
 
+   - name: HARD STOP
+     ansible.builtin.meta: end_play
+
+
+
    - name: 02 - Cisco Webex Teams - Send ISO8601 Date Time Message
      community.general.cisco_webex:
       recipient_type: roomId
@@ -22,8 +27,3 @@
       msg_type: markdown
       personal_token: "{{ webex_auth.data.data.awx_report_bot }}"
       msg: "{{ ansible_facts.date_time.iso8601 }}"
-
-   - name: HARD STOP
-     ansible.builtin.meta: end_play
-
-

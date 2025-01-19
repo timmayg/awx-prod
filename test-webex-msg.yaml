@@ -14,8 +14,9 @@
       engine_mount_point: "{{ vault_mount }}"
       path: "webex_token"
       auth_method: token
-      token: "{{ ansible_password }}"      
+      token: "{{ ansible_password }}"
      register: webex_auth
+
 
    - name: 02 - Cisco Webex Teams - Send ISO8601 Date Time Message
      community.general.cisco_webex:

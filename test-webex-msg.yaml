@@ -17,7 +17,26 @@
       token: "{{ ansible_password }}"
      register: webex_auth
 
-   - name: 02 - Cisco Webex Teams - Send ISO8601 Date Time Message
+   - name: 0X - Cisco Webex Teams - Send Markdown Message to a Room
+     community.general.cisco_webex:
+      recipient_type: roomId
+      recipient_id: "{{ webex_auth.data.data.space_id }}"
+      msg_type: markdown
+      personal_token: "{{ webex_auth.data.data.awx_report_bot }}"
+      msg: "** This is double asterisk message **"
+
+
+
+   - name: HARD STOP
+     ansible.builtin.meta: end_play
+
+
+#
+#  Tasks below here are for testing purposes only
+#  Tasks below here are known to work 
+#
+
+   - name: xx - Cisco Webex Teams - Send ISO8601 Date Time Message
      community.general.cisco_webex:
       recipient_type: roomId
       recipient_id: "{{ webex_auth.data.data.space_id }}"
@@ -25,6 +44,5 @@
       personal_token: "{{ webex_auth.data.data.awx_report_bot }}"
       msg: "{{ ansible_facts.date_time.iso8601 }}"
 
-   - name: HARD STOP
-     ansible.builtin.meta: end_play
+
 

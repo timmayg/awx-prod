@@ -23,7 +23,7 @@
       recipient_id: "{{ webex_auth.data.data.space_id }}"
       msg_type: markdown
       personal_token: "{{ webex_auth.data.data.awx_report_bot }}"
-      msg: "# This is a Heading 1 - VERY Large"
+      msg: "# This is a Heading 1 - Extra Large"
 
    - name: XX - Cisco Webex Teams - Send Markdown Message to a Room
      community.general.cisco_webex:
@@ -31,8 +31,15 @@
       recipient_id: "{{ webex_auth.data.data.space_id }}"
       msg_type: markdown
       personal_token: "{{ webex_auth.data.data.awx_report_bot }}"
-      msg: "## This is a Heading 2 - Large Large"
+      msg: "## This is a Heading 2 - Very Large"
 
+   - name: XX - Cisco Webex Teams - Send Markdown Message to a Room
+     community.general.cisco_webex:
+      recipient_type: roomId
+      recipient_id: "{{ webex_auth.data.data.space_id }}"
+      msg_type: markdown
+      personal_token: "{{ webex_auth.data.data.awx_report_bot }}"
+      msg: "### This is a Heading 3 - Large"
 
    - name: HARD STOP
      ansible.builtin.meta: end_play

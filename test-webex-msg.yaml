@@ -25,13 +25,7 @@
       personal_token: "{{ webex_auth.data.data.awx_report_bot }}"
       msg: "Current Time is {{ ansible_facts.date_time.time }}"
 
-   - name: XX - Cisco Webex Teams - Output a file to a Webex Room
-     community.general.cisco_webex:
-      recipient_type: roomId
-      recipient_id: "{{ webex_auth.data.data.space_id }}"
-      msg_type: markdown
-      personal_token: "{{ webex_auth.data.data.awx_report_bot }}"
-      msg: "{{ lookup('file', '/runner/release-notes.json') }}"
+
 
 
    - name: HARD STOP
@@ -53,6 +47,14 @@
       msg_type: markdown
       personal_token: "{{ webex_auth.data.data.awx_report_bot }}"
       msg: "{{ ansible_facts.date_time.iso8601 }}"
+
+   - name: XX - Cisco Webex Teams - Output a file to a Webex Room
+     community.general.cisco_webex:
+      recipient_type: roomId
+      recipient_id: "{{ webex_auth.data.data.space_id }}"
+      msg_type: markdown
+      personal_token: "{{ webex_auth.data.data.awx_report_bot }}"
+      msg: "{{ lookup('file', '/runner/release-notes.json') }}"
 
    - name: XX - Cisco Webex Teams - Send Markdown Message to a Room
      community.general.cisco_webex:

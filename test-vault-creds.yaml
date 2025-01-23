@@ -14,7 +14,8 @@
       engine_mount_point: "{{ vault_mount }}"
       path: "webex_token"
       auth_method: token
-      token: "{{ ansible_password }}"
+#      token: "{{ ansible_password }}"
+      token: "{{ vault_token }}"
      register: webex_auth
 
    - name: XX - Cisco Webex Teams - Send Markdown Message to a Room

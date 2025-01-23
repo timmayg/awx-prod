@@ -8,7 +8,7 @@
    vault_mount: "kv"
 
   tasks:
-   - name: 01 - Retrieve Webex API Auth Info from Vault
+   - name: 01 - Retrieve Webex API Auth Info from Vault - New Cred
      community.hashi_vault.vault_kv2_get:
       url: "{{ vault_url }}"
       engine_mount_point: "{{ vault_mount }}"

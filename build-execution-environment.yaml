@@ -1,0 +1,58 @@
+---
+- name: Automate Ansible Execution Environment Build
+  hosts: localhost
+  tasks:
+    - name: Ensure ansible-builder is installed
+      ansible.builtin.command:
+        cmd: pip3 show ansible-builder
+      register: ansible_builder_check
+      failed_when: ansible_builder_check.rc != 0
+      changed_when: false
+      ignore_errors: true
+
+    - name: Install ansible-builder if not present
+      ansible.builtin.command:
+        cmd: pip3 install ansible-builder
+      when: ansible_builder_check.rc != 0
+
+    - name: Create or update build directory
+      ansible.builtin.file:
+        path: /runner/timmay-prod
+        state: directory
+
+    - name: Git Pull the repository
+      ansible.builtin.git:
+        repo: "https://github.com/timmayg/timmay-prod"
+
+    - name: Create execution-environment.yml (definition file)
+      ansible.builtin.copy:
+        dest: /runner/timmay-prod/execution-environment.yml
+        content: |
+          version: 1
+          dependencies:
+            python: requirements.txt
+            system: bindep.txt
+            galaxy: requirements.yml
+
+    - name: Run ansible-builder build command
+      ansible.builtin.shell:
+        cmd: |
+          ansible-builder build \
+          --container-runtime docker \
+          --tag my-execution-environment:latest \
+          --context /runner/timmay-prod/build-context
+        chdir: /runner/timmay-prod/build-context
+      register: build_output
+
+    - name: Display build output
+      ansible.builtin.debug:
+        var: build_output.stdout
+
+    - name: Verify the container was built successfully
+      ansible.builtin.command:
+        cmd: docker images my-execution-environment:latest
+      register: image_check
+
+    - name: Display the built image information
+      ansible.builtin.debug:
+        var: image_check.stdout_lines

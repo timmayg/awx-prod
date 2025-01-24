@@ -50,7 +50,7 @@
 
     - name: Verify the container was built successfully
       ansible.builtin.command:
-        cmd: docker images my-execution-environment:latest
+        cmd: podman images my-execution-environment:latest
       register: image_check
 
     - name: Display the built image information

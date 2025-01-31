@@ -4,10 +4,18 @@
   gather_facts: no
   connection: network_cli
 
+#
+#  This could be really cool. 
+#  I just need to spend some time playing with it. 
+
+
   tasks:
     - name: Backup Running Configuration
       cisco.ios.ios_config:
-        backup: yes
+        backup: true
+        backup_options:
+          filename: iosx.cfg
+          dir_path: 
       register: config_backup
 
     - name: Display Backup File Path

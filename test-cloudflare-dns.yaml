@@ -21,9 +21,17 @@
    - name: Create a record using api token
      community.general.cloudflare_dns:
        zone: theglens.net
+       type: A
+       record: test
+       state: absent
+       api_token: "{{ cloudflare_token.data.data.api_key }}"
+
+   - name: Create a record using api token
+     community.general.cloudflare_dns:
+       zone: theglens.net
        record: test
        type: A
-       value: 50.50.50.50
+       value: 51.51.51.51
        api_token: "{{ cloudflare_token.data.data.api_key }}"
 
 

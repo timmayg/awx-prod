@@ -18,13 +18,13 @@
        token: "{{ ansible_password }}"
      register: cloudflare_token
 
-   - name: Delete a record using api token
-     community.general.cloudflare_dns:
-       zone: theglens.net
-       type: A
-       record: test
-       state: absent
-       api_token: "{{ cloudflare_token.data.data.api_key }}"
+#   - name: Delete a record using api token
+#     community.general.cloudflare_dns:
+#       zone: theglens.net
+#       type: A
+#       record: test
+#       state: absent
+#       api_token: "{{ cloudflare_token.data.data.api_key }}"
 
    - name: Create a record using api token
      community.general.cloudflare_dns:

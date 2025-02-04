@@ -1,0 +1,31 @@
+---
+- name: This Playbook will get a Cloudflare A Record
+  hosts: localhost
+  gather_facts: false
+  vars:
+   vault_url: "https://vault.theglens.net:8200"
+   vault_mount: "kv"
+   vault_secret: "homenet_inet_ip"
+
+  tasks:
+
+   - name: 04 - Read Cloudflare API Token from Vault
+     community.hashi_vault.vault_kv2_get:
+       url: "{{ vault_url }}"
+       engine_mount_point: "{{ vault_mount }}"
+       path: cloudflare_token
+       auth_method: token
+       token: "{{ ansible_password }}"
+     register: cloudflare_token
+
+   - name: Create a record using api token
+     community.general.cloudflare_dns:
+       zone: theglens.net
+       record: test
+       type: A
+       value: 50.50.50.50
+       api_token: "{{ cloudflare_token.data.data.api_key }}"
+
+
+
+

@@ -2,12 +2,9 @@
 - name: Tasks in this Playbook are for testing purposes only
   hosts: localhost
   gather_facts: false
-  vars:
-   vault_url: "https://vault.theglens.net:8200"
-   vault_mount: "kv"
-   vault_secret: "homenet_inet_ip"
 
   tasks:
+
    - name: 01- Get the public IP address
      ansible.builtin.uri:
        url: https://api.ipify.org?format=json
@@ -25,12 +22,14 @@
 
    - name: 02 - Read The Homenet Inet IP from Vault
      community.hashi_vault.vault_kv2_get:
+       path: "homenet_inet_ip"
        url: "{{ vault_url }}"
+       auth_method: "{{ vault_auth_method  }}"
+       token: "{{ vault_token }}"
        engine_mount_point: "{{ vault_mount }}"
-       path: "{{ vault_secret }}"
-       auth_method: token
-       token: "{{ ansible_password }}"
      register: vault_homenet_inet_ip
+
+
 
 #   - name: 01 - Set the IP address as a fact
 #     ansible.builtin.set_fact:
@@ -62,11 +61,11 @@
 
    - name: 04 - Read Cloudflare API Token from Vault
      community.hashi_vault.vault_kv2_get:
+       path: "cloudflare_token"
        url: "{{ vault_url }}"
+       auth_method: "{{ vault_auth_method  }}"
+       token: "{{ vault_token }}"
        engine_mount_point: "{{ vault_mount }}"
-       path: cloudflare_token
-       auth_method: token
-       token: "{{ ansible_password }}"
      register: cloudflare_token
 
 
@@ -107,6 +106,10 @@
 
    - name: 07 - Create a new Path and two new key-value pairs in the KV2 engine
      community.hashi_vault.vault_kv2_write:
+
+
+
+
        url: "https://vault.theglens.net:8200"
        path: "{{ vault_secret }}"
        auth_method: token

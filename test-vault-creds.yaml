@@ -7,7 +7,7 @@
   tasks:
    - name: 01 - Retrieve Webex API Auth Info from Vault - New Cred
      community.hashi_vault.vault_kv2_get:
-       path: "{{ key_name }}"
+       path: "{{ webex_token }}"
        url: "{{ vault_url }}"
        auth_method: "{{ vault_auth_method  }}"
        token: "{{ vault_token }}"

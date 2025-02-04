@@ -20,7 +20,8 @@
 
    - name: Delete a record using api token
      community.general.cloudflare_dns:
-       zone: theglens.net
+#       zone: theglens.net
+       zone: c86f9eea9929c4a2fe0a6c7a9836e33b
        record: test
        state: absent
        api_token: "{{ cloudflare_token.data.data.api_key }}"

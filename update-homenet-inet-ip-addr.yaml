@@ -81,7 +81,7 @@
        record: ssl-vpn
        type: A
        state: absent   # present (default), absent
-       zone: "theglens.net"
+       zone: theglens.net
      register: response
 
 # This is the beginning of the new method of accessing tokens n stuff

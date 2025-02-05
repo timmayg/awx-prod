@@ -31,7 +31,7 @@
       cisco.ios.ios_command:
         commands:
           - command: "write erase"
-            prompt: "[confirm]"
+            prompt: "confirm"
             answer: "y"
 
 # This worked

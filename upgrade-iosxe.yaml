@@ -38,6 +38,7 @@
           - command: "reload"
             prompt: "Save\\? \\[yes/no\\]:"
             answer: "no"
-          - command: ""
+          - command: "\r"
             prompt: "Proceed with reload\\? \\[confirm\\]"
             answer: "\r"
+

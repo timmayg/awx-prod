@@ -41,6 +41,6 @@
           - command: ""
             prompt: "Proceed with reload\\? \\[confirm\\]"
             answer: "\n"
-      timeout: 5
+            
 
 

@@ -39,7 +39,7 @@
             answer: "y"
 
 # This worked
-#    - name: Reload the XE device
+    - name: Reload the XE device
       cisco.ios.ios_command:
         commands:
           - command: "reload"

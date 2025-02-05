@@ -41,4 +41,7 @@
           - command: "\r"
             prompt: "Proceed with reload\\? \\[confirm\\]"
             answer: "\r"
-
+        timeout: 120
+        retries: 3
+        interval: 10
+        match: none

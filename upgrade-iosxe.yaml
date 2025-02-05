@@ -1,7 +1,7 @@
 ---
-- name: Upgrade Cisco Catalyst 9300 IOS XE
+- name: Upgrade or Downgrade IOS XE versions in Bundle Mode
   hosts: iosxe
-  gather_facts: no
+  gather_facts: false
   connection: network_cli
 
   tasks:
@@ -41,6 +41,6 @@
           - command: ""
             prompt: "Proceed with reload\\? \\[confirm\\]"
             answer: "\n"
-            
+      ignore_errors: true
 
 

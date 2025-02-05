@@ -1,0 +1,50 @@
+---
+- name: Upgrade Cisco Catalyst 9300 IOS XE
+  hosts: cisco_switch
+  gather_facts: no
+  connection: network_cli
+
+  tasks:
+    - name: Remove existing boot system configuration
+      cisco.ios.ios_config:
+        lines:
+          - no boot system
+
+    - name: Set new boot system image
+      cisco.ios.ios_config:
+        lines:
+          - "boot system {{ boot_image_path }}"
+
+    - name: Exit config mode
+      cisco.ios.ios_command:
+        commands:
+          - end
+
+    - name: Save the running configuration
+      cisco.ios.ios_command:
+        commands:
+          - write memory
+
+    - name: Erase startup configuration
+      cisco.ios.ios_command:
+        commands:
+          - write erase
+      register: erase_output
+
+    - name: Confirm erase operation
+      cisco.ios.ios_command:
+        commands:
+          - y
+      when: "'[confirm]' in erase_output.stdout"
+
+    - name: Reload the switch
+      cisco.ios.ios_command:
+        commands:
+          - reload
+      register: reload_output
+
+    - name: Confirm reload operation
+      cisco.ios.ios_command:
+        commands:
+          - y
+      when: "'[confirm]' in reload_output.stdout"

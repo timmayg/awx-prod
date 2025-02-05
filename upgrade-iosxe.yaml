@@ -38,10 +38,9 @@
           - command: "reload"
             prompt: "Save\\? \\[yes/no\\]:"
             answer: "no"
-          - command: "\r"
+          - command: ""
             prompt: "Proceed with reload\\? \\[confirm\\]"
-            answer: "\r"
-        timeout: 120
-        retries: 3
-        interval: 10
-        match: none
+            answer: "\n"
+      timeout: 5
+
+

@@ -47,12 +47,7 @@
       cisco.ios.ios_command:
         commands:
           - command: "write erase"
-          - prompt: '
-                    ************************************************************************************************************
-                    Erasing Nvram will not clear license trust code.
-                    ************************************************************************************************************
-                    Erasing the nvram filesystem will remove all configuration files! Continue? \[confirm]\
-                     '
+          - prompt: "[confirm]"
           - answer: "y"
 
     - name: Reload the switch

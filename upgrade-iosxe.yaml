@@ -1,6 +1,6 @@
 ---
 - name: Upgrade Cisco Catalyst 9300 IOS XE
-  hosts: cisco_switch
+  hosts: iosxe
   gather_facts: no
   connection: network_cli
 

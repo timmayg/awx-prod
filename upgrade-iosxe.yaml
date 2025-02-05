@@ -32,17 +32,12 @@
             answer: "y"
 
 
-    - name: Reload the IOS XE Device
+    - name: Reload the Catalyst 9300 switch
       cisco.ios.ios_command:
         commands:
           - command: "reload"
-          - command: "no"
-          - command: "y"
-
-
-
-#            prompt: "System configuration has been modified. Save? \\[yes/no\\]:"
-#            answer: "no"
-#          - command: ""
-#            prompt: "Proceed with reload? \\[confirm\\]"
-#            answer: "y"
+            prompt: "Save\\? \\[yes/no\\]:"
+            answer: "no"
+          - command: ""
+            prompt: "Proceed with reload\\? \\[confirm\\]"
+            answer: "\r"

@@ -43,12 +43,17 @@
 #            answer: "\r"
 
 
-    - name: Confirm erase operation
+    - name: 04 - Do a write erase
       cisco.ios.ios_command:
         commands:
-          - command: write erase
-          - prompt: [confirm]
-          - answer: y
+          - command: "write erase"
+          - prompt: '
+                    ************************************************************************************************************
+                    Erasing Nvram will not clear license trust code.
+                    ************************************************************************************************************
+                    Erasing the nvram filesystem will remove all configuration files! Continue? \[confirm]\
+                     '
+          - answer: "y"
 
     - name: Reload the switch
       cisco.ios.ios_command:
@@ -61,4 +66,3 @@
         commands:
           - y
       when: "'[confirm]' in reload_output.stdout"
-      

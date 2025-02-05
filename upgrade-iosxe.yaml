@@ -18,13 +18,18 @@
           - "boot system {{ boot_image_path }}"
 
 
-    - name: 03 - Save the running configuration
+    - name: 03 - Ignore Any Startup Config
+      cisco.ios.ios_command:
+        commands:
+          - system ignore startupconfig switch all
+
+    - name: 04 - Save the running configuration
       cisco.ios.ios_command:
         commands:
           - write memory
 
 
-    - name: 04 - Write erase the config so the switch comes up clean & ZTP
+    - name: 05 - Write erase the config so the switch comes up clean & ZTP
       cisco.ios.ios_command:
         commands:
           - command: "write erase"
@@ -35,10 +40,7 @@
     - name: Reload the Catalyst 9300 switch
       cisco.ios.ios_command:
         commands:
-          - command: "reload\n"
-            prompt: "Save\\? \\[yes/no\\]:"
-            answer: "no"
-          - command: ""
+          - command: "reload"
             prompt: "Proceed with reload\\? \\[confirm\\]"
             answer: "\n"
 

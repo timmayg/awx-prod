@@ -3,6 +3,8 @@
   hosts: iosxe
   gather_facts: false
   connection: network_cli
+#  vars:
+#    boot_image_path: "cat9k_iosxe.17.09.04.SPA.bin"
 
   tasks:
 
@@ -18,20 +20,14 @@
           - "boot system {{ boot_image_path }}"
         # - "boot system flash:cat9k_iosxe.16.12.04.SPA.bin"
 
-# This needs more testing,  may force a switch to not look for ZTP
-#    - name: 03 - Ignore Any Startup Config
-#      cisco.ios.ios_config:
-#        commands:
-#          - system ignore startupconfig switch all
 
-
-    - name: 04 - Save the running configuration
+    - name: 03 - Save the running configuration
       cisco.ios.ios_command:
         commands:
           - write memory
 
 
-    - name: 05 - Write erase the config so the switch comes up clean & ZTP
+    - name: 04 - Write erase the config so the switch comes up clean & ZTP
       cisco.ios.ios_command:
         commands:
           - command: "write erase"
@@ -46,7 +42,7 @@
 #            prompt: "Proceed with reload\\? \\[confirm\\]"
 #            answer: "\n"
 
-    - name: Reload the XE device
+    - name: 05 - Reload the XE device
       cisco.ios.ios_command:
         commands:
           - command: "reload"
@@ -56,5 +52,3 @@
             answer:
               - "y"
               - "y"
-
-

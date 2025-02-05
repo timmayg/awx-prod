@@ -35,12 +35,12 @@
     - name: Reload the Catalyst 9300 switch
       cisco.ios.ios_command:
         commands:
-          - command: "reload"
+          - command: "reload\n"
             prompt: "Save\\? \\[yes/no\\]:"
             answer: "no"
           - command: ""
             prompt: "Proceed with reload\\? \\[confirm\\]"
             answer: "\n"
-      ignore_errors: true
+
 
 

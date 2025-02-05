@@ -5,20 +5,18 @@
   connection: network_cli
 
   tasks:
+
     - name: 01 - Remove existing boot system configuration
       cisco.ios.ios_config:
         lines:
           - no boot system
+
 
     - name: 02 - Set new boot system image
       cisco.ios.ios_config:
         lines:
           - "boot system {{ boot_image_path }}"
 
-#    - name: Exit config mode
-#      cisco.ios.ios_command:
-#        commands:
-#          - end
 
     - name: 03 - Save the running configuration
       cisco.ios.ios_command:
@@ -26,23 +24,20 @@
           - write memory
 
 
-
-
-    - name: 04 - Do a write erase
+    - name: 04 - Write erase the config so the switch comes up clean & ZTP
       cisco.ios.ios_command:
         commands:
           - command: "write erase"
             prompt: "[confirm]"
             answer: "y"
 
-    - name: Reload the switch
-      cisco.ios.ios_command:
-        commands:
-          - reload
-      register: reload_output
 
-    - name: Confirm reload operation
+    - name: Reload the IOS XE Device
       cisco.ios.ios_command:
         commands:
-          - y
-      when: "'[confirm]' in reload_output.stdout"
+          - command: "reload"
+            prompt: "System configuration has been modified. Save? \\[yes/no\\]:"
+            answer: "no"
+          - command: ""
+            prompt: "Proceed with reload? \\[confirm\\]"
+            answer: "\r"

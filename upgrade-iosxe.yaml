@@ -36,8 +36,13 @@
       cisco.ios.ios_command:
         commands:
           - command: "reload"
-            prompt: "System configuration has been modified. Save? \\[yes/no\\]:"
-            answer: "no"
-          - command: ""
-            prompt: "Proceed with reload? \\[confirm\\]"
-            answer: "\r"
+          - command: "no"
+          - command: "y"
+
+
+
+#            prompt: "System configuration has been modified. Save? \\[yes/no\\]:"
+#            answer: "no"
+#          - command: ""
+#            prompt: "Proceed with reload? \\[confirm\\]"
+#            answer: "y"

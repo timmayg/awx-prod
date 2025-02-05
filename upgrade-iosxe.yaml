@@ -19,7 +19,7 @@
 
 
     - name: 03 - Ignore Any Startup Config
-      cisco.ios.ios_command:
+      cisco.ios.ios_config:
         commands:
           - system ignore startupconfig switch all
 

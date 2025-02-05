@@ -19,8 +19,8 @@
         commands:
           - command: "reload"
             prompt:
-              - "Save?"
+#              - "Save?"
               - "confirm"
             answer:
-              - "y"
+#              - "y"
               - "y"

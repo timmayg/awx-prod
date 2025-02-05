@@ -39,12 +39,12 @@
             answer: "y"
 
 # This worked
-    - name: Reload the XE device
-      cisco.ios.ios_command:
-        commands:
-          - command: "reload"
-            prompt: "Proceed with reload\\? \\[confirm\\]"
-            answer: "\n"
+#    - name: Reload the XE device
+#      cisco.ios.ios_command:
+#        commands:
+#          - command: "reload"
+#            prompt: "Proceed with reload\\? \\[confirm\\]"
+#            answer: "\n"
 
     - name: Reload the XE device
       cisco.ios.ios_command:

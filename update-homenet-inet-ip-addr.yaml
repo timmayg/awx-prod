@@ -75,14 +75,17 @@
 #      var: cloudflare_token.data.data.api_key
 
 
-   - name: 05 - Delete A record with Old IP address
-     community.general.cloudflare_dns:
-       api_token: "{{ cloudflare_token.data.data.api_key }}"
-       record: ssl-vpn
-       type: A
-       state: absent   # present (default), absent
-       zone: theglens.net
-     register: response
+#
+#  I swear, Cloudflare changed something... more likely I changed a cred in 
+#   AWX and broke the key or something... but deleting records from CF is now broken
+#   - name: 05 - Delete A record with Old IP address
+#     community.general.cloudflare_dns:
+#       api_token: "{{ cloudflare_token.data.data.api_key }}"
+#       record: ssl-vpn
+#       type: A
+#       state: absent   # present (default), absent
+#       zone: theglens.net
+#     register: response
 
 
 #   - name: Print using a var

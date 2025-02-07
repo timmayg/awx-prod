@@ -6,6 +6,13 @@
 #  vars:
 #    boot_image_path: "cat9k_iosxe.17.09.04.SPA.bin"
 
+#
+# Check out this link for maybe doing the upgrade in INSTALL mode, not BUNDLE mode
+# also CHECK OUT this dudes tasks for waiting for the IOS XE box to upgrade and reboot, 
+# the loggin back in and running more tasks AFTER the upgrade
+#
+#  https://www.packetswitch.co.uk/cisco-ios-xe-catalyst-9000-switches-upgrade-using-ansible/
+
   tasks:
 
     - name: 01 - Remove existing boot system configuration

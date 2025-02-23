@@ -7,7 +7,8 @@
     - name: Create git archive from repo
       ansible.builtin.git:
         repo: "{{ build_repo }}"
-  
+        dest: "/{{ tag_name }}"
+
 
     - name: Run ansible-builder build command
       ansible.builtin.shell:
@@ -20,10 +21,8 @@
       ansible.builtin.meta: end_play
 
 
-
     - name: Timmay HARD STOP this Playbook
       ansible.builtin.meta: end_play
-
 
 
     - name: Create execution-environment.yml (definition file)

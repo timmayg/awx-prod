@@ -4,7 +4,7 @@
 
   tasks:
 
-    - name: Create git archive from repo
+    - name: Create git archive from repos
       ansible.builtin.git:
         repo: "{{ build_repo }}"
         dest: "/{{ tag_name }}"

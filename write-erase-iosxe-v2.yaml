@@ -1,0 +1,31 @@
+---
+- name: Write Erase Reload an IOS XE Device
+  hosts: iosxe
+  gather_facts: false
+  connection: network_cli
+
+  tasks:
+
+    - name: 01 - Save the running configuration
+      cisco.ios.ios_command:
+        commands:
+          - write memory
+
+    - name: 02 - Write erase the config so the switch comes up clean & ZTP
+      cisco.ios.ios_command:
+        commands:
+          - command: "write erase"
+            prompt: "confirm"
+            answer: "y"
+
+
+    - name: 03 - Reload the XE device
+      cisco.ios.ios_command:
+        commands:
+          - command: "reload"
+            prompt:
+              - "Save?"
+              - "confirm"
+            answer:
+              - "y"
+              - "y"

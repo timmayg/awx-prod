@@ -1,0 +1,292 @@
+---
+
+- name: IOSXE Upgrade Playbook
+  hosts: cat8500-sw01
+  gather_facts: false
+  connection: network_cli
+
+  # Ansible: 2.9.26
+  # pip install pyats genie
+  # ansible-galaxy install -r requirements.yml (https://github.com/CiscoDevNet/ansible-pyats)
+  # Tested on Cat8500 and Cat9K
+
+  # NOTE: You may need to increase copy image timeouts, please test manually before run this playbook 
+
+  ## These variable can also be defined in a file or group or host vars.
+  vars:
+    flash_dir: 'bootflash:' # e.g: 'bootflash' or 'flash:'
+    target_xe_ver: 17.06.03a
+    target_image_path: /users/muhammadrafi
+    target_image: c8000aep-universalk9.17.06.03a.SPA.bin
+    target_image_size: 699286261
+    target_image_md5: 2a21c50b04cb218e15780de02e120044
+    protocol: scp
+    scp_user: admin
+    scp_pass: 4dminPa4s
+    scp_server: 10.1.5.10
+    ftp_user: ftpuser 
+    ftp_pass: ftpassword
+    ftp_path: images/c8000aep
+    ftp_server: 10.2.5.10
+    vrf: mgmt-vrf
+    install_check_mode: "no"
+
+  ## Make sure you have the following role installed.
+  roles:
+    - ansible-pyats
+
+  tasks:
+    - name: Gather facts for {{ inventory_hostname }}
+      tags: pre-check, check-version, install, upgrade
+      ios_facts:
+  
+    - name: Basic Facts for "{{ inventory_hostname }}"
+      vars:
+        msg: |
+          Device Mode: {{ ansible_net_model }}
+          Serial Number: {{ ansible_net_serialnum }}
+          IOSXE Version: {{ ansible_net_version }}
+          IOSXE Image: {{ ansible_net_image }}
+          Free Memory (Mb): {{ ansible_net_memfree_mb }}
+          Total Memory (Mb): {{ ansible_net_memtotal_mb }}
+          Free Diskspace (kb): {{ ansible_net_filesystems_info[flash_dir]['spacefree_kb'] }}
+          Total Diskspace (kb): {{ansible_net_filesystems_info[flash_dir]['spacetotal_kb'] }}
+      debug:
+        msg: "{{ msg.split('\n') }}"
+      tags: pre-check, check-version, install
+
+    - name: Set the current time as a fact
+      tags: backup, install
+      set_fact: timestamp="{{ lookup('pipe','date \"+%Y-%m-%d-%H-%M\"') }}"
+
+    ## Configuration backup
+    - name: Config Backup for {{ inventory_hostname }}
+      tags: backup, install
+      ios_config:
+        backup: yes
+        backup_options:
+          filename: "{{ inventory_hostname }}_backup_{{ timestamp }}.cfg"
+          dir_path: ./backup
+      register: config_output
+
+    ## Display message for pre-check begins
+    - debug: msg="Starting pre-checks ..."
+      tags: pre-check, install
+
+    ## Get IOSXE version with PyATS and compare it with the targer version
+    - name: Get current IOSXE version
+      tags: pre-check, check-version, post-check, install
+      ios_command:
+        commands: 
+          - show version
+      register: show_version
+
+    ## Set IOSXE Version as variable via set fact
+    - name: Set fact for the current IOSXE version with PyATS 
+      tags: pre-check, check-version, post-check, install
+      set_fact:
+        current_xe_ver: "{{ show_version['stdout'][0] | pyats_parser('show version', 'iosxe') }}"
+
+    - name: Debug parsed output for the current IOSXE version
+      debug:
+        msg: "{{ inventory_hostname }} currently running with {{ current_xe_ver.version.xe_version }}"
+
+    - name: Assert that switch is NOT running with the target IOSXE version with PyATS
+      tags: pre-check, check-version, install
+      assert:
+        quiet: no
+        success_msg: "{{ inventory_hostname }} not running target verion {{ target_xe_ver }}, current version is {{ current_xe_ver.version.xe_version }}"
+        fail_msg: "{{ inventory_hostname }} already running {{ target_xe_ver }}"
+        that:
+          - "'{{ current_xe_ver.version.xe_version }}' != '{{ target_xe_ver }}'"
+
+    ## Check the disk space using PyATS
+    - name: Check if switch has the enough disk space for the  target image
+      tags: pre-check, disk_check, image-check, image-copy, install
+      ios_command:
+        commands: dir
+      register: disk_check
+
+    - name: Set fact for the disk space with PyATS 
+      tags: pre-check, disk_check, post-check, install
+      set_fact:
+        dsk_chk: "{{ disk_check['stdout'][0] | pyats_parser('dir', 'iosxe') }}"
+
+    - debug: 
+        msg: "{{ dsk_chk['dir'][flash_dir + '/']['bytes_free'] }}"
+
+    - name: Assert Enough Disk Space Available
+      tags: image-copy, install
+      assert:
+        quiet: no
+        success_msg: "Enough disk spcae available to accommodate target image."
+        fail_msg: 'Not enough disk space available for the target image!'
+        that:
+          - "{{ dsk_chk['dir'][flash_dir + '/']['bytes_free'] | int }} > {{ target_image_size }}"
+
+    ## Check if device has the target image
+    - name: Check if switch has the target image in the {{ flash_dir }} directory 
+      tags: pre-check, install, image-check, image-copy
+      ios_command:
+        commands: "dir {{ flash_dir }}" 
+      register: image_check
+
+    - name: Set image check as fact
+      tags: pre-check, install, image-check, image-copy
+      set_fact:
+        dir_image_check: "{{ image_check.stdout[0] | regex_search(image_var, multiline=True) }}"
+      vars: 
+        image_var: "{{ target_image }}"
+
+    ## Ansible to copy the image via SCP or FTP if does not exist in the flash or bootflash
+    - name: Copy IOSXE Image if does NOT exists in the {{ flash_dir }} dir
+      block:
+        - name: Assert {{ flash_dir }} does NOT contain target image before copy
+          tags: image-copy, install
+          assert:
+            quiet: false
+            success_msg: '{{ target_image }} NOT in {{ flash_dir }}'
+            fail_msg: '{{ target_image }} was found in {{ flash_dir }}'
+            that:
+              - "'{{ target_image }}' != '{{ dir_image_check }}'"
+          
+        - name: Would you like to copy the IOSXE image via {{ protocol | upper }}?
+          tags: image-copy, install
+          pause:
+            prompt: "Press enter to continue or cntrl-c + a to abort"
+
+        - name: Copy IOSXE image file via SCP 
+          tags: image-copy, install
+          ios_command:
+            commands: 
+              - command: 'copy {{ protocol }}://{{ scp_user }}:{{ scp_pass }}@{{scp_server}}/{{ target_image }} {{ flash_dir }} vrf {{ vrf }}'
+                check_all: True  
+                prompt:
+                  - "Destination filename [{{ target_image }}]?"
+                answer:
+                  - "\r"
+            wait_for:
+              - result[0] contains {{ target_image_size }} bytes copied
+          vars:
+            ansible_command_timeout: 1200
+          no_log: false
+          register: image_copy
+          when: protocol == "scp"
+
+        - name: Copy IOSXE image file via FTP 
+          tags: image-copy, install
+          ios_command:
+            commands:
+              - command: "copy ftp://{{ ftp_user }}:{{ ftp_pass }}@{{ ftp_server }}/{{ ftp_path }}/{{ target_image }} {{ flash_dir }} vrf {{ vrf }}"
+                prompt:
+                  - "Destination filename?"
+                answer:
+                  - "\r"
+            wait_for: 
+              - result[0] contains {{ target_image_size }} bytes copied
+          vars:
+            ansible_command_timeout: 1800
+          when: protocol == "ftp"
+
+        - name: Target image MD5 File Validation
+          tags: image-validate, install
+          ios_command:
+            commands:
+              - verify /md5 {{ flash_dir }}{{ target_image }} {{ target_image_md5 }}
+            wait_for:
+              - result[0] contains Verified
+          vars:
+            ansible_command_timeout: 600
+          register: image_validation_result
+
+        - name: DEBUG OUTPUT FOR target image Validation
+          tags: image-validate, install
+          debug:
+            msg: "{{ image_validation_result.stdout_lines }}"
+
+      rescue:
+        - name: Checks Status
+          debug: msg='Some checks are failed, please review the output...'
+
+    - name: Preparing to install/upgrade {{ inventory_hostname }}
+      tags: install, upgrade
+      pause:
+        prompt: "Press enter to continue or cntrl-c + a to abort"
+      when: ansible_net_version != target_xe_ver
+
+    ## IOSXE Upgrade process starting 
+    - name: Install/Upgrade IOSXE Software
+      block:
+        - name: Saving configuration before upgrading 
+          tags: install, upgrade
+          ios_command:
+            commands: 
+              - command: 'copy run start'
+                prompt: 'Destination filename'
+                answer: "\r"
+          register: config_save
+
+        - name: Installing Target IOSXE {{ target_xe_ver }}
+          tags: install, upgrade
+          ios_command:
+            commands:
+              - command: 'install add file {{ flash_dir }}{{ target_image }}  activate commit prompt-level none'
+          register: install_output
+          vars:
+            ansible_command_timeout: 1800
+
+        - name: waiting for {{ inventory_hostname }} to come back online
+          tags: install, upgrade
+          wait_for_connection:
+            delay: 60
+            sleep: 30
+            timeout: 900
+
+      rescue:
+        - name: Installation status check 
+          tags: install, upgrade
+          debug: msg='Upgrade process is having some trouble ...'
+
+      always:
+        - name: Print Install Results
+          tags: install upgrade
+          debug: var=install_output.stdout_lines
+
+        - name: Gather facts for {{ inventory_hostname }} after upgrade
+          tags: post-check, install, upgrade
+          ios_facts:
+
+        - name: Assert that switch is running with the target IOSXE version {{ target_xe_ver }} After Upgrade
+          tags: post-check, install, upgrade
+          assert:
+            quiet: no
+            success_msg: "{{ inventory_hostname }} has been upgraded to {{ ansible_net_version }}"
+            fail_msg: "Failed to upgrade the {{ inventory_hostname }}, it is still runninng {{ ansible_net_version }}"
+            that:
+              - "'{{ ansible_net_version }}' == '{{ target_xe_ver }}'"
+
+        - name: Do you want to clean up unnecessary packages ?
+          tags: install, upgrade
+          pause:
+            prompt: "Press enter to continue or cntrl-c + a to abort"
+
+        - name: Cleaning up unnecessary package files
+          tags: install, cleanup, upgrade
+          ios_command:
+            commands:
+              - command: install remove inactive
+                prompt: Do you want to remove the above files?
+                answer: 'y'
+            wait_for:
+              - result[0] contains SUCCESS
+          register: cleanup_output
+          vars:
+            ansible_command_timeout: 300
+
+        - name: Print Cleanup Results
+          tags: install, cleanup, upgrade
+          debug: var=cleanup_output.stdout_lines
+
+        ## Display message for Upgrade process completed.
+        - debug: msg="Upgrade completed."
+          tags: pre-check, install, upgrade

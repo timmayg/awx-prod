@@ -1,28 +1,36 @@
 ---
 - name: Automate Ansible Execution Environment Build
   hosts: localhost
-  tasks:
-    - name: Ensure ansible-builder is installed
-      ansible.builtin.command:
-        cmd: pip3 show ansible-builder
-      register: ansible_builder_check
-      failed_when: ansible_builder_check.rc != 0
-      changed_when: false
-      ignore_errors: true
 
-    - name: Install ansible-builder if not present
-      ansible.builtin.command:
-        cmd: pip3 install ansible-builder
-      when: ansible_builder_check.rc != 0
+  tasks:
+
+    - name: Create git archive from repo
+      ansible.builtin.git:
+        repo: "{{ build_repo }}"
+        dest: /tmp/checkout
+
+
+    - name: Timmay HARD STOP this Playbook
+      ansible.builtin.meta: end_play
+
+
+
+    - name: Timmay HARD STOP this Playbook
+      ansible.builtin.meta: end_play
+
+
+
 
     - name: Create or update build directory
       ansible.builtin.file:
         path: /runner/timmay-prod
         state: directory
 
+
     - name: Git Pull the repository
       ansible.builtin.git:
-        repo: "https://github.com/timmayg/timmay-prod"
+        repo: "{{ build_repo }}"
+
 
     - name: Create execution-environment.yml (definition file)
       ansible.builtin.copy:
@@ -34,6 +42,7 @@
             system: bindep.txt
             galaxy: requirements.yml
 
+
     - name: Run ansible-builder build command
       ansible.builtin.shell:
         cmd: |
@@ -44,15 +53,23 @@
         chdir: /runner/timmay-prod/build-context
       register: build_output
 
+
     - name: Display build output
       ansible.builtin.debug:
         var: build_output.stdout
+
 
     - name: Verify the container was built successfully
       ansible.builtin.command:
         cmd: podman images my-execution-environment:latest
       register: image_check
 
+
     - name: Display the built image information
       ansible.builtin.debug:
         var: image_check.stdout_lines
+
+
+    - name: Timmay HARD STOP this Playbook
+      ansible.builtin.meta: end_play
+

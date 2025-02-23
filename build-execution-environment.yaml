@@ -7,7 +7,13 @@
     - name: Create git archive from repo
       ansible.builtin.git:
         repo: "{{ build_repo }}"
-        dest: /tmp/checkout
+  
+
+    - name: Run ansible-builder build command
+      ansible.builtin.shell:
+        cmd: ansible-builder build --tag "{{ tag_name }}:latest"
+        chdir: "/{{ tag_name }}"
+      register: build_output
 
 
     - name: Timmay HARD STOP this Playbook
@@ -18,18 +24,6 @@
     - name: Timmay HARD STOP this Playbook
       ansible.builtin.meta: end_play
 
-
-
-
-    - name: Create or update build directory
-      ansible.builtin.file:
-        path: /runner/timmay-prod
-        state: directory
-
-
-    - name: Git Pull the repository
-      ansible.builtin.git:
-        repo: "{{ build_repo }}"
 
 
     - name: Create execution-environment.yml (definition file)

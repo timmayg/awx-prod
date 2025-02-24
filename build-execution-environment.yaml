@@ -14,7 +14,7 @@
     - name: Run ansible-builder build command
       ansible.builtin.shell:
         cmd: ansible-builder build --tag {{ tag_name }}:latest -v 3 --no-cache
-        # chdir: "{{ tag_name }}"
+        chdir: "{{ tag_name }}"
       register: build_output
 
 

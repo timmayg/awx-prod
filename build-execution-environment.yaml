@@ -7,7 +7,7 @@
     - name: Create git archive from repos
       ansible.builtin.git:
         repo: "{{ build_repo }}"
-        dest: "/{{ tag_name }}"
+        dest: "{{ tag_name }}"
 
 
     - name: Run ansible-builder build command

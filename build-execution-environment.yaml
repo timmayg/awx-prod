@@ -12,7 +12,7 @@
 
     - name: Run ansible-builder build command
       ansible.builtin.shell:
-        cmd: ansible-builder build --tag "{{ tag_name }}:latest"
+        cmd: ansible-builder build --tag {{ tag_name }}:latest
         chdir: "/{{ tag_name }}"
       register: build_output
 

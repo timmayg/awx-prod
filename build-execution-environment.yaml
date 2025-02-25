@@ -10,10 +10,6 @@
         repo: "{{ build_repo }}"
         dest: "{{ tag_name }}"
 
-    - name: Ensure Podman Has UID/GID Mappings
-      ansible.builtin.shell:
-        cmd: echo "awx:100000:65536" | sudo tee -a /etc/subuid /etc/subgid
-
 
     - name: Run ansible-builder build command
       ansible.builtin.shell:

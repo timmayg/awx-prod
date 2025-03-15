@@ -1,9 +1,9 @@
 ---
-- name: Tasks in this Playbook are for testing purposes only
+- name: This Playbook will update ssl-vpn.theglens.net in Cloudflare
   hosts: localhost
   gather_facts: false
   vars:
-   vault_secret: "homenet_inet_ip"
+    vault_secret: "homenet_inet_ip"
 
   tasks:
    - name: 01- Get the public IP address
@@ -110,12 +110,12 @@
 
    - name: 07 - Create a new Path and two new key-value pairs in the KV2 engine
      community.hashi_vault.vault_kv2_write:
-       url: "https://vault.theglens.net:8200"
        path: "{{ vault_secret }}"
-       auth_method: token
-       token: "{{ ansible_password }}"
-       engine_mount_point: "kv"
-       data: 
+       url: "{{ vault_url }}"
+       auth_method: "{{ vault_auth_method }}"
+       token: "{{ vault_token }}"
+       engine_mount_point: "{{ vault_mount }}"
+       data:
          ip_addr: "{{ public_ip.json.ip }}"
 
 

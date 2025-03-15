@@ -1,123 +1,123 @@
 ---
-- name: This Playbook will update ssl-vpn.theglens.net in Cloudflare
+- name: This Playbook will update ssl-vpn.theglens.net FQDN 
   hosts: localhost
   gather_facts: false
   vars:
     vault_secret: "homenet_inet_ip"
 
   tasks:
-   - name: 01- Get the public IP address
-     ansible.builtin.uri:
-       url: https://api.ipify.org?format=json
-       method: Get
-     changed_when: false
-     register: public_ip
-     until: public_ip.status == 200
-     retries: 6
-     delay: 10
+    - name: 01- Get the public IP address
+      ansible.builtin.uri:
+        url: https://api.ipify.org?format=json
+        method: Get
+      changed_when: false
+      register: public_ip
+      until: public_ip.status == 200
+      retries: 6
+      delay: 10
 
-#   - name: Print using msg
-#     ansible.builtin.debug:
-#       msg: "{{ public_ip.json.ip }}"
-#      msg: "{{ public_ip }}"
+  #   - name: Print using msg
+  #     ansible.builtin.debug:
+  #       msg: "{{ public_ip.json.ip }}"
+  #      msg: "{{ public_ip }}"
 
-   - name: 02 - Read The Homenet Inet IP from Vault
-     community.hashi_vault.vault_kv2_get:
-       path: "{{ vault_secret }}"
-       url: "{{ vault_url }}"
-       auth_method: "{{ vault_auth_method }}"
-       token: "{{ vault_token }}"
-       engine_mount_point: "{{ vault_mount }}"
-     register: vault_homenet_inet_ip
+    - name: 02 - Read The Homenet Inet IP from Vault
+      community.hashi_vault.vault_kv2_get:
+        path: "{{ vault_secret }}"
+        url: "{{ vault_url }}"
+        auth_method: "{{ vault_auth_method }}"
+        token: "{{ vault_token }}"
+        engine_mount_point: "{{ vault_mount }}"
+      register: vault_homenet_inet_ip
 
-#   - name: 01 - Set the IP address as a fact
-#     ansible.builtin.set_fact:
-#      vault_ip_address: "{{ vault_homenet_inet_ip.raw.data.data.ip_addr }}"
-
-
-#   - name: Print using a var
-#     ansible.builtin.debug:
-#      var: vault_ip_address
+  #   - name: Set the IP address as a fact
+  #     ansible.builtin.set_fact:
+  #      vault_ip_address: "{{ vault_homenet_inet_ip.raw.data.data.ip_addr }}"
 
 
-#   - name: Check if IP addresses are the same
-#     ansible.builtin.debug:
-#       msg: "Old and current IP addresses are the same. Stopping execution."
-#     when: public_ip == vault_ip_address
-#     register: check_ip_result
+  #   - name: Print using a var
+  #     ansible.builtin.debug:
+  #      var: vault_ip_address
 
 
-   - name: 03 - Stop execution if IPs are the same
-     ansible.builtin.meta: end_play
-     when: public_ip.json.ip == vault_homenet_inet_ip.raw.data.data.ip_addr
+  #   - name: Check if IP addresses are the same
+  #     ansible.builtin.debug:
+  #       msg: "Old and current IP addresses are the same. Stopping execution."
+  #     when: public_ip == vault_ip_address
+  #     register: check_ip_result
 
 
-#   - name: Proceed with tasks if IPs are different
-#     ansible.builtin.debug:
-#       msg: "Old IP: {{ public_ip }}; Current IP: {{ vault_ip_address }}. Continuing with tasks."
-#     when: public_ip != vault_ip_address
+    - name: 03 - Stop execution if IPs are the same
+      ansible.builtin.meta: end_play
+      when: public_ip.json.ip == vault_homenet_inet_ip.raw.data.data.ip_addr
 
 
-# This task isnt needed with v2 of this task. 
-# Cloudflare token is read in from a cred in AWX
-#   - name: 04 - Read Cloudflare API Token from Vault
-#     community.hashi_vault.vault_kv2_get:
-#       url: "{{ vault_url }}"
-#       engine_mount_point: "{{ vault_mount }}"
-#       path: cloudflare_token
-#       auth_method: token
-#       token: "{{ ansible_password }}"
-#     register: cloudflare_token
+  #   - name: Proceed with tasks if IPs are different
+  #     ansible.builtin.debug:
+  #       msg: "Old IP: {{ public_ip }}; Current IP: {{ vault_ip_address }}. Continuing with tasks."
+  #     when: public_ip != vault_ip_address
 
 
-#   - name: Print using a var
-#     ansible.builtin.debug:
-#      var: cloudflare_token.data.data.api_key
+  # This task isnt needed with v2 of this task. 
+  # Cloudflare token is read in from a cred in AWX
+  #   - name: 04 - Read Cloudflare API Token from Vault
+  #     community.hashi_vault.vault_kv2_get:
+  #       url: "{{ vault_url }}"
+  #       engine_mount_point: "{{ vault_mount }}"
+  #       path: cloudflare_token
+  #       auth_method: token
+  #       token: "{{ ansible_password }}"
+  #     register: cloudflare_token
 
 
-#
-#  I swear, Cloudflare changed something... more likely I changed a cred in 
-#   AWX and broke the key or something... but deleting records from CF is now broken
-#   - name: 05 - Delete A record with Old IP address
-#     community.general.cloudflare_dns:
-#       api_token: "{{ cloudflare_token.data.data.api_key }}"
-#       record: ssl-vpn
-#       type: A
-#       state: absent   # present (default), absent
-#       zone: theglens.net
-#     register: response
+  #   - name: Print using a var
+  #     ansible.builtin.debug:
+  #      var: cloudflare_token.data.data.api_key
 
 
-#   - name: Print using a var
-#     ansible.builtin.debug:
-#      var: public_ip
-
-#   - name: Print using a var
-#     ansible.builtin.debug:
-#      var: public_ip.json.ip
-
-
-   - name: 06 - Create A record with New IP address
-     community.general.cloudflare_dns:
-       api_token: "{{ cloudflare_token }}"
-       record: ssl-vpn
-       type: A
-       value: "{{ public_ip.json.ip }}"
-       state: present    # present (default), absent
-       zone: theglens.net
-     register: response
+  #
+  #  I swear, Cloudflare changed something... more likely I changed a cred in 
+  #   AWX and broke the key or something... but deleting records from CF is now broken
+  #   - name: 05 - Delete A record with Old IP address
+  #     community.general.cloudflare_dns:
+  #       api_token: "{{ cloudflare_token.data.data.api_key }}"
+  #       record: ssl-vpn
+  #       type: A
+  #       state: absent   # present (default), absent
+  #       zone: theglens.net
+  #     register: response
 
 
-   - name: 07 - Create a new Path and two new key-value pairs in the KV2 engine
-     community.hashi_vault.vault_kv2_write:
-       path: "{{ vault_secret }}"
-       url: "{{ vault_url }}"
-       auth_method: "{{ vault_auth_method }}"
-       token: "{{ vault_token }}"
-       engine_mount_point: "{{ vault_mount }}"
-       data:
-         ip_addr: "{{ public_ip.json.ip }}"
+  #   - name: Print using a var
+  #     ansible.builtin.debug:
+  #      var: public_ip
+
+  #   - name: Print using a var
+  #     ansible.builtin.debug:
+  #      var: public_ip.json.ip
 
 
-   - name: Timmay HARD STOP this Playbook
-     ansible.builtin.meta: end_play
+    - name: 06 - Create A record with New IP address
+      community.general.cloudflare_dns:
+        api_token: "{{ cloudflare_token }}"
+        record: ssl-vpn
+        type: A
+        value: "{{ public_ip.json.ip }}"
+        state: present    # present (default), absent
+        zone: theglens.net
+      register: response
+
+
+    - name: 07 - Create a new Path and two new key-value pairs in the KV2 engine
+      community.hashi_vault.vault_kv2_write:
+        path: "{{ vault_secret }}"
+        url: "{{ vault_url }}"
+        auth_method: "{{ vault_auth_method }}"
+        token: "{{ vault_token }}"
+        engine_mount_point: "{{ vault_mount }}"
+        data:
+          ip_addr: "{{ public_ip.json.ip }}"
+
+
+    - name: Timmay HARD STOP this Playbook
+      ansible.builtin.meta: end_play

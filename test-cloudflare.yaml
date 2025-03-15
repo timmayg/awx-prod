@@ -1,0 +1,28 @@
+---
+- name: This Playbook will create a new Cloudflare DNS record
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+
+    - name: 01 - Create a new Cloudflare DNS record
+      community.general.cloudflare_dns:
+        api_token: "{{ cloudflare_api_key }}"
+        zone: "{{ cloudflare_zone }}"
+        record: "{{ cloudflare_record }}"
+        type: "{{ cloudflare_record_type }}"
+        value: "{{ cloudflare_record_value }}"
+        state: present
+      register: cloudflare_dns_record_create
+
+
+
+
+
+    - name: 02 - Display the results
+      ansible.builtin.debug:
+        var: cloudflare_dns_record_create
+
+
+    - name: Timmay HARD STOP this Playbook
+      ansible.builtin.meta: end_play

@@ -3,8 +3,6 @@
   hosts: localhost
   gather_facts: false
   vars:
-   vault_url: "https://vault.theglens.net:8200"
-   vault_mount: "kv"
    vault_secret: "homenet_inet_ip"
 
   tasks:
@@ -25,14 +23,11 @@
 
    - name: 02 - Read The Homenet Inet IP from Vault
      community.hashi_vault.vault_kv2_get:
-       path: "{{ vault_kv_path }}"
+       path: "{{ vault_secret }}"
        url: "{{ vault_url }}"
        auth_method: "{{ vault_auth_method }}"
        token: "{{ vault_token }}"
        engine_mount_point: "{{ vault_mount }}"
-
-       path: "{{ vault_secret }}"
-
      register: vault_homenet_inet_ip
 
 #   - name: 01 - Set the IP address as a fact
@@ -63,14 +58,16 @@
 #     when: public_ip != vault_ip_address
 
 
-   - name: 04 - Read Cloudflare API Token from Vault
-     community.hashi_vault.vault_kv2_get:
-       url: "{{ vault_url }}"
-       engine_mount_point: "{{ vault_mount }}"
-       path: cloudflare_token
-       auth_method: token
-       token: "{{ ansible_password }}"
-     register: cloudflare_token
+# This task isnt needed with v2 of this task. 
+# Cloudflare token is read in from a cred in AWX
+#   - name: 04 - Read Cloudflare API Token from Vault
+#     community.hashi_vault.vault_kv2_get:
+#       url: "{{ vault_url }}"
+#       engine_mount_point: "{{ vault_mount }}"
+#       path: cloudflare_token
+#       auth_method: token
+#       token: "{{ ansible_password }}"
+#     register: cloudflare_token
 
 
 #   - name: Print using a var
@@ -102,7 +99,7 @@
 
    - name: 06 - Create A record with New IP address
      community.general.cloudflare_dns:
-       api_token: "{{ cloudflare_token.data.data.api_key }}"
+       api_token: "{{ cloudflare_token }}"
        record: ssl-vpn
        type: A
        value: "{{ public_ip.json.ip }}"

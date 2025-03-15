@@ -25,21 +25,32 @@
         var: cloudflare_dns_record_create
 
 
-
-    - name: 03 - Pause the Playbook for 20 seconds
+    - name: 03 - Pause the Playbook 
       ansible.builtin.pause:
         seconds: 20
 
-
+#tshoot task04
     - name: 04 - Delete A record with New IP address
       community.general.cloudflare_dns:
         api_token: "{{ cloudflare_api_key }}"
-        record: "{{ fqdn }}"
+        record: test-record
         type: A
         value: "{{ ip_addr }}"
         state: absent    # present (default), absent
         zone: theglens.net
       register: cloudflare_dns_record_delete
+
+
+    - name: Delete the record
+      community.general.cloudflare_dns:
+        # record is NOT here... like ok. 
+        zone: example.net
+        type: CNAME
+        value: example.com
+        #account_email: test@example.com
+        #account_api_key: dummyapitoken
+        #state: absent
+
 
 
     - name: 05 - Display the results

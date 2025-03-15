@@ -31,12 +31,12 @@
         seconds: 20
 
 
-    - name: 04 - Create A record with New IP address
+    - name: 04 - Delete A record with New IP address
       community.general.cloudflare_dns:
         api_token: "{{ cloudflare_api_key }}"
         record: "{{ fqdn }}"
         type: A
-        # value: "{{ ip_addr }}"
+        value: "{{ ip_addr }}"
         state: absent    # present (default), absent
         zone: theglens.net
       register: cloudflare_dns_record_delete

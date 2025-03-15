@@ -20,10 +20,10 @@
       register: cloudflare_dns_record_create
 
 
-    - name: 07 - Pause the Playbook for 20 seconds if there are pending DNS-01 challenges
+    - name: 02 - Pause the Playbook for 20 seconds
       ansible.builtin.pause:
         seconds: 20
-      when: pending_challenges | length > 0
+
 
 
 

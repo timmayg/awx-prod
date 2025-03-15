@@ -2,20 +2,21 @@
 - name: This Playbook will create a new Cloudflare DNS record
   hosts: localhost
   gather_facts: false
+  vars:
+    ip_addr: "51.51.51.51"
+
 
   tasks:
 
-    - name: 01 - Create a new Cloudflare DNS record
+    - name: 01 - Create A record with New IP address
       community.general.cloudflare_dns:
         api_token: "{{ cloudflare_api_key }}"
-        zone: "{{ cloudflare_zone }}"
-        record: "{{ cloudflare_record }}"
-        type: "{{ cloudflare_record_type }}"
-        value: "{{ cloudflare_record_value }}"
-        state: present
-      register: cloudflare_dns_record_create
-
-
+        record: test-record
+        type: A
+        value: "{{ ip_addr }}"
+        state: present    # present (default), absent
+        zone: theglens.net
+      register: response
 
 
 

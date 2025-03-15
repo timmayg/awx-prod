@@ -3,10 +3,30 @@
   hosts: localhost
   gather_facts: false
   vars:
+    fqdn: test-record.theglens.net
     ip_addr: "51.51.51.51"
 
 
   tasks:
+
+    - name: 01 - Create A record with New IP address
+      community.general.cloudflare_dns:
+        api_token: "{{ cloudflare_api_key }}"
+        record: "{{ fqdn }}"
+        type: A
+        value: "{{ ip_addr }}"
+        state: present    # present (default), absent
+        zone: theglens.net
+      register: cloudflare_dns_record_create
+
+
+    - name: 07 - Pause the Playbook for 20 seconds if there are pending DNS-01 challenges
+      ansible.builtin.pause:
+        seconds: 20
+      when: pending_challenges | length > 0
+
+
+
 
     - name: 01 - Create A record with New IP address
       community.general.cloudflare_dns:
@@ -17,7 +37,6 @@
         state: present    # present (default), absent
         zone: theglens.net
       register: response
-
 
 
     - name: 02 - Display the results

@@ -4,6 +4,7 @@
   gather_facts: false
   vars:
     fqdn: test-record.timslab.fun
+    zone: timslab.fun
     ip_addr: "51.51.51.51"
 
 
@@ -16,7 +17,7 @@
         type: A
         value: "{{ ip_addr }}"
         state: present    # present (default), absent
-        zone: timslab.fun
+        zone: {{ zone }}
       register: cloudflare_dns_record_create
 
 
@@ -38,8 +39,19 @@
         type: A
         value: "{{ ip_addr }}"
         state: absent    # present (default), absent
-        zone: timslab.fun
+        zone: {{ zone }}
       register: cloudflare_dns_record_delete
+
+
+
+    - name: 05 - Display the results
+      ansible.builtin.debug:
+        var: cloudflare_dns_record_create
+
+
+    - name: Timmay HARD STOP this Playbook
+      ansible.builtin.meta: end_play
+
 
 
     - name: Delete the record
@@ -52,12 +64,3 @@
         #account_api_key: dummyapitoken
         #state: absent
 
-
-
-    - name: 05 - Display the results
-      ansible.builtin.debug:
-        var: cloudflare_dns_record_create
-
-
-    - name: Timmay HARD STOP this Playbook
-      ansible.builtin.meta: end_play

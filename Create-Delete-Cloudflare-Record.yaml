@@ -48,13 +48,13 @@
       #tshoot task04
     - name: 04 - Delete A record with New IP address
       community.general.cloudflare_dns:
-        zone: "{{ zone_id }}"
+        zone: "theglens.net"
+        zone_id: "{{ cf_zone_lookup.json.result[0].id }}"
         api_token: "{{ cloudflare_api_key }}"
         record: test-record
         type: A
         value: "{{ ip_addr }}"
         state: absent    # present (default), absent
-
       register: cloudflare_dns_record_delete
 
 

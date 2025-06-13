@@ -48,8 +48,8 @@
       #tshoot task04
     - name: 04 - Delete A record with New IP address
       community.general.cloudflare_dns:
-        zone: "theglens.net"
-        zone_id: "{{ cf_zone_lookup.json.result[0].id }}"
+        zone: "timslab.fun"
+        ### zone_id: "{{ cf_zone_lookup.json.result[0].id }}"
         api_token: "{{ cloudflare_api_key }}"
         record: test-record
         type: A

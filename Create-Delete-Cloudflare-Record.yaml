@@ -31,6 +31,24 @@
         seconds: 5
 
 
+    - name: Get Cloudflare Zone ID
+      uri:
+        url: "https://api.cloudflare.com/client/v4/zones?name={{ zone }}"
+        method: GET
+        headers:
+          Authorization: "Bearer {{ cloudflare_api_key }}"
+          Content-Type: "application/json"
+      register: cf_zone_lookup
+
+    - name: Set zone_id fact
+      set_fact:
+        zone_id: "{{ cf_zone_lookup.json.result[0].id }}"
+
+    - name: Timmay HARD STOP this Playbook
+      ansible.builtin.meta: end_play
+
+
+
       #tshoot task04
     - name: 04 - Delete A record with New IP address
       community.general.cloudflare_dns:
@@ -48,10 +66,6 @@
     - name: 05 - Display the results
       ansible.builtin.debug:
         var: cloudflare_dns_record_create
-
-
-    - name: Timmay HARD STOP this Playbook
-      ansible.builtin.meta: end_play
 
 
 

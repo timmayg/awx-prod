@@ -27,7 +27,7 @@
 
     - name: 03 - Pause the Playbook
       ansible.builtin.pause:
-        seconds: 20
+        seconds: 5
 
 
       #tshoot task04

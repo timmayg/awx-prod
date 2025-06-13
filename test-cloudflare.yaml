@@ -3,7 +3,7 @@
   hosts: localhost
   gather_facts: false
   vars:
-    fqdn: test-record.theglens.net
+    fqdn: test-record.timslab.fun
     ip_addr: "51.51.51.51"
 
 
@@ -16,7 +16,7 @@
         type: A
         value: "{{ ip_addr }}"
         state: present    # present (default), absent
-        zone: theglens.net
+        zone: timslab.fun
       register: cloudflare_dns_record_create
 
 

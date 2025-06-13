@@ -30,6 +30,10 @@
         seconds: 20
 
 
+    - name: Timmay HARD STOP this Playbook
+      ansible.builtin.meta: end_play
+
+
       #tshoot task04
     - name: 04 - Delete A record with New IP address
       community.general.cloudflare_dns:

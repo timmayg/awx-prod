@@ -1,0 +1,33 @@
+---
+- name: Create Windows VM on Proxmox
+  hosts: localhost
+  gather_facts: no
+  collections:
+    - community.general
+  tasks:
+    - name: Create Windows VM
+      community.general.proxmox_kvm:
+        api_user: "{{ pve_user }}"
+        api_password: "{{ pve_password }}"
+        api_host: "{{ pve_host }}"
+        vmid: 120
+        name: windows-server
+        cores: 4
+        memory: 8192
+        scsihw: virtio-scsi-single
+        boot: c
+        net0: virtio,bridge=vmbr0
+        ide2: "local:iso/virtio-win.iso,media=cdrom"
+        sata0: "local:iso/windows-server.iso,media=cdrom"
+        scsi0: "local-lvm:100G"
+        ostype: win11
+        ciuser: administrator
+        cipassword: YourSecurePassword123
+        agent: 1
+        onboot: 1
+
+
+
+
+    - name: Timmay HARD STOP this Playbook
+      ansible.builtin.meta: end_play

@@ -3,9 +3,9 @@
   hosts: localhost
   gather_facts: false
 
-  vars:
-    my_name: "{{ my_name }}"
-    my_ip: "{{ my_ip }}"
+#  vars:
+#    my_name: "{{ my_name }}"
+#    my_ip: "{{ my_ip }}"
 
   tasks:
     - name: Display user input

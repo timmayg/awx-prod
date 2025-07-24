@@ -1,0 +1,13 @@
+---
+- name: Example playbook prompting for user input
+  hosts: localhost
+  gather_facts: false
+
+  vars:
+    my_name: "{{ my_name }}"
+    my_ip: "{{ my_ip }}"
+
+  tasks:
+    - name: Display user input
+      ansible.builtin.debug:
+        msg: "Hello, {{ my_name }}! Your IP is {{ my_ip }}"

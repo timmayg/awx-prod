@@ -1,0 +1,8 @@
+---
+- name: This playbook will Create \ Overwrite a File
+  hosts: vault-16
+  tasks:
+    - name: To overwrite the file
+      ansible.builtin.copy:
+        content: "new content"
+        dest: /opt/vault/tls/text.txt

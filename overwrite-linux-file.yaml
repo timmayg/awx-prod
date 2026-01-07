@@ -14,12 +14,21 @@
       register: vault_response
       delegate_to: localhost
       run_once: true
-      no_log: true
+      # no_log: true
 
     - name: Write file on vault-16 using Vault data
       ansible.builtin.copy:
         content: "{{ vault_response.data.data.fullchain }}"
-        dest: /opt/vault/tls/text.txt
+        dest: /opt/vault/tls/fullchain.txt
+        owner: root
+        group: root
+        mode: '0644'
+
+
+    - name: Write file on vault-16 using Vault data
+      ansible.builtin.copy:
+        content: "{{ vault_response.data.data.fullchain }}"
+        dest: /opt/vault/tls/fullchain.txt
         owner: root
         group: root
         mode: '0644'

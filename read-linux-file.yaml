@@ -1,0 +1,6 @@
+---
+- name: Read a file on a Linux Box
+  hosts: vault-16
+  tasks:
+    - name: Login to the linux box and read the file
+      ansible.builtin.command: cat /opt/vault/tls/cert/key

@@ -1,9 +1,10 @@
 ---
 - name: This playbook will Create \ Overwrite a File
-  hosts: vault-16
+  hosts: localhost
+  gather_facts: false
   tasks:
 
-    - name: MODERN - Read a kv2 secret from Vault (using token auth)
+    - name: Read a kv2 secret from Vault (using token auth)
       community.hashi_vault.vault_kv2_get:
         path: "{{ vault_kv_path }}"
         url: "{{ vault_url }}"
@@ -17,4 +18,3 @@
       ansible.builtin.copy:
         content: "new content"
         dest: /opt/vault/tls/text.txt
-        

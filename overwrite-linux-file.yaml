@@ -14,7 +14,7 @@
       register: vault_response
       delegate_to: localhost
       run_once: true
-
+      no_log: true
 
     - name: Write file on vault-16 using Vault data
       ansible.builtin.copy:

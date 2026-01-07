@@ -1,20 +1,25 @@
 ---
-- name: This playbook will Create \ Overwrite a File
-  hosts: localhost
+- name: Read from Vault and write file to vault-16
+  hosts: vault-16
   gather_facts: false
-  tasks:
 
-    - name: Read a kv2 secret from Vault (using token auth)
+  tasks:
+    - name: Read a kv2 secret from Vault (runs in EE)
       community.hashi_vault.vault_kv2_get:
         path: "{{ vault_kv_path }}"
         url: "{{ vault_url }}"
         auth_method: "{{ vault_auth_method }}"
         token: "{{ vault_token }}"
         engine_mount_point: "{{ vault_mount }}"
-      register: response
+      register: vault_response
+      delegate_to: localhost
+      run_once: true
 
 
-    - name: To overwrite the file
+    - name: Write file on vault-16 using Vault data
       ansible.builtin.copy:
-        content: "new content"
+        content: "{{ vault_response.data.data.fullchain }}"
         dest: /opt/vault/tls/text.txt
+        owner: root
+        group: root
+        mode: '0644'

@@ -11,15 +11,17 @@
         auth_method: "{{ vault_auth_method }}"
         token: "{{ vault_token }}"
         engine_mount_point: "{{ vault_mount }}"
+        version: "{{ vault_kv_version | default(omit) }}"
       register: vault_response
       delegate_to: localhost
       run_once: true
       # no_log: true
 
+
     - name: Write file on vault-16 using Vault data
       ansible.builtin.copy:
         content: "{{ vault_response.data.data.fullchain }}"
-        dest: /opt/vault/tls/fullchain.txt
+        dest: /opt/vault/tls/fullchain.cer
         owner: root
         group: vaultadmins
         mode: '0644'
@@ -28,7 +30,7 @@
     - name: Write file on vault-16 using Vault data
       ansible.builtin.copy:
         content: "{{ vault_response.data.data.private_key }}"
-        dest: /opt/vault/tls/priv_key.txt
+        dest: /opt/vault/tls/private.key
         owner: root
         group: vaultadmins
         mode: '0644'

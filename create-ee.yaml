@@ -5,23 +5,27 @@
 
   vars:
     # ---- Git repo settings ----
-    ee_repo_url: "https://github.com/YOURORG/YOURREPO.git"
-    ee_repo_version: "main"          # branch, tag, or commit
-    ee_repo_dest: "/tmp/ee-repo"      # where we clone it locally
+    # ee_repo_url: "{{ ee_repo_url }}"
+    # ee_repo_version: "main"          # branch, tag, or commit
+    # ee_repo_dest: "/tmp/ee-repo"      # where we clone it locally
 
     # ---- EE definition file inside the repo ----
-    ee_definition_file: "execution-environment.yml"   # or execution-environment.yaml
+    # ee_definition_file: "execution-environment.yml"   # or execution-environment.yaml
     # If it's in a subdir, set e.g. "build/ee/execution-environment.yml"
 
     # ---- Build settings ----
-    ee_image_tag: "ee-demo:latest"
-    ee_container_runtime: "podman"    # podman or docker
+    # ee_image_tag: "ee-demo:latest"
+    # ee_container_runtime: "podman"    # podman or docker
 
     # ---- ansible-builder install options ----
     # If your system Python is PEP-668 "externally managed", prefer pipx.
-    use_pipx: true
+    # use_pipx: true
 
   tasks:
+
+
+
+
     - name: Ensure git is installed (Debian/Ubuntu)
       become: true
       ansible.builtin.apt:
@@ -98,4 +102,8 @@
 
 
 
+
+
+    - name: DEBUG - Timmay HARD STOP this Playbook
+      ansible.builtin.meta: end_play
 

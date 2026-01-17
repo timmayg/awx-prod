@@ -1,0 +1,101 @@
+---
+- name: Build an Execution Environment (EE) from execution-environment.yml in GitHub
+  hosts: localhost
+  gather_facts: false
+
+  vars:
+    # ---- Git repo settings ----
+    ee_repo_url: "https://github.com/YOURORG/YOURREPO.git"
+    ee_repo_version: "main"          # branch, tag, or commit
+    ee_repo_dest: "/tmp/ee-repo"      # where we clone it locally
+
+    # ---- EE definition file inside the repo ----
+    ee_definition_file: "execution-environment.yml"   # or execution-environment.yaml
+    # If it's in a subdir, set e.g. "build/ee/execution-environment.yml"
+
+    # ---- Build settings ----
+    ee_image_tag: "ee-demo:latest"
+    ee_container_runtime: "podman"    # podman or docker
+
+    # ---- ansible-builder install options ----
+    # If your system Python is PEP-668 "externally managed", prefer pipx.
+    use_pipx: true
+
+  tasks:
+    - name: Ensure git is installed (Debian/Ubuntu)
+      become: true
+      ansible.builtin.apt:
+        name: git
+        state: present
+        update_cache: true
+
+    - name: Ensure pipx is installed (optional but recommended on Ubuntu/Debian)
+      become: true
+      ansible.builtin.apt:
+        name: pipx
+        state: present
+      when: use_pipx
+
+    - name: Ensure pipx PATH is set for this session (best effort)
+      ansible.builtin.shell: |
+        set -e
+        pipx ensurepath >/dev/null 2>&1 || true
+        echo "$PATH"
+      args:
+        executable: /bin/bash
+      changed_when: false
+      when: use_pipx
+
+    - name: Ensure ansible-builder is installed via pipx
+      ansible.builtin.command: pipx install ansible-builder
+      register: pipx_install
+      changed_when: "'installed package' in pipx_install.stdout or 'installing' in pipx_install.stdout"
+      failed_when: false
+      when: use_pipx
+
+    - name: Ensure ansible-builder is up to date via pipx (if already installed)
+      ansible.builtin.command: pipx upgrade ansible-builder
+      changed_when: false
+      failed_when: false
+      when: use_pipx
+
+    - name: Verify ansible-builder is available
+      ansible.builtin.command: ansible-builder --version
+      register: ab_ver
+      changed_when: false
+
+    - name: Clone/update EE repo
+      ansible.builtin.git:
+        repo: "{{ ee_repo_url }}"
+        dest: "{{ ee_repo_dest }}"
+        version: "{{ ee_repo_version }}"
+        force: true
+        update: true
+
+    - name: Check EE definition file exists
+      ansible.builtin.stat:
+        path: "{{ ee_repo_dest }}/{{ ee_definition_file }}"
+      register: ee_file
+
+    - name: Fail if EE definition file is missing
+      ansible.builtin.fail:
+        msg: "EE definition file not found: {{ ee_repo_dest }}/{{ ee_definition_file }}"
+      when: not ee_file.stat.exists
+
+    - name: Build EE image with ansible-builder
+      ansible.builtin.command: >
+        ansible-builder build
+        --tag {{ ee_image_tag }}
+        --container-runtime {{ ee_container_runtime }}
+        --file {{ ee_repo_dest }}/{{ ee_definition_file }}
+      args:
+        chdir: "{{ ee_repo_dest }}"
+      register: build_out
+
+    - name: Show build output
+      ansible.builtin.debug:
+        var: build_out.stdout_lines
+
+
+
+

@@ -21,10 +21,9 @@
     # If your system Python is PEP-668 "externally managed", prefer pipx.
     # use_pipx: true
 
+
+
   tasks:
-
-
-
 
     - name: Ensure git is installed (Debian/Ubuntu)
       become: true

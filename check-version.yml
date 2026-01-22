@@ -1,0 +1,24 @@
+---
+- name: Import a Lets Encrypt Certificate to ISE Admin, Portal, and PXGrid
+  hosts: localhost
+  gather_facts: true
+
+  - name: Ansible Version Tests
+    assert:
+      that:
+        - "'1.0' is version_compare('1.0', '==')"  # old name
+        - "'1.0' is version('1.0', '==')"
+        - "'1.0' is version('2.0', '!=')"
+        - "'1.0' is version('2.0', '<')"
+        - "'2.0' is version('1.0', '>')"
+        - "'1.0' is version('1.0', '<=')"
+        - "'1.0' is version('1.0', '>=')"
+        - "'1.0' is version_compare('1.0', '==', strict=true)"  # old name
+        - "'1.0' is version('1.0', '==', strict=true)"
+        - "'1.0' is version('2.0', '!=', strict=true)"
+        - "'1.0' is version('2.0', '<', strict=true)"
+        - "'2.0' is version('1.0', '>', strict=true)"
+        - "'1.0' is version('1.0', '<=', strict=true)"
+        - "'1.0' is version('1.0', '>=', strict=true)"
+        - "'1.2.3' is version('2.0.0', 'lt', version_type='semver')"
+        - "'2.14.0rc1' is version('2.14.0', 'lt', version_type='pep440')"

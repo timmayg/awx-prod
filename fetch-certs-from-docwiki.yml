@@ -17,9 +17,14 @@
         dest: /docwiki.pem
 
 
-    - name: Read the contents of the copied file
+    - name: Read the contents of the local file
       ansible.builtin.command: cat /etc/ssl/private/cert.pem
-      register: ee_file_content
+      register: local_file
+
+
+    - name: Read the contents of the ee file
+      ansible.builtin.command: cat /docwiki-private.key
+      register: ee_file
 
 
     - name: Read the contents of the release-notes.txt file

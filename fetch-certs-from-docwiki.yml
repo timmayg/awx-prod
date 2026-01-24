@@ -5,34 +5,31 @@
 
   tasks:
 
-    - name: Store file into /etc/ssl/private/cert.key
+    - name: 01 - Store file into /etc/ssl/private/cert.key
       ansible.builtin.fetch:
         src: /etc/ssl/private/cert.key
         dest: docwiki-private.key
 
 
+    - name: 02 - Store file into /etc/ssl/private/cert.pem
+      ansible.builtin.fetch:
+        src: /etc/ssl/private/cert.cer
+        dest: docwiki.pem
+
+
+    - name: 03 - Write Cert & Key to Vault
+      community.hashi_vault.vault_kv2_write:
+#        path: "{{ vault_kv_path }}"
+        path: "{{ inventory_hostname }}"
+        url: "{{ vault_url }}"
+        auth_method: "{{ vault_auth_method }}"
+        token: "{{ vault_token }}"
+        engine_mount_point: "{{ vault_mount }}"
+        data:
+          cert: "the first value"
+          private_key: "the second value"
+
+
     - name: Timmay HARD STOP this Playbook
       ansible.builtin.meta: end_play
-
-
-
-    - name: Specifying a path directly
-      ansible.builtin.fetch:
-        src: /tmp/somefile
-        dest: /tmp/prefix-{{ inventory_hostname }}
-        flat: yes
-
-    - name: Specifying a destination path
-      ansible.builtin.fetch:
-        src: /tmp/uniquefile
-        dest: /tmp/special/
-        flat: yes
-
-    - name: Storing in a path relative to the playbook
-      ansible.builtin.fetch:
-        src: /tmp/uniquefile
-        dest: special/prefix-{{ inventory_hostname }}
-        flat: yes
-
-
 

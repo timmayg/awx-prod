@@ -8,20 +8,18 @@
     - name: 01 - Store file into /etc/ssl/private/cert.key
       ansible.builtin.fetch:
         src: /etc/ssl/private/cert.key
-        dest: docwiki-private.key
+        dest: /docwiki-private.key
 
 
     - name: 02 - Store file into /etc/ssl/private/cert.pem
       ansible.builtin.fetch:
         src: /etc/ssl/private/cert.pem
-        dest: docwiki.pem
+        dest: /docwiki.pem
 
 
     - name: 03 - Write Cert & Key to Vault
       community.hashi_vault.vault_kv2_write:
-      hosts: localhost
-#        path: "{{ vault_kv_path }}"
-#        path: "{{ inventory_hostname }}"
+#      hosts: localhost
         path: "{{ ansible_fqdn }}"
         url: "{{ vault_url }}"
         auth_method: "{{ vault_auth_method }}"

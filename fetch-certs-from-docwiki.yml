@@ -30,8 +30,8 @@
 
 
     - name: 03 - Write Cert & Key to Vault
+      delegate_to: localhost
       community.hashi_vault.vault_kv2_write:
-#      hosts: localhost
         path: "{{ ansible_fqdn }}"
         url: "{{ vault_url }}"
         auth_method: "{{ vault_auth_method }}"

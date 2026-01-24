@@ -29,18 +29,6 @@
       register: dest_file
 
 
-    - name: 03a - Read the contents of the release-notes.txt file
-#      ansible.builtin.command: cat /runner/release-notes.json
-      ansible.builtin.command: cat /release-notes.json
-      delegate_to: localhost
-      register: release_notes_content
-
-
-    - name: 03b - Display the contents of release-notes.json
-      ansible.builtin.debug:
-        msg: "{{ release_notes_content.stdout }}"
-
-
     - name: 03 - Write Cert & Key to Vault
       community.hashi_vault.vault_kv2_write:
 #      hosts: localhost

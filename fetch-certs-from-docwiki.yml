@@ -1,6 +1,6 @@
 ---
 - name: Fetch the Cert & Private Key from DocWiki Servers
-  hosts: localhost
+  hosts: docwiki
   gather_facts: true
 
   tasks:

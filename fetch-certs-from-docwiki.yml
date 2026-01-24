@@ -13,7 +13,7 @@
 
     - name: 02 - Store file into /etc/ssl/private/cert.pem
       ansible.builtin.fetch:
-        src: /etc/ssl/private/cert.cer
+        src: /etc/ssl/private/cert.pem
         dest: docwiki.pem
 
 

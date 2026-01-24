@@ -17,14 +17,21 @@
         dest: /docwiki.pem
 
 
-    - name: Read the contents of the local file
+    - name: 02a - Read the contents of the src file
       ansible.builtin.command: cat /etc/ssl/private/cert.pem
-      register: local_file
+      register: src_file
 
 
-    - name: Read the contents of the ee file
+    - name: 02b - Read the contents of the dest file
       ansible.builtin.command: cat /docwiki-private.key
-      register: ee_file
+      register: dest_file
+
+
+
+
+    - name: Timmay HARD STOP this Playbook
+      ansible.builtin.meta: end_play
+
 
 
     - name: Read the contents of the release-notes.txt file

@@ -29,15 +29,9 @@
       register: dest_file
 
 
-
-
-    - name: Timmay HARD STOP this Playbook
-      ansible.builtin.meta: end_play
-
-
-
     - name: Read the contents of the release-notes.txt file
       ansible.builtin.command: cat /runner/release-notes.json
+      delegate_to: localhost
       register: release_notes_content
 
 

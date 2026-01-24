@@ -17,15 +17,15 @@
         dest: /docwiki.pem
 
 
-
-    - name: Read the contents of the release-notes.txt file
-      ansible.builtin.command: cat /docwiki.pem
+    - name: Read the contents of the copied file
+      ansible.builtin.command: cat /etc/ssl/private/cert.pem
       register: ee_file_content
 
 
     - name: Read the contents of the release-notes.txt file
       ansible.builtin.command: cat /runner/release-notes.json
       register: release_notes_content
+
 
     - name: Display the contents of release-notes.json
       ansible.builtin.debug:

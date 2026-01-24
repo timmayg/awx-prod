@@ -39,8 +39,8 @@
         token: "{{ vault_token }}"
         engine_mount_point: "{{ vault_mount }}"
         data:
-          cert: "{{ lookup('file', docwiki-private.key) }}"
-          private_key: "{{ lookup('file', docwiki.pem) }}"
+          cert: "{{ lookup('file', 'docwiki-private.key') }}"
+          private_key: "{{ lookup('file', 'docwiki.pem') }}"
 #          cert: "the first value"
 #          private_key: "the second value"
 

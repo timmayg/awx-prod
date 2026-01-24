@@ -29,13 +29,14 @@
       register: dest_file
 
 
-    - name: Read the contents of the release-notes.txt file
-      ansible.builtin.command: cat /runner/release-notes.json
+    - name: 03a - Read the contents of the release-notes.txt file
+#      ansible.builtin.command: cat /runner/release-notes.json
+      ansible.builtin.command: cat /release-notes.json
       delegate_to: localhost
       register: release_notes_content
 
 
-    - name: Display the contents of release-notes.json
+    - name: 03b - Display the contents of release-notes.json
       ansible.builtin.debug:
         msg: "{{ release_notes_content.stdout }}"
 

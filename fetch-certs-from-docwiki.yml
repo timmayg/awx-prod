@@ -19,6 +19,7 @@
 
     - name: 03 - Write Cert & Key to Vault
       community.hashi_vault.vault_kv2_write:
+      hosts: localhost
 #        path: "{{ vault_kv_path }}"
 #        path: "{{ inventory_hostname }}"
         path: "{{ ansible_fqdn }}"

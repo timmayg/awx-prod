@@ -11,13 +11,16 @@
       ansible.builtin.command: ls -l 
       register: ls_content
 
+
     - name: find the contents of the EE root
       ansible.builtin.command: ls -l /
       register: ls_root_content
 
+
     - name: find the contents of the EE /runner
       ansible.builtin.command: ls -l /runner
       register: ls_runner_content
+
 
     - name: find the contents of the EE /runner/artifacts
       ansible.builtin.command: ls -l /runner/artifacts
@@ -44,12 +47,10 @@
       register: ls_runner_project_content
 
 
-
-
-
-    - name: Read the contents of the release-notes.txt file
-      ansible.builtin.command: cat release-notes.json
+    - name: Read the contents of the release-notes.json file
+      ansible.builtin.command: cat /runner/project/release-notes.json
       register: release_notes_content
+
 
     - name: Display the contents of release-notes.json
       ansible.builtin.debug:

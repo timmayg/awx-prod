@@ -48,7 +48,7 @@
 
 
     - name: Read the contents of the release-notes.json file
-      ansible.builtin.command: cat /runner/project/release-notes.json
+      ansible.builtin.command: cat /release-notes.json
       register: release_notes_content
 
 

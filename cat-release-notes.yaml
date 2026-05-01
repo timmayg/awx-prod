@@ -2,34 +2,39 @@
 - name: Display contents of release-notes.txt
   hosts: localhost
   tasks:
-    - name: find the contents of the EE root d
+    - name: Show the current working directory
+      ansible.builtin.command: pwd
+      register: pwd_result
+
+
+    - name: find the contents of the EE home root
       ansible.builtin.command: ls -l 
       register: ls_content
 
-    - name: find the contents of the EE root d
+    - name: find the contents of the EE root
       ansible.builtin.command: ls -l /
       register: ls_root_content
 
-    - name: find the contents of the EE root d
+    - name: find the contents of the EE /runner
       ansible.builtin.command: ls -l /runner
       register: ls_runner_content
 
-    - name: find the contents of the EE root d
+    - name: find the contents of the EE /runner/artifacts
       ansible.builtin.command: ls -l /runner/artifacts
       register: ls_runner_artifacts_content
 
 
-    - name: find the contents of the EE root d
+    - name: find the contents of the EE /runner/cp
       ansible.builtin.command: ls -l /runner/cp
       register: ls_runner_cp_content
 
 
-    - name: find the contents of the EE root d
+    - name: find the contents of the EE /runner/env
       ansible.builtin.command: ls -l /runner/env
       register: ls_runner_env_content
 
 
-    - name: find the contents of the EE root d
+    - name: find the contents of the /runner/inventory
       ansible.builtin.command: ls -l /runner/inventory
       register: ls_runner_inventory_content
 

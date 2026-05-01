@@ -2,8 +2,12 @@
 - name: Display contents of release-notes.txt
   hosts: localhost
   tasks:
+    - name: find the contents of the EE root d
+      ansible.builtin.command: ls -l 
+      register: ls_content
+
     - name: Read the contents of the release-notes.txt file
-      ansible.builtin.command: cat /release-notes.json
+      ansible.builtin.command: cat release-notes.json
       register: release_notes_content
 
     - name: Display the contents of release-notes.json

@@ -17,6 +17,11 @@
       register: ls_root_content
 
 
+    - name: find the contents of the EE /opt
+      ansible.builtin.command: ls -l /opt
+      register: ls_runner_content
+
+
     - name: find the contents of the EE /runner
       ansible.builtin.command: ls -l /runner
       register: ls_runner_content
@@ -48,7 +53,7 @@
 
 
     - name: Read the contents of the release-notes.json file
-      ansible.builtin.command: cat /release-notes.json
+      ansible.builtin.command: cat /opt/release-notes.json
       register: release_notes_content
 
 
